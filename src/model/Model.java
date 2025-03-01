@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author luis-
+ * @author 
  */
 public class Model {
     
