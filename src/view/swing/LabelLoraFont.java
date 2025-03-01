@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author luis-
+ * @author 
  */
 public class LabelLoraFont extends JLabel {
 

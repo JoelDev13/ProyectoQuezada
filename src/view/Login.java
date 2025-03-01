@@ -133,13 +133,23 @@ public class Login extends javax.swing.JFrame {
         labelCenzilFont2.setText("Iniciar sesion");
         labelCenzilFont2.setFont(labelCenzilFont2.getFont().deriveFont(labelCenzilFont2.getFont().getSize()+6f));
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setText("Contraseña");
         jTextField1.setDoubleBuffered(true);
         jTextField1.setPreferredSize(new java.awt.Dimension(70, 20));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setText("jTextField1");
+        jTextField2.setText("Usuario");
         jTextField2.setDoubleBuffered(true);
         jTextField2.setPreferredSize(new java.awt.Dimension(70, 20));
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         greenRoundArrowButtoms1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/right.png"))); // NOI18N
         greenRoundArrowButtoms1.setPreferredSize(new java.awt.Dimension(35, 38));
@@ -169,13 +179,13 @@ public class Login extends javax.swing.JFrame {
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(labelCenzilFont2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(40, 40, 40)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(45, 45, 45)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(greenRoundArrowButtoms1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout contentBlock1Layout = new javax.swing.GroupLayout(contentBlock1);
@@ -218,6 +228,14 @@ public class Login extends javax.swing.JFrame {
     private void whiteHollowButtom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whiteHollowButtom2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_whiteHollowButtom2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
