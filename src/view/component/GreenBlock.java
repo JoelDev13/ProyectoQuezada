@@ -19,7 +19,7 @@ public class GreenBlock extends javax.swing.JPanel {
  
     public GreenBlock() {
         initComponents();
-        setOpaque(false);
+        setOpaque(false); // Le avisamos a Swing que este componente no es opaco.
     }
 
  
@@ -39,6 +39,11 @@ public class GreenBlock extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Con este metodo pintamos el gradiente del panel. Se usa paintChildren para que se pinte en el
+     * momento que se vayan a pintar los componentes hijos (los que estan dentro de este componente)
+     * @param g objeto graphics
+     */
     @Override
     protected void paintChildren(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;

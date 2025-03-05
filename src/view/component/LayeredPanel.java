@@ -20,8 +20,8 @@ public class LayeredPanel extends javax.swing.JLayeredPane {
      */
     public LayeredPanel() {
         initComponents();
-        setOpaque(false); // hacemos que este contendor sea transparente
-       //setBackground(new Color(0, 0, 0, 0));
+        setOpaque(false); // hacemos que este contendor no sea opaco
+
     }
     
     @SuppressWarnings("unchecked")
@@ -40,14 +40,6 @@ public class LayeredPanel extends javax.swing.JLayeredPane {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-//    @Override
-//    protected void paintComponent(Graphics g) {
-//        Graphics2D g2 = (Graphics2D) g;
-//        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//        g2.setColor(getBackground());
-//        g2.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), 15, 15); // dibujamos un rectangulo 
-//        super.paintComponent(g);
-//    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
