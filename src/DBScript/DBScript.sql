@@ -11,6 +11,18 @@ Imagen MEDIUMBLOB,
 Rol varchar(20) not null
 );
 
+DELIMITER //
+CREATE PROCEDURE sp_verificar_usuario(
+    IN p_nombreUsuario VARCHAR(70),
+    IN p_contrasena VARCHAR(70)
+)
+BEGIN
+    SELECT ID, NombreUsuario, Email, Imagen, Rol
+    FROM Usuarios
+    WHERE NombreUsuario = p_nombreUsuario AND Constrasena = p_contrasena;
+END //
+DELIMITER ;
+
 /******************************************************
 *DE AQUI HACIA ABAJO ES SOLO TEXTO, NO ESTA EJECUTADO *
 *******************************************************/
