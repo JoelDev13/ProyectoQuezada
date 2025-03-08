@@ -129,7 +129,7 @@ public class Login extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(LogoLabel))
                     .addGroup(ButtomsPanelLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(41, 41, 41)
                         .addComponent(BtonCerrarVentana)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -144,7 +144,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(BtnContactanos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtonCerrarVentana)
-                .addGap(15, 15, 15))
+                .addContainerGap())
         );
 
         loginPanel.setBackground(new java.awt.Color(255, 255, 255));

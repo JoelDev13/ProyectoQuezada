@@ -1,5 +1,6 @@
 package main;
 
+import view.Dashboard;
 import view.Login;
 
 /*
@@ -20,7 +21,8 @@ public class Main {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Login().setVisible(true);
+            //new Login().setVisible(true); Descomentar despues
+            new Dashboard().setVisible(true);
         });
     }
 
