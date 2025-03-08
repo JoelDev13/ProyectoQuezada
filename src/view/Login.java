@@ -140,6 +140,11 @@ public class Login extends javax.swing.JFrame {
         jTextField2.setText("jTextField1");
         jTextField2.setDoubleBuffered(true);
         jTextField2.setPreferredSize(new java.awt.Dimension(70, 20));
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         greenRoundArrowButtoms1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/right.png"))); // NOI18N
         greenRoundArrowButtoms1.setPreferredSize(new java.awt.Dimension(35, 38));
@@ -218,6 +223,10 @@ public class Login extends javax.swing.JFrame {
     private void whiteHollowButtom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whiteHollowButtom2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_whiteHollowButtom2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

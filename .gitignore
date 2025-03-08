@@ -1,4 +1,6 @@
 /build/
 /dist/
-/src/config/config.properties
 
+/nbproject/
+/lib/
+>>>>>>> 10a5a9cd40cda1c55
