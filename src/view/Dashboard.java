@@ -29,19 +29,34 @@ public class Dashboard extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0)); // hacemos transparente la ventana
        
 
-        // La interfaz EventMenu fue creada unicamente para que podamos
-        // definir un objeto anonimo que implemente su unico metodo. Lo
-        // sobreescribimos para gregar la funcionalidad de cambiar de paneles en 
-        // este dashboard.
+        
+        /*
+            La interfaz EventMenu fue creada unicamente para ser sobreescrita
+            en este punto. 
+        
+            Si quieres agregar tu panel a los botones del Dashboard, haz que
+            el case especifico de tu panel le pase un objeto de tu panel
+            al metodo mostrarPanel()
+        */
+        
         EventMenu event = new EventMenu() {
             @Override
             public void seleccionado(Paneles panel) {
                 System.out.println(panel);
 
                 switch (panel) {
-                    case GESTOR_DE_CITAS:
-                        mostrarPanel(new FormModelo());
-                        break;
+                    case GESTOR_DE_PACIENTES : mostrarPanel(new FormModelo());  break;
+                    case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
+                    case GESTOR_DE_CITAS : mostrarPanel(new FormModelo());  break;
+                    case GESTOR_DE_PACIENTES_DOC : mostrarPanel(new FormModelo());  break;
+                    case AGENDA_DOC : mostrarPanel(new FormModelo());  break;
+                    case GESTOR_DE_USUARIOS : mostrarPanel(new FormModelo());  break;
+                    case GESTOR_DE_DOCTORES : mostrarPanel(new FormModelo());  break;
+                    case GESTOR_DE_TURNOS : mostrarPanel(new FormModelo());  break;
+                    case GESTOR_DE_SERVICIOS : mostrarPanel(new FormModelo());  break;
+                    case PAGOS : mostrarPanel(new FormModelo());  break;
+                    case LOG_OFF :  dispose() ;  break;
+                    default: mostrarPanel(new FormModelo());
                 }
 
             }
@@ -53,6 +68,7 @@ public class Dashboard extends javax.swing.JFrame {
             case "doctor": menu1.initDoctor(event); break;
             case "secretaria": menu1.initSecretaria(event); break;
             default: throw new AssertionError();
+            
         }
     
     

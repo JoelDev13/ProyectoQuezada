@@ -213,6 +213,7 @@ public class Menu extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 event.seleccionado(panel); // envia el endicie del boton tocado por el user
+                botonSeleccionado(b);
             }
 
         });
@@ -231,8 +232,9 @@ public class Menu extends javax.swing.JPanel {
     private void botonSeleccionado(BotonMenu btnMenu) {
         for (Component comp : panelMenuMIG.getComponents()) {
             if (comp instanceof BotonMenu) {
-                BotonMenu b = (BotonMenu) btnMenu;
+                BotonMenu b = (BotonMenu) comp;
                 b.setSelected(false);
+                System.out.println("El boton ha sido cambiado !");
 
             }
             btnMenu.setSelected(true);
