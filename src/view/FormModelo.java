@@ -2,23 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package view.component;
-
-import java.awt.Container;
-import javax.swing.SwingUtilities;
+package view;
 
 /**
  *
  * @author luis-
+ * 
+ * NO UTILIZAR DIRECTAMENTE ESTE COMPONENTE EN LA APP.
+ * 
+ * COPIA ESTE PANEL Y DALE OTRO NOMBRE.
+ * 
+ * Este panel simplemente te da el size adecuado para que diseñes tus paneles.
  */
-public class ContentBlock extends javax.swing.JPanel {
+public class FormModelo extends javax.swing.JPanel {
 
     /**
-     * Creates new form ContentBlock
+     * Creates new form PanelModelo
      */
-    public ContentBlock() {
+    public FormModelo() {
         initComponents();
-        centerThisContainer();
+        setOpaque(true);
     }
 
     /**
@@ -28,31 +31,31 @@ public class ContentBlock extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(201, 201, 201)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(288, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void centerThisContainer() {
-        SwingUtilities.invokeLater(() -> { // Para evitar que me explote el programa. Que se centre la GUI cuando todo este cargado
-            Container parentContainer = this.getParent();
-            int parentWidth = parentContainer.getWidth();
-            int parentHeight = parentContainer.getHeight();
-            int childWidth = this.getWidth();
-            int childHeight = this.getHeight();
-            int newX = (parentWidth - childWidth) / 2;
-            int newY = (parentHeight - childHeight) / 2;
-            this.setBounds(newX, newY, childWidth, childHeight);
-        });
 
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

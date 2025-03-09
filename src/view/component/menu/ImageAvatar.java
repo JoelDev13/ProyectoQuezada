@@ -1,4 +1,4 @@
-package view.component;
+package view.component.menu;
 
 import java.awt.AlphaComposite;
 import java.awt.Composite;
