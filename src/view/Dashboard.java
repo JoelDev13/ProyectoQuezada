@@ -2,7 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
-import view.component.menu.Paneles;
+import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
 
 /*
@@ -62,7 +62,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         };
         
-        // Dependiendo del entregado, se inicializa el menu.
+        // Dependiendo del rol entregado, se inicializa el menu adecuado.
         switch (rol) {
             case "admin": menu1.initAdmin(event); break;
             case "doctor": menu1.initDoctor(event); break;

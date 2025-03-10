@@ -4,6 +4,7 @@
  */
 package view.component.menu;
 
+import view.component.menu.panelesEnum.Paneles;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -23,29 +24,26 @@ import view.component.menu.event.EventMenu;
  */
 public class Menu extends javax.swing.JPanel {
 
-
-
     private EventMenu event; // Evento para poder cambiar los paneles
 
     /**
-     * Creates new form Menu
-     * Este menu utiliza MigLayOut para funcionar. Instala la version 5.3 de la 
-     * libreria por favor.
+     * Creates new form Menu Este menu utiliza MigLayOut para funcionar. Instala la version 5.3 de la libreria por favor.
      */
     public Menu() {
         initComponents();
         setOpaque(false);
         panelMenuMIG.setLayout(new MigLayout("wrap, fillx, insets 3", "[fill]", "[]0[]"));
-        
+
         // Debuggin Logs
         System.out.println(panelPerfil.getWidth());
         //System.out.printf("Panel Botones: %d , %d \n ", panelBotones.getWidth(), panelBotones.getHeight());
         SwingUtilities.invokeLater(() -> {
-                    System.out.printf("Panel Perfil: %d, %d \n", panelPerfil.getWidth(), panelPerfil.getHeight());
-                    System.out.printf("Panel Botones: %d, %d \n", panelBotones.getWidth(), panelBotones.getHeight());
+            System.out.printf("Panel Perfil: %d, %d \n", panelPerfil.getWidth(), panelPerfil.getHeight());
+            System.out.printf("Panel Botones: %d, %d \n", panelBotones.getWidth(), panelBotones.getHeight());
         });
-        
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -158,43 +156,46 @@ public class Menu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
     public void initSecretaria(EventMenu event) {
         this.event = event;
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Pacientes", Paneles.GESTOR_DE_PACIENTES);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Agendar una cita", Paneles.AGENDAR_CITAS);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Gestor de citas", Paneles.GESTOR_DE_CITAS);
-        agregarLogOff();
+        agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES);
+        agregarMenu(getIconResource("calendarAdd.png"), "Agendar una cita", Paneles.AGENDAR_CITAS);
+        agregarMenu(getIconResource("calendarEdit.png"), "Gestor de citas", Paneles.GESTOR_DE_CITAS);
+        agregarLogOut();
     }
 
     public void initDoctor(EventMenu event) {
         this.event = event;
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Pacientes", Paneles.GESTOR_DE_PACIENTES_DOC);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Agenda", Paneles.AGENDA_DOC);
-        agregarLogOff();
-        
+        agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES_DOC);
+        agregarMenu(getIconResource("agenda.png"), "Agenda", Paneles.AGENDA_DOC);
+        agregarLogOut();
+
     }
 
     public void initAdmin(EventMenu event) {
         this.event = event;
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Pacientes", Paneles.GESTOR_DE_PACIENTES);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Agendar una cita", Paneles.AGENDAR_CITAS);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Gestor de citas", Paneles.GESTOR_DE_CITAS);
-      
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Agenda", Paneles. AGENDA_DOC);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Gestor de Usuarios", Paneles.GESTOR_DE_USUARIOS);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Doctores", Paneles.GESTOR_DE_DOCTORES);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Turnos", Paneles.GESTOR_DE_TURNOS);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Servicios", Paneles.GESTOR_DE_SERVICIOS);
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "Pagos", Paneles.PAGOS);
-        agregarLogOff();
+        agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES);
+        agregarMenu(getIconResource("calendarAdd.png"), "Agendar una cita", Paneles.AGENDAR_CITAS);
+        agregarMenu(getIconResource("calendarEdit.png"), "Gestor de citas", Paneles.GESTOR_DE_CITAS);
+        // aqui se supone que va el panel GESTOR_DE_PACIENTES_DOC, pero no seguro aun si es un panel aparte o uno nuevo.
+        // simplemente he pensando que GESTOR_DE_PACIENTES_DOC sea un GESTOR_DE_PACIENTES con mas habilidades. Hereda y agrega funcionalidad.
+        agregarMenu(getIconResource("agenda.png"), "Agenda", Paneles.AGENDA_DOC);
+        agregarMenu(getIconResource("usuarios.png"), "Gestor de Usuarios", Paneles.GESTOR_DE_USUARIOS);
+        agregarMenu(getIconResource("doctor.png"), "Doctores", Paneles.GESTOR_DE_DOCTORES);
+        agregarMenu(getIconResource("hospital.png"), "Turnos", Paneles.GESTOR_DE_TURNOS);
+        agregarMenu(getIconResource("servicios.png"), "Servicios", Paneles.GESTOR_DE_SERVICIOS);
+        agregarMenu(getIconResource("pagos.png"), "Pagos", Paneles.PAGOS);
+        agregarLogOut();
     }
 
-    private void agregarLogOff() {
-        agregarVacio();
-        agregarMenu(new ImageIcon(getClass().getResource("/view/component/menu/icons/calendar (1).png")), "log out", Paneles.LOG_OFF);
-        
+    private Icon getIconResource(String iconName) {
+        return new ImageIcon(getClass().getResource("/view/component/menu/icons/" + iconName));
+    }
+
+    private void agregarLogOut() {
+        panelMenuMIG.add(new JLabel(), "Push");
+        agregarMenu(getIconResource("logOut.png"), "log out", Paneles.LOG_OFF);
+
     }
 
     /**
@@ -220,13 +221,9 @@ public class Menu extends javax.swing.JPanel {
 
     }
 
-    private void agregarVacio() {
-        panelMenuMIG.add(new JLabel(), "Push");
-    }
-
     /**
      * Este metodo le da el estado de seleccionado al boton que toco el usuario.
-     * 
+     *
      * @param btnMenu
      */
     private void botonSeleccionado(BotonMenu btnMenu) {
@@ -240,14 +237,12 @@ public class Menu extends javax.swing.JPanel {
             btnMenu.setSelected(true);
         }
     }
-    
-    
+
     /**
-     * Se ha sobreescrito el metodo con tal de darle la apariencia
-     *  "Rectangular" del lado derecho del menu.
-     * @param g 
+     * Se ha sobreescrito el metodo con tal de darle la apariencia "Rectangular" del lado derecho del menu.
+     *
+     * @param g
      */
-    
     @Override
     protected void paintChildren(Graphics g) {
         super.paintChildren(g);

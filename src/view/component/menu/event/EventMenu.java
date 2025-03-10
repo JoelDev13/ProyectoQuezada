@@ -4,7 +4,7 @@
  */
 package view.component.menu.event;
 
-import view.component.menu.Paneles;
+import view.component.menu.panelesEnum.Paneles;
 
 /**
  *

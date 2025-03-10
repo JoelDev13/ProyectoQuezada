@@ -22,7 +22,7 @@ public class Main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
            // new Login().setVisible(true); // Descomentar despues
-            new Dashboard("secretaria").setVisible(true);
+            new Dashboard("admin").setVisible(true);
         });
     }
 
