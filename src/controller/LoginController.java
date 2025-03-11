@@ -10,47 +10,51 @@ import view.Login;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author la
  */
-public class LoginController implements ActionListener{
-        
-    private LoginDao model;
-    private Login view;
+public class LoginController implements ActionListener {
 
-    public LoginController(LoginDao model, Login view) {
-    this.model = model;
-    this.view = view;
-    
-    // Agregar el evento de acción al botón correcto
-    this.view.getGreenRoundArrowButtoms1().addActionListener(this);
-}
+    private LoginDao loginDAO;
+    private Login loginView;
 
-@Override
+    public LoginController(Login loginView, LoginDao loginDAO) {
+        this.loginView = loginView;
+        this.loginDAO = loginDAO;
+
+        // Agregar el evento de acción al botón correcto
+        this.loginView.getBtnLogin().addActionListener(this);
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
-    String username = view.getjTextField2().getText(); 
-    String password = view.getjTextField1().getText(); 
+        String username = loginView.getTxtUser().getText().trim();
+        String password = loginView.getTxtPasword().getText().trim();
 
-    // Verifica si los campos están vacíos
-    if (username.isEmpty() || password.isEmpty()) {
-        System.out.println("Los campos no pueden estar vacios");
-        return;
+        // Verifica si los campos están vacíos
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    loginView,
+                    "Ninguno de los 2 campos de textos pueden estar vacios!",
+                    "Error",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+        System.out.println(username + " " + password);
+        // Llama al método de LoginDao para verificar las credenciales con los nombres correctos
+        Usuario usuario = loginDAO.verificarCredenciales(username, password);
+
+        // Verifica si las credenciales son correctas
+        if (usuario != null) {
+            System.out.println("Inicio de sesion exitoso: " + usuario.getNombreUsuario());
+            // Aquí se puede abrir otra ventana o mostrar un mensaje en la vista
+        } else {
+            System.out.println("Usuario o contraseña incorrectos");
+        }
     }
 
-    // Llama al método de LoginDao para verificar las credenciales con los nombres correctos
-    Usuario usuario = model.verificarCredenciales(username, password);
-    
-    // Verifica si las credenciales son correctas
-    if (usuario != null) {
-        System.out.println("Inicio de sesion exitoso: " + usuario.getNombreUsuario());
-        // Aquí se puede abrir otra ventana o mostrar un mensaje en la vista
-    } else {
-        System.out.println("Usuario o contraseña incorrectos");
-    }
 }
-
- }
-
-

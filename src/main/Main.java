@@ -8,7 +8,6 @@ import controller.LoginController;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Joel
@@ -22,11 +21,13 @@ public class Main {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Login().setVisible(true);
+
+            Login loginView = new Login(); // Vista
+            LoginDao loginDAO = new LoginDao(); // Modelo
+            LoginController loginController = new LoginController(loginView, loginDAO); // Controlador
+            loginView.setVisible(true);
+
         });
     }
-    
-        Login view = new Login(); // Vista
-        LoginDao model = new LoginDao(); // Modelo
-        LoginController controller = new LoginController(model, view); // Controlador
-  }
+
+}
