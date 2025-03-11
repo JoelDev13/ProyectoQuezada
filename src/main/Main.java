@@ -1,6 +1,8 @@
 package main;
 
 import view.Login;
+import model.dao.LoginDao;
+import controller.LoginController;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -23,5 +25,8 @@ public class Main {
             new Login().setVisible(true);
         });
     }
-
-}
+    
+        Login view = new Login(); // Vista
+        LoginDao model = new LoginDao(); // Modelo
+        LoginController controller = new LoginController(model, view); // Controlador
+  }

@@ -29,7 +29,7 @@ public class LoginDao {
         try (Connection conn = ConexionDB.obtenerConeccion();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Establecer los parámetros de la consulta SQL
+            // Establece los parámetros de la consulta SQL
             stmt.setString(1, nombreUsuario); // Asignamos el nombre de usuario al primer parámetro
             stmt.setString(2, contrasena);     // Asignamos la contraseña al segundo parámetro
 
@@ -57,4 +57,3 @@ public class LoginDao {
         return usuario;
     }
 }   
-

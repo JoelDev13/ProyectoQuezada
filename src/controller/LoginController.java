@@ -4,11 +4,12 @@
  */
 package controller;
 
+import model.dao.LoginDao;
+import model.Usuario;
+import view.Login;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.Usuario;
-import model.dao.LoginDao;
-import view.Login;
 
 /**
  *
@@ -16,28 +17,40 @@ import view.Login;
  */
 public class LoginController implements ActionListener{
         
-  
-   
-   
-    
-    public Usuario login(String nombreUsuario, String contrasena) {
-        LoginDao loginDao = new LoginDao(); 
-        Usuario usuario = loginDao.verificarCredenciales(nombreUsuario, contrasena);
-        
-        //Si el usuario es válido se puede procede a la proxima vista 
-        if (usuario != null) {
-            System.out.println("Usuario autenticado: " + usuario.getNombreUsuario());
-        } else {
-            System.out.println("Credenciales incorrectas");
-        }
-        
-        return usuario;
-    }
-  
+    private LoginDao model;
+    private Login view;
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public LoginController(LoginDao model, Login view) {
+    this.model = model;
+    this.view = view;
     
+    // Agregar el evento de acción al botón correcto
+    this.view.getGreenRoundArrowButtoms1().addActionListener(this);
 }
+
+@Override
+    public void actionPerformed(ActionEvent e) {
+    String username = view.getjTextField2().getText(); 
+    String password = view.getjTextField1().getText(); 
+
+    // Verifica si los campos están vacíos
+    if (username.isEmpty() || password.isEmpty()) {
+        System.out.println("Los campos no pueden estar vacios");
+        return;
+    }
+
+    // Llama al método de LoginDao para verificar las credenciales con los nombres correctos
+    Usuario usuario = model.verificarCredenciales(username, password);
+    
+    // Verifica si las credenciales son correctas
+    if (usuario != null) {
+        System.out.println("Inicio de sesion exitoso: " + usuario.getNombreUsuario());
+        // Aquí se puede abrir otra ventana o mostrar un mensaje en la vista
+    } else {
+        System.out.println("Usuario o contraseña incorrectos");
+    }
+}
+
+ }
+
+

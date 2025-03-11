@@ -5,6 +5,8 @@
 package view;
 
 import java.awt.Color;
+import javax.swing.JTextField;
+import view.swing.LoginButtom;
 
 /**
  *
@@ -136,8 +138,12 @@ public class Login extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
         jTextField1.setDoubleBuffered(true);
         jTextField1.setPreferredSize(new java.awt.Dimension(70, 20));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setText("jTextField1");
         jTextField2.setDoubleBuffered(true);
         jTextField2.setPreferredSize(new java.awt.Dimension(70, 20));
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +154,11 @@ public class Login extends javax.swing.JFrame {
 
         greenRoundArrowButtoms1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/right.png"))); // NOI18N
         greenRoundArrowButtoms1.setPreferredSize(new java.awt.Dimension(35, 38));
+        greenRoundArrowButtoms1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                greenRoundArrowButtoms1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
@@ -228,6 +239,40 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void greenRoundArrowButtoms1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenRoundArrowButtoms1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_greenRoundArrowButtoms1ActionPerformed
+
+    public LoginButtom getGreenRoundArrowButtoms1() {
+        return greenRoundArrowButtoms1;
+    }
+
+    public void setGreenRoundArrowButtoms1(LoginButtom greenRoundArrowButtoms1) {
+        this.greenRoundArrowButtoms1 = greenRoundArrowButtoms1;
+    }
+
+    public JTextField getjTextField1() {
+        return jTextField1;
+    }
+
+    public void setjTextField1(JTextField jTextField1) {
+        this.jTextField1 = jTextField1;
+    }
+
+    public JTextField getjTextField2() {
+        return jTextField2;
+    }
+
+    public void setjTextField2(JTextField jTextField2) {
+        this.jTextField2 = jTextField2;
+    }
+
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ButtomsPanel;
@@ -246,4 +291,6 @@ public class Login extends javax.swing.JFrame {
     private view.swing.whiteHollowButtom whiteHollowButtom1;
     private view.swing.whiteHollowButtom whiteHollowButtom2;
     // End of variables declaration//GEN-END:variables
+    
+
 }
