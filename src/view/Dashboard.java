@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.ImageIcon;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
 
@@ -24,19 +25,20 @@ public class Dashboard extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard
      */
-    public Dashboard(String rol) { // cambiar el detalle del rol
+    
+    // TODO cambiar el detalle del rol a un ENUM
+    // TODO agregar parametros para el rol, nombre, imagen de perfil, email.
+    public Dashboard(String rol) { 
         initComponents();
         setBackground(new Color(0, 0, 0, 0)); // hacemos transparente la ventana
-       
-
-        
+ 
         /*
             La interfaz EventMenu fue creada unicamente para ser sobreescrita
             en este punto. 
         
             Si quieres agregar tu panel a los botones del Dashboard, haz que
-            el case especifico de tu panel le pase un objeto de tu panel
-            al metodo mostrarPanel()
+            el case especifico de tu panel cree una vista y un controlador y los una.
+            Luego que pase la vista al metodo
         */
         
         EventMenu event = new EventMenu() {
@@ -70,16 +72,16 @@ public class Dashboard extends javax.swing.JFrame {
             default: throw new AssertionError();
             
         }
-    
-    
-        // Debuggin Logs
 
-        System.out.printf("%d , %d ", panelCambiante.getWidth(), panelCambiante.getHeight() );
+//        menu1.cambiarNombrePerfil(nombre);
+//        menu1.cambiarCorreoPerfil(correo);
+//        menu1.cambiarRolPerfil(rol);
+//        menu1.cambiarFotoPerfil(imagenBytes);
 
-        
-        
-        // Agregar en este comentario un menu predeterminado.
-        //mostrarPanel(new FormModelo());
+//         Debuggin Logs
+//        System.out.printf("%d , %d ", panelCambiante.getWidth(), panelCambiante.getHeight() );
+//         Agregar en este comentario un menu predeterminado.
+//        mostrarPanel(new FormModelo());
     }
     
     /**
@@ -92,7 +94,6 @@ public class Dashboard extends javax.swing.JFrame {
         panelCambiante.revalidate();
         panelCambiante.repaint();
     }
-    
     
     
     /**

@@ -145,9 +145,13 @@ public class Login extends javax.swing.JFrame {
         labelLogin.setText("Iniciar sesion");
         labelLogin.setFont(labelLogin.getFont().deriveFont(labelLogin.getFont().getSize()+6f));
 
-        txtPassword.setText("jTextField1");
         txtPassword.setDoubleBuffered(true);
         txtPassword.setPreferredSize(new java.awt.Dimension(70, 20));
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         txtUser.setDoubleBuffered(true);
         txtUser.setPreferredSize(new java.awt.Dimension(70, 20));
@@ -234,6 +238,10 @@ public class Login extends javax.swing.JFrame {
     private void BtonCerrarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtonCerrarVentanaActionPerformed
        this.dispose(); // cerramos la ventana.
     }//GEN-LAST:event_BtonCerrarVentanaActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     public JTextField getTxtPasword() {
         return txtPassword;

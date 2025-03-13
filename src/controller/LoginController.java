@@ -11,6 +11,7 @@ import view.Login;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import view.Dashboard;
 
 /**
  *
@@ -50,10 +51,27 @@ public class LoginController implements ActionListener {
 
         // Verifica si las credenciales son correctas
         if (usuario != null) {
-            System.out.println("Inicio de sesion exitoso: " + usuario.getNombreUsuario());
-            // Aquí se puede abrir otra ventana o mostrar un mensaje en la vista
+            
+            JOptionPane.showMessageDialog(
+                    loginView,
+                    "Conexion Exitosa. Nota: Deberiamos cambiar este ShowMessage en algun punto del desarrollo. " + usuario.toString(),
+                    "Succes",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            
+            // TODO: hacer que Dashboard reciba mas paremetros.
+            Dashboard dashboard = new Dashboard(usuario.getRol());
+            dashboard.setVisible(true);
+            loginView.dispose();
+            
         } else {
             System.out.println("Usuario o contraseña incorrectos");
+            JOptionPane.showMessageDialog(
+                    loginView,
+                    "Credenciales incorrectas !. Nota: Deberiamos cambiar este ShowMessage en algun punto del desarrollo. ",
+                    "Error !",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
         }
     }
 

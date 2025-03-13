@@ -64,4 +64,15 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer formatString = new StringBuffer("");
+        return  formatString.append("\n" + getNombreUsuario() + "\n" + getRol()).toString();
+    }
+    
+    
+    
+    
+    
 }

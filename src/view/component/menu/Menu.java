@@ -34,13 +34,13 @@ public class Menu extends javax.swing.JPanel {
         setOpaque(false);
         panelMenuMIG.setLayout(new MigLayout("wrap, fillx, insets 3", "[fill]", "[]0[]"));
 
-        // Debuggin Logs
-        System.out.println(panelPerfil.getWidth());
-        //System.out.printf("Panel Botones: %d , %d \n ", panelBotones.getWidth(), panelBotones.getHeight());
-        SwingUtilities.invokeLater(() -> {
-            System.out.printf("Panel Perfil: %d, %d \n", panelPerfil.getWidth(), panelPerfil.getHeight());
-            System.out.printf("Panel Botones: %d, %d \n", panelBotones.getWidth(), panelBotones.getHeight());
-        });
+//         Debuggin Logs
+//        System.out.println(panelPerfil.getWidth());
+//        System.out.printf("Panel Botones: %d , %d \n ", panelBotones.getWidth(), panelBotones.getHeight());
+//        SwingUtilities.invokeLater(() -> {
+//            System.out.printf("Panel Perfil: %d, %d \n", panelPerfil.getWidth(), panelPerfil.getHeight());
+//            System.out.printf("Panel Botones: %d, %d \n", panelBotones.getWidth(), panelBotones.getHeight());
+//        });
 
     }
 
@@ -237,6 +237,40 @@ public class Menu extends javax.swing.JPanel {
             btnMenu.setSelected(true);
         }
     }
+    
+    /**
+     * Cambia el nombre del perfil.
+     * @param nombre que tendra el nuevo menu
+     */
+    public void cambiarNombrePerfil(String nombre) {
+        LabelNombre.setText(nombre);
+    }
+
+    /**
+     * cambia el correo del perfil
+     * @param correo que tendra el nuevo menu
+     */
+    public void cambiarCorreoPerfil(String correo) {
+        labelCorreo.setText(correo);
+    }
+    
+    /**
+     * cambia el rol del perfil.
+     * @param rol que tendra el nuevo menu.
+     */
+    public void cambiarRolPerfil(String rol) {
+        labelRol.setText(rol);
+    }
+    
+    /**
+     * Imagen que se mostrara en el perfil del menu.
+     * @param imagenBytes imagen a ser mostrada.
+     */
+    public void cambiarFotoPerfil(byte[] imagenBytes) {
+        ImageIcon imagen = new ImageIcon(imagenBytes);
+        imageAvatar1.setIcon(imagen);
+    }
+
 
     /**
      * Se ha sobreescrito el metodo con tal de darle la apariencia "Rectangular" del lado derecho del menu.
