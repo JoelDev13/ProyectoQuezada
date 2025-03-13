@@ -38,8 +38,9 @@ public class Login extends javax.swing.JFrame {
         contentBlock1 = new view.component.login.ContentBlock();
         ButtomsPanel = new javax.swing.JPanel();
         LogoLabel = new javax.swing.JLabel();
-        whiteHollowButtom1 = new view.swing.whiteHollowButtom();
-        whiteHollowButtom2 = new view.swing.whiteHollowButtom();
+        BtnContactanos = new view.swing.whiteHollowButtom();
+        BtnLogIn = new view.swing.whiteHollowButtom();
+        BtonCerrarVentana = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
         labelLogin = new view.swing.LabelCenzilFont();
         txtPassword = new javax.swing.JTextField();
@@ -92,20 +93,37 @@ public class Login extends javax.swing.JFrame {
 
         LogoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/logo2_thumbnail_50x50.png"))); // NOI18N
 
-        whiteHollowButtom1.setText("contactanos");
+        BtnContactanos.setText("contactanos");
+        BtnContactanos.setFocusPainted(false);
 
-        whiteHollowButtom2.setText("Log in");
+        BtnLogIn.setText("Log in");
+        BtnLogIn.setFocusPainted(false);
+
+        BtonCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/on-off-button.png"))); // NOI18N
+        BtonCerrarVentana.setBorderPainted(false);
+        BtonCerrarVentana.setContentAreaFilled(false);
+        BtonCerrarVentana.setFocusPainted(false);
+        BtonCerrarVentana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtonCerrarVentanaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ButtomsPanelLayout = new javax.swing.GroupLayout(ButtomsPanel);
         ButtomsPanel.setLayout(ButtomsPanelLayout);
         ButtomsPanelLayout.setHorizontalGroup(
             ButtomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(whiteHollowButtom1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(whiteHollowButtom2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BtnContactanos, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+            .addComponent(BtnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(ButtomsPanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(LogoLabel)
-                .addGap(35, 35, 35))
+                .addGroup(ButtomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ButtomsPanelLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(LogoLabel))
+                    .addGroup(ButtomsPanelLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(BtonCerrarVentana)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ButtomsPanelLayout.setVerticalGroup(
             ButtomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,10 +131,12 @@ public class Login extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(LogoLabel)
                 .addGap(47, 47, 47)
-                .addComponent(whiteHollowButtom2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(whiteHollowButtom1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addComponent(BtnContactanos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtonCerrarVentana)
+                .addContainerGap())
         );
 
         loginPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -133,6 +153,7 @@ public class Login extends javax.swing.JFrame {
         txtUser.setPreferredSize(new java.awt.Dimension(70, 20));
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/right.png"))); // NOI18N
+        btnLogin.setFocusPainted(false);
         btnLogin.setPreferredSize(new java.awt.Dimension(35, 38));
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
@@ -206,6 +227,13 @@ public class Login extends javax.swing.JFrame {
         return btnLogin;
     }
 
+    private void BtnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLogInActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnLogInActionPerformed
+
+    private void BtonCerrarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtonCerrarVentanaActionPerformed
+       this.dispose(); // cerramos la ventana.
+    }//GEN-LAST:event_BtonCerrarVentanaActionPerformed
 
     public JTextField getTxtPasword() {
         return txtPassword;
@@ -218,6 +246,9 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.swing.whiteHollowButtom BtnContactanos;
+    private view.swing.whiteHollowButtom BtnLogIn;
+    private javax.swing.JButton BtonCerrarVentana;
     private javax.swing.JPanel ButtomsPanel;
     private javax.swing.JLabel LogoLabel;
     private view.swing.LoginButtom btnLogin;
@@ -231,8 +262,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel loginPanel;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUser;
-    private view.swing.whiteHollowButtom whiteHollowButtom1;
-    private view.swing.whiteHollowButtom whiteHollowButtom2;
     // End of variables declaration//GEN-END:variables
     
 

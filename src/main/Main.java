@@ -1,5 +1,6 @@
 package main;
 
+import view.Dashboard;
 import view.Login;
 import model.dao.LoginDao;
 import controller.LoginController;
@@ -21,12 +22,12 @@ public class Main {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-
-            Login loginView = new Login(); // Vista
-            LoginDao loginDAO = new LoginDao(); // Modelo
-            LoginController loginController = new LoginController(loginView, loginDAO); // Controlador
-            loginView.setVisible(true);
-
+//            Login loginView = new Login();
+//            LoginDao loginDAO = new LoginDao();
+//            LoginController loginController = new LoginController(loginView, loginDAO);
+//            loginView.setVisible(true);
+            
+            new Dashboard("admin").setVisible(true);
         });
     }
 
