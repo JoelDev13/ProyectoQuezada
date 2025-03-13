@@ -59,8 +59,10 @@ public class LoginController implements ActionListener {
                     JOptionPane.INFORMATION_MESSAGE
             );
             
-            // TODO: hacer que Dashboard reciba mas paremetros.
-            Dashboard dashboard = new Dashboard(usuario.getRol());
+            Dashboard dashboard = new Dashboard(usuario.getRol(),
+                    usuario.getNombreUsuario(), // Cambiar este parametro para que reciba el nombre de la tabla empleado.
+                    usuario.getEmail(),
+                    usuario.getImagen());
             dashboard.setVisible(true);
             loginView.dispose();
             

@@ -21,7 +21,11 @@ public class LoginButtom extends JButton{
 
     private boolean mousePress;
     private ActionListener actionListener; // Para capturar el evento del boton
-
+    
+    /**
+     * Crea un boton redondo de color verde. Es bueno mencionar que el icono
+     * de flecha que tiene este boton es agregado usando la ventana properties de Netbeans
+     */
     public LoginButtom() {
         setContentAreaFilled(false);
         setBorder(new EmptyBorder(3, 0, 3, 0));

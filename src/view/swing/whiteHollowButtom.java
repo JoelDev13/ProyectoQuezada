@@ -24,14 +24,15 @@ import javax.swing.border.EmptyBorder;
  */
 public class whiteHollowButtom extends JButton {
     
+    
     private boolean hovered;
+    
+    /**
+     * Crea un boton con un hover de color verde en su parte izquierda.
+     */
     public whiteHollowButtom() {
-
-
         setContentAreaFilled(false);
-        
-        setBorder(new EmptyBorder(3,0,3,0));
-        
+        setBorder(new EmptyBorder(3, 0, 3, 0));
         // Añadimos una fuente especifica para los botones        
         InputStream fontImput = whiteHollowButtom.class.getResourceAsStream("/view/recursos/fuentes/cinzel.ttf");
         try {
@@ -42,22 +43,24 @@ public class whiteHollowButtom extends JButton {
             System.out.println("No se pudo cargar la fuente.");
         }
         
+        // En este objeto anonimo sobreescribimos los siguientes metodos
+        // para que el boton consigua el hover de color verde
         addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseEntered(MouseEvent e) {
-               hovered = true;
-               repaint();
+                hovered = true;
+                repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 hovered = false;
                 repaint();
-            }           
+            }
         });
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();

@@ -23,7 +23,11 @@ BEGIN
 END //
 DELIMITER ;
 
+/* Estos datos son de prueba. Usalos, o creas tus usuarios propios para desarrollar tus funcionalides
+independiente de otros. Deje estos para que puedan ver como esta el software ahora mismo. */
 insert into usuarios (nombreUsuario, Contrasena, email, imagen, rol) values ('admin', '1234', 'pan@gmail.com', null, 'admin');
+insert into usuarios (nombreUsuario, Contrasena, email, imagen, rol) values ('doctor', '1234', 'pan@gmail.com', null, 'doctor');
+insert into usuarios (nombreUsuario, Contrasena, email, imagen, rol) values ('secretaria', '1234', 'pan@gmail.com', null, 'secretaria');
 call sp_verificar_usuario('admin','1234');
 
 /******************************************************

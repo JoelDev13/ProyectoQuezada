@@ -72,7 +72,7 @@ public class ImageAvatar extends JComponent {
             El borde seria el circulo mas grande, y la foto del perfil del usuario seria el mas pequeño
         */
         if (icon != null) {
-            System.out.println("Me llamaron, Sea Directamente o Indirectamente");
+            //System.out.println("Me llamaron, Sea Directamente o Indirectamente");
             int width = getWidth();
             int height = getHeight();
             int diameter = Math.min(width, height); // El diametro del ciculo sera la Dmension mas pequeña.
@@ -133,7 +133,7 @@ public class ImageAvatar extends JComponent {
         int ih = image.getIconHeight();
 
         double xScale = (double) w / iw;
-        double yScale = (double) h / iw;
+        double yScale = (double) h / ih;
         double scale = Math.max(xScale, yScale);
 
         int width = (int) (scale * iw);

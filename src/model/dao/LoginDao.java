@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model.dao;
 
 import DBconexion.ConexionDB;
@@ -12,13 +8,15 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author la
  */
 public class LoginDao {
 
+    private Connection conn;
+    private CallableStatement cs;
+    
     /**
      * Verifica las credenciales del usuario y recupera su información
      *
@@ -26,14 +24,14 @@ public class LoginDao {
      * @param contrasena La contraseña ingresada
      * @return Usuario si las credenciales son correctas, o null si no coinciden
      */
-    public Usuario verificarCredenciales(String nombreUsuario, String contrasena) {
+    public Usuario verificarCredenciales(String nombreUsuario, String contrasena) throws SQLException {
         String sql = "call sp_verificar_usuario(?, ?)";
         Usuario usuario = null;
 
         try {
-            Connection conn =   ConexionDB.obtenerConeccion();
-            CallableStatement cs = conn.prepareCall(sql);
-      
+            conn = ConexionDB.obtenerConeccion();
+            cs = conn.prepareCall(sql);
+
             // Establece los parámetros de la consulta SQL
             cs.setString(1, nombreUsuario); // Asignamos el nombre de usuario al primer parámetro
             cs.setString(2, contrasena);     // Asignamos la contraseña al segundo parámetro
@@ -56,8 +54,14 @@ public class LoginDao {
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Manejo de errores en caso de que la consulta falle
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+            if (cs != null ) {
+                cs.close();
+            }
         }
-
         return usuario;
     }
 }

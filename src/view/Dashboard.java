@@ -15,7 +15,6 @@ import view.component.menu.event.EventMenu;
  *
  * @author luis-
  * Este dashboard tiene la propiedad undecorated activada, por lo que no se muestran sus bordes
- * 
  * Este es el siguiente view que viene despues del Login.
  * Este recibe un parametro llamado ROl que utilizara para llamar
  * a un inicializador espececifico del menu.
@@ -23,12 +22,16 @@ import view.component.menu.event.EventMenu;
 public class Dashboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form Dashboard
+     * Crea una nueva vista Dashboard usando los parametros entregados.
+     * @param rol rol del usuario que inicio sesion
+     * @param nombrePerfil nombre del usuario que inicio sesion
+     * @param email ;  email del usuario que inicio sesion
+     * @param imagenPerfil iamgen de perfil del usuario que inicio sesion
      */
     
     // TODO cambiar el detalle del rol a un ENUM
-    // TODO agregar parametros para el rol, nombre, imagen de perfil, email.
-    public Dashboard(String rol) { 
+
+    public Dashboard(String rol, String nombrePerfil, String email, byte[] imagenPerfil) { 
         initComponents();
         setBackground(new Color(0, 0, 0, 0)); // hacemos transparente la ventana
  
@@ -38,14 +41,13 @@ public class Dashboard extends javax.swing.JFrame {
         
             Si quieres agregar tu panel a los botones del Dashboard, haz que
             el case especifico de tu panel cree una vista y un controlador y los una.
-            Luego que pase la vista al metodo
+            Luego que pase la vista al metodo mostrarPanel
         */
         
         EventMenu event = new EventMenu() {
             @Override
             public void seleccionado(Paneles panel) {
-                System.out.println(panel);
-
+               // System.out.println(panel);
                 switch (panel) {
                     case GESTOR_DE_PACIENTES : mostrarPanel(new FormModelo());  break;
                     case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
@@ -60,7 +62,6 @@ public class Dashboard extends javax.swing.JFrame {
                     case LOG_OFF :  dispose() ;  break;
                     default: mostrarPanel(new FormModelo());
                 }
-
             }
         };
         
@@ -72,15 +73,16 @@ public class Dashboard extends javax.swing.JFrame {
             default: throw new AssertionError();
             
         }
-
-//        menu1.cambiarNombrePerfil(nombre);
-//        menu1.cambiarCorreoPerfil(correo);
-//        menu1.cambiarRolPerfil(rol);
-//        menu1.cambiarFotoPerfil(imagenBytes);
+        
+        // setteamos la informacion del usuario en el perfil del menu.
+        menu1.cambiarNombrePerfil(nombrePerfil);
+        menu1.cambiarCorreoPerfil(email);
+        menu1.cambiarRolPerfil(rol);
+        menu1.cambiarFotoPerfil(imagenPerfil);
 
 //         Debuggin Logs
-//        System.out.printf("%d , %d ", panelCambiante.getWidth(), panelCambiante.getHeight() );
-//         Agregar en este comentario un menu predeterminado.
+        System.out.printf("%d , %d ", panelCambiante.getWidth(), panelCambiante.getHeight());
+//        Agregar en este comentario un menu predeterminado.
 //        mostrarPanel(new FormModelo());
     }
     

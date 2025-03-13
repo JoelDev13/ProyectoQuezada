@@ -22,5 +22,5 @@ public enum Paneles {
     GESTOR_DE_TURNOS,
     GESTOR_DE_SERVICIOS,
     PAGOS,
-    LOG_OFF
+    LOG_OFF // Creamos uno para el log out para no complicarnos.
 }

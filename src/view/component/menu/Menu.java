@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -27,7 +28,8 @@ public class Menu extends javax.swing.JPanel {
     private EventMenu event; // Evento para poder cambiar los paneles
 
     /**
-     * Creates new form Menu Este menu utiliza MigLayOut para funcionar. Instala la version 5.3 de la libreria por favor.
+     * Crea un nuevo menu.
+     * Este menu utiliza MigLayOut para funcionar. Instala la version 5.3 de la libreria por favor.
      */
     public Menu() {
         initComponents();
@@ -92,18 +94,21 @@ public class Menu extends javax.swing.JPanel {
 
         imageAvatar1.setForeground(new java.awt.Color(94, 189, 153));
         imageAvatar1.setBorderSize(5);
-        imageAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/avatar/p2.png"))); // NOI18N
+        imageAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/menu/icons/avatar/p2.png"))); // NOI18N
 
         labelCorreo.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         labelCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        labelCorreo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelCorreo.setText("Correo");
 
         LabelNombre.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         LabelNombre.setForeground(new java.awt.Color(255, 255, 255));
+        LabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabelNombre.setText("Nombre");
 
         labelRol.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         labelRol.setForeground(new java.awt.Color(255, 255, 255));
+        labelRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelRol.setText("Rol");
 
         javax.swing.GroupLayout panelPerfilLayout = new javax.swing.GroupLayout(panelPerfil);
@@ -111,20 +116,15 @@ public class Menu extends javax.swing.JPanel {
         panelPerfilLayout.setHorizontalGroup(
             panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPerfilLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelCorreo)
-                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
-                                .addComponent(LabelNombre)
-                                .addGap(80, 80, 80))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
-                                .addComponent(labelRol)
-                                .addGap(93, 93, 93))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
+                    .addGroup(panelPerfilLayout.createSequentialGroup()
+                        .addGap(0, 47, Short.MAX_VALUE)
                         .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))))
+                        .addGap(48, 48, 48))
+                    .addComponent(labelCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LabelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelPerfilLayout.setVerticalGroup(
             panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +155,12 @@ public class Menu extends javax.swing.JPanel {
                 .addComponent(panelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * inicializador especifico del rol secretaria.
+     *
+     * @param event objeto de la interfaz MenuEvent que agregara la funcionalidad de cambiar paneles.
+     */
     public void initSecretaria(EventMenu event) {
         this.event = event;
         agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES);
@@ -163,7 +168,11 @@ public class Menu extends javax.swing.JPanel {
         agregarMenu(getIconResource("calendarEdit.png"), "Gestor de citas", Paneles.GESTOR_DE_CITAS);
         agregarLogOut();
     }
-
+    /**
+     * inicializador especifico del rol doctor.
+     *
+     * @param event objeto de la interfaz MenuEvent que agregara la funcionalidad de cambiar paneles.
+     */
     public void initDoctor(EventMenu event) {
         this.event = event;
         agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES_DOC);
@@ -172,6 +181,11 @@ public class Menu extends javax.swing.JPanel {
 
     }
 
+    /**
+     * inicializador especifico del rol admin.
+     *
+     * @param event objeto de la interfaz MenuEvent que agregara la funcionalidad de cambiar paneles.
+     */
     public void initAdmin(EventMenu event) {
         this.event = event;
         agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES);
@@ -187,11 +201,19 @@ public class Menu extends javax.swing.JPanel {
         agregarMenu(getIconResource("pagos.png"), "Pagos", Paneles.PAGOS);
         agregarLogOut();
     }
-
+    
+    /**
+     * Obtiene un icono guardado en la ruta /view/component/menu/icons/
+     * @param iconName nombre del icono a recuperar
+     * @return el icono pasado como parametro
+     */
     private Icon getIconResource(String iconName) {
         return new ImageIcon(getClass().getResource("/view/component/menu/icons/" + iconName));
     }
-
+    
+    /**
+     * Agrega en EL FONDO el boton logout del menu;
+     */
     private void agregarLogOut() {
         panelMenuMIG.add(new JLabel(), "Push");
         agregarMenu(getIconResource("logOut.png"), "log out", Paneles.LOG_OFF);
@@ -201,9 +223,9 @@ public class Menu extends javax.swing.JPanel {
     /**
      * Agrega un nuevo boton de panel al menu del Dashboard.
      *
-     * @param icon icono que aparece en el costado izquierdo
+     * @param icon icono que aparece en el costado izquierdo del nuevo boton
      * @param texto texto que aparece ala derecha del icono
-     * @param indice numero que identifica exclusivamente a a este boton.
+     * @param panel identificador unico (enum) del panel que mostrara este boton.
      */
     private void agregarMenu(Icon icon, String texto, Paneles panel) {
         BotonMenu b = new BotonMenu();
@@ -223,16 +245,18 @@ public class Menu extends javax.swing.JPanel {
 
     /**
      * Este metodo le da el estado de seleccionado al boton que toco el usuario.
+     * Los demas botones del menu se les quita este estado.
+     * 
+     * Al cambiar el estado selected de los botones, java llamara automaticamente a repaint
+     * en cada boton para que se pinten acorde a su estado.
      *
-     * @param btnMenu
+     * @param btnMenu boton seleccionado por el usuario.
      */
     private void botonSeleccionado(BotonMenu btnMenu) {
         for (Component comp : panelMenuMIG.getComponents()) {
             if (comp instanceof BotonMenu) {
                 BotonMenu b = (BotonMenu) comp;
                 b.setSelected(false);
-                System.out.println("El boton ha sido cambiado !");
-
             }
             btnMenu.setSelected(true);
         }
@@ -240,7 +264,7 @@ public class Menu extends javax.swing.JPanel {
     
     /**
      * Cambia el nombre del perfil.
-     * @param nombre que tendra el nuevo menu
+     * @param nombre que tendra el perfil.
      */
     public void cambiarNombrePerfil(String nombre) {
         LabelNombre.setText(nombre);
@@ -248,7 +272,7 @@ public class Menu extends javax.swing.JPanel {
 
     /**
      * cambia el correo del perfil
-     * @param correo que tendra el nuevo menu
+     * @param correo que tendra el perfil.
      */
     public void cambiarCorreoPerfil(String correo) {
         labelCorreo.setText(correo);
@@ -256,17 +280,32 @@ public class Menu extends javax.swing.JPanel {
     
     /**
      * cambia el rol del perfil.
-     * @param rol que tendra el nuevo menu.
+     * @param rol que tendra el perfil
      */
     public void cambiarRolPerfil(String rol) {
         labelRol.setText(rol);
     }
     
     /**
-     * Imagen que se mostrara en el perfil del menu.
+     * Imagen que se mostrara en el perfil.
+     * Si el metodo no recibe una imagen (o es nulo) se tomara un icono predeterminado de la ruta
+     * /view/component/menu/icons/avatar/
      * @param imagenBytes imagen a ser mostrada.
      */
     public void cambiarFotoPerfil(byte[] imagenBytes) {
+        if (imagenBytes == null) {
+            try {
+                URL url = getClass().getResource("/view/component/menu/icons/avatar/p2.png");
+                ImageIcon imagen = new ImageIcon(url);
+                imageAvatar1.setIcon(imagen);
+                return;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Ops!, No se encontro la ruta mi pana");
+            } finally {
+                return;
+            }
+        } 
         ImageIcon imagen = new ImageIcon(imagenBytes);
         imageAvatar1.setIcon(imagen);
     }

@@ -15,7 +15,7 @@ import java.awt.RenderingHints;
 public class RoundPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form RoundPanel
+     * Crea un panel con los bordes redondeados
      */
     public RoundPanel() {
         initComponents();

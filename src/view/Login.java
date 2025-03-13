@@ -21,6 +21,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setBackground(new Color(0, 0, 0, 0)); // hacemos invisible este form
         
+        txtUser.requestFocusInWindow(); // Hacemos que el txtUser Tenga el foco desde el inicio.
     }
 
     /**
@@ -99,7 +100,7 @@ public class Login extends javax.swing.JFrame {
         BtnLogIn.setText("Log in");
         BtnLogIn.setFocusPainted(false);
 
-        BtonCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/on-off-button.png"))); // NOI18N
+        BtonCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/on-off-button (1).png"))); // NOI18N
         BtonCerrarVentana.setBorderPainted(false);
         BtonCerrarVentana.setContentAreaFilled(false);
         BtonCerrarVentana.setFocusPainted(false);
@@ -121,7 +122,7 @@ public class Login extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(LogoLabel))
                     .addGroup(ButtomsPanelLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(30, 30, 30)
                         .addComponent(BtonCerrarVentana)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -147,13 +148,9 @@ public class Login extends javax.swing.JFrame {
 
         txtPassword.setDoubleBuffered(true);
         txtPassword.setPreferredSize(new java.awt.Dimension(70, 20));
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
 
         txtUser.setDoubleBuffered(true);
+        txtUser.setNextFocusableComponent(txtPassword);
         txtUser.setPreferredSize(new java.awt.Dimension(70, 20));
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/right.png"))); // NOI18N
@@ -173,11 +170,11 @@ public class Login extends javax.swing.JFrame {
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(labelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(loginPanelLayout.createSequentialGroup()
                         .addGap(107, 107, 107)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(labelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
@@ -226,23 +223,17 @@ public class Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // usado para agregar la funcionalidad en el LoginControlador
     public LoginButtom getBtnLogin() {
         return btnLogin;
     }
-
-    private void BtnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLogInActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnLogInActionPerformed
-
+    
+    
     private void BtonCerrarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtonCerrarVentanaActionPerformed
        this.dispose(); // cerramos la ventana.
     }//GEN-LAST:event_BtonCerrarVentanaActionPerformed
-
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordActionPerformed
-
+    
     public JTextField getTxtPasword() {
         return txtPassword;
     }

@@ -16,7 +16,10 @@ import java.awt.RenderingHints;
  */
 public class GreenBlock extends javax.swing.JPanel {
 
- 
+    /**
+     * Crea un rectango con bordes reondeados y con un gradiente
+     * de verde a blaco.
+     */
     public GreenBlock() {
         initComponents();
         setOpaque(false);
