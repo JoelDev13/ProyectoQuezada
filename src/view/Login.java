@@ -30,12 +30,12 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        layeredPanel1 = new view.component.LayeredPanel();
-        greenBlock1 = new view.component.GreenBlock();
+        layeredPanel1 = new view.component.login.LayeredPanel();
+        greenBlock1 = new view.component.login.GreenBlock();
         labelCenzilFont1 = new view.swing.LabelCenzilFont();
         labelQuattrocentoBold1 = new view.swing.LabelQuattrocentoBold();
         labelLoraFont1 = new view.swing.LabelLoraFont();
-        contentBlock1 = new view.component.ContentBlock();
+        contentBlock1 = new view.component.login.ContentBlock();
         ButtomsPanel = new javax.swing.JPanel();
         LogoLabel = new javax.swing.JLabel();
         whiteHollowButtom1 = new view.swing.whiteHollowButtom();
@@ -221,13 +221,13 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel ButtomsPanel;
     private javax.swing.JLabel LogoLabel;
     private view.swing.LoginButtom btnLogin;
-    private view.component.ContentBlock contentBlock1;
-    private view.component.GreenBlock greenBlock1;
+    private view.component.login.ContentBlock contentBlock1;
+    private view.component.login.GreenBlock greenBlock1;
     private view.swing.LabelCenzilFont labelCenzilFont1;
     private view.swing.LabelCenzilFont labelLogin;
     private view.swing.LabelLoraFont labelLoraFont1;
     private view.swing.LabelQuattrocentoBold labelQuattrocentoBold1;
-    private view.component.LayeredPanel layeredPanel1;
+    private view.component.login.LayeredPanel layeredPanel1;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUser;

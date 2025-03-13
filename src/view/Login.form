@@ -34,13 +34,13 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="view.component.LayeredPanel" name="layeredPanel1">
+    <Container class="view.component.login.LayeredPanel" name="layeredPanel1">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <Container class="view.component.GreenBlock" name="greenBlock1">
+        <Container class="view.component.login.GreenBlock" name="greenBlock1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="220" y="55" width="400" height="440"/>
@@ -108,7 +108,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="view.component.ContentBlock" name="contentBlock1">
+        <Container class="view.component.login.ContentBlock" name="contentBlock1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="100" y="75" width="800" height="400"/>
