@@ -1,12 +1,14 @@
 package main;
 
+import view.Dashboard;
 import view.Login;
+import model.dao.LoginDao;
+import controller.LoginController;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Joel
@@ -20,7 +22,10 @@ public class Main {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Login().setVisible(true);
+            Login loginView = new Login();
+            LoginDao loginDAO = new LoginDao();
+            LoginController loginController = new LoginController(loginView, loginDAO);
+            loginView.setVisible(true);
         });
     }
 

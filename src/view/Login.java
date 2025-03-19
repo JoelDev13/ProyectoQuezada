@@ -5,6 +5,8 @@
 package view;
 
 import java.awt.Color;
+import javax.swing.JTextField;
+import view.swing.LoginButtom;
 
 /**
  *
@@ -19,6 +21,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setBackground(new Color(0, 0, 0, 0)); // hacemos invisible este form
         
+        txtUser.requestFocusInWindow(); // Hacemos que el txtUser Tenga el foco desde el inicio.
     }
 
     /**
@@ -28,21 +31,22 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        layeredPanel1 = new view.component.LayeredPanel();
-        greenBlock1 = new view.component.GreenBlock();
+        layeredPanel1 = new view.component.login.LayeredPanel();
+        greenBlock1 = new view.component.login.GreenBlock();
         labelCenzilFont1 = new view.swing.LabelCenzilFont();
         labelQuattrocentoBold1 = new view.swing.LabelQuattrocentoBold();
         labelLoraFont1 = new view.swing.LabelLoraFont();
-        contentBlock1 = new view.component.ContentBlock();
+        contentBlock1 = new view.component.login.ContentBlock();
         ButtomsPanel = new javax.swing.JPanel();
         LogoLabel = new javax.swing.JLabel();
-        whiteHollowButtom1 = new view.swing.whiteHollowButtom();
-        whiteHollowButtom2 = new view.swing.whiteHollowButtom();
+        BtnContactanos = new view.swing.whiteHollowButtom();
+        BtnLogIn = new view.swing.whiteHollowButtom();
+        BtonCerrarVentana = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
-        labelCenzilFont2 = new view.swing.LabelCenzilFont();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        greenRoundArrowButtoms1 = new view.swing.LoginButtom();
+        labelLogin = new view.swing.LabelCenzilFont();
+        txtPassword = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
+        btnLogin = new view.swing.LoginButtom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -90,17 +94,19 @@ public class Login extends javax.swing.JFrame {
 
         LogoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/logo2_thumbnail_50x50.png"))); // NOI18N
 
-        whiteHollowButtom1.setText("contactanos");
-        whiteHollowButtom1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                whiteHollowButtom1ActionPerformed(evt);
-            }
-        });
+        BtnContactanos.setText("contactanos");
+        BtnContactanos.setFocusPainted(false);
 
-        whiteHollowButtom2.setText("Log in");
-        whiteHollowButtom2.addActionListener(new java.awt.event.ActionListener() {
+        BtnLogIn.setText("Log in");
+        BtnLogIn.setFocusPainted(false);
+
+        BtonCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/on-off-button (1).png"))); // NOI18N
+        BtonCerrarVentana.setBorderPainted(false);
+        BtonCerrarVentana.setContentAreaFilled(false);
+        BtonCerrarVentana.setFocusPainted(false);
+        BtonCerrarVentana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                whiteHollowButtom2ActionPerformed(evt);
+                BtonCerrarVentanaActionPerformed(evt);
             }
         });
 
@@ -108,12 +114,17 @@ public class Login extends javax.swing.JFrame {
         ButtomsPanel.setLayout(ButtomsPanelLayout);
         ButtomsPanelLayout.setHorizontalGroup(
             ButtomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(whiteHollowButtom1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(whiteHollowButtom2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BtnContactanos, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+            .addComponent(BtnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(ButtomsPanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(LogoLabel)
-                .addGap(35, 35, 35))
+                .addGroup(ButtomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ButtomsPanelLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(LogoLabel))
+                    .addGroup(ButtomsPanelLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(BtonCerrarVentana)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ButtomsPanelLayout.setVerticalGroup(
             ButtomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,28 +132,30 @@ public class Login extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(LogoLabel)
                 .addGap(47, 47, 47)
-                .addComponent(whiteHollowButtom2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(whiteHollowButtom1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addComponent(BtnContactanos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtonCerrarVentana)
+                .addContainerGap())
         );
 
         loginPanel.setBackground(new java.awt.Color(255, 255, 255));
         loginPanel.setPreferredSize(new java.awt.Dimension(280, 0));
 
-        labelCenzilFont2.setText("Iniciar sesion");
-        labelCenzilFont2.setFont(labelCenzilFont2.getFont().deriveFont(labelCenzilFont2.getFont().getSize()+6f));
+        labelLogin.setText("Iniciar sesion");
+        labelLogin.setFont(labelLogin.getFont().deriveFont(labelLogin.getFont().getSize()+6f));
 
-        jTextField1.setText("jTextField1");
-        jTextField1.setDoubleBuffered(true);
-        jTextField1.setPreferredSize(new java.awt.Dimension(70, 20));
+        txtPassword.setDoubleBuffered(true);
+        txtPassword.setPreferredSize(new java.awt.Dimension(70, 20));
 
-        jTextField2.setText("jTextField1");
-        jTextField2.setDoubleBuffered(true);
-        jTextField2.setPreferredSize(new java.awt.Dimension(70, 20));
+        txtUser.setDoubleBuffered(true);
+        txtUser.setNextFocusableComponent(txtPassword);
+        txtUser.setPreferredSize(new java.awt.Dimension(70, 20));
 
-        greenRoundArrowButtoms1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/right.png"))); // NOI18N
-        greenRoundArrowButtoms1.setPreferredSize(new java.awt.Dimension(35, 38));
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/images/right.png"))); // NOI18N
+        btnLogin.setFocusPainted(false);
+        btnLogin.setPreferredSize(new java.awt.Dimension(35, 38));
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
@@ -151,30 +164,30 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(loginPanelLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(labelCenzilFont2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(loginPanelLayout.createSequentialGroup()
                         .addGap(107, 107, 107)
-                        .addComponent(greenRoundArrowButtoms1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(labelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addComponent(labelCenzilFont2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addComponent(greenRoundArrowButtoms1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,31 +223,45 @@ public class Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    // usado para agregar la funcionalidad en el LoginControlador
+    public LoginButtom getBtnLogin() {
+        return btnLogin;
+    }
+    
+    
+    private void BtonCerrarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtonCerrarVentanaActionPerformed
+       this.dispose(); // cerramos la ventana.
+    }//GEN-LAST:event_BtonCerrarVentanaActionPerformed
+    
+    public JTextField getTxtPasword() {
+        return txtPassword;
+    }
 
-    private void whiteHollowButtom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whiteHollowButtom1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_whiteHollowButtom1ActionPerformed
+ 
 
-    private void whiteHollowButtom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whiteHollowButtom2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_whiteHollowButtom2ActionPerformed
-
+    public JTextField getTxtUser() {
+        return txtUser;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.swing.whiteHollowButtom BtnContactanos;
+    private view.swing.whiteHollowButtom BtnLogIn;
+    private javax.swing.JButton BtonCerrarVentana;
     private javax.swing.JPanel ButtomsPanel;
     private javax.swing.JLabel LogoLabel;
-    private view.component.ContentBlock contentBlock1;
-    private view.component.GreenBlock greenBlock1;
-    private view.swing.LoginButtom greenRoundArrowButtoms1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private view.swing.LoginButtom btnLogin;
+    private view.component.login.ContentBlock contentBlock1;
+    private view.component.login.GreenBlock greenBlock1;
     private view.swing.LabelCenzilFont labelCenzilFont1;
-    private view.swing.LabelCenzilFont labelCenzilFont2;
+    private view.swing.LabelCenzilFont labelLogin;
     private view.swing.LabelLoraFont labelLoraFont1;
     private view.swing.LabelQuattrocentoBold labelQuattrocentoBold1;
-    private view.component.LayeredPanel layeredPanel1;
+    private view.component.login.LayeredPanel layeredPanel1;
     private javax.swing.JPanel loginPanel;
-    private view.swing.whiteHollowButtom whiteHollowButtom1;
-    private view.swing.whiteHollowButtom whiteHollowButtom2;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+    
+
 }
