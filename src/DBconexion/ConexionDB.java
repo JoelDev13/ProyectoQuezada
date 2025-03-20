@@ -30,7 +30,7 @@ public class ConexionDB {
      * @throws SQLException es para si ocurre un error al conectar
      */
     public static Connection obtenerConeccion() throws SQLException {
-        if (conexion != null) {
+        if (conexion != null && !conexion.isClosed()) {
             return conexion;
         }
 

@@ -24,7 +24,7 @@ public class LoginDao {
      * @param contrasena La contraseña ingresada
      * @return Usuario si las credenciales son correctas, o null si no coinciden
      */
-    public Usuario verificarCredenciales(String nombreUsuario, String contrasena) throws SQLException {
+    public Usuario verificarCredenciales(String nombreUsuario, String contrasena){
         String sql = "call sp_verificar_usuario(?, ?)";
         Usuario usuario = null;
 
@@ -55,11 +55,15 @@ public class LoginDao {
         } catch (SQLException e) {
             e.printStackTrace(); // Manejo de errores en caso de que la consulta falle
         } finally {
-            if (conn != null) {
-                conn.close();
-            }
-            if (cs != null ) {
-                cs.close();
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+            } catch (SQLException e) {
+                e.getMessage();
             }
         }
         return usuario;
