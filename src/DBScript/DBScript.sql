@@ -146,7 +146,7 @@ descripcion varchar(200),
 foreign key (ID_cita) references citas(ID)
 );
 
---STORED PROCEDURE: REGISTRAR UN NUEVO USUARIO
+--STORED PROCEDURE: Registrar un nuevo usuario
 DELIMITER //
 CREATE PROCEDURE sp_registrar_usuario (
     IN p_usuario VARCHAR(50),
