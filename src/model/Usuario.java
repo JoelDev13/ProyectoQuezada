@@ -10,16 +10,18 @@ package model;
  */
 public class Usuario {
     private int id;
-    private String nombreUsuario;
+    private String usuario;
+    private int contrasena;
     private String email;
     private byte[] imagen;
     private String rol;
 
     public Usuario() {}
 
-    public Usuario(int id, String nombreUsuario, String email, byte[] imagen, String rol) {
+    public Usuario(int id, String usuario, int contrasena, String email, byte[] imagen, String rol) {
         this.id = id;
-        this.nombreUsuario = nombreUsuario;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
         this.email = email;
         this.imagen = imagen;
         this.rol = rol;
@@ -33,14 +35,24 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getUsuario() {
+        return usuario;
+    }
+ 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public int getContrasena() {
+        return contrasena;
     }
 
+    public void setContrasena(int contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    
+    
     public String getEmail() {
         return email;
     }
@@ -68,11 +80,8 @@ public class Usuario {
     @Override
     public String toString() {
         StringBuffer formatString = new StringBuffer("");
-        return  formatString.append("\n" + getNombreUsuario() + "\n" + getRol()).toString();
+        return  formatString.append("\n" + getUsuario() + "\n" + getRol()).toString();
     }
-    
-    
-    
-    
-    
-}
+
+   
+    }
