@@ -145,3 +145,36 @@ ID_cita int not null,
 descripcion varchar(200),
 foreign key (ID_cita) references citas(ID)
 );
+
+--STORED PROCEDURE: REGISTRAR UN NUEVO USUARIO
+DELIMITER //
+CREATE PROCEDURE sp_registrar_usuario (
+    IN p_usuario VARCHAR(50),
+    IN p_contrasena VARCHAR(255),
+    IN p_rol ENUM('DOCTOR', 'SECRETARIA', 'ADMIN'),
+    IN p_nombre VARCHAR(40),
+    IN p_apellido VARCHAR(40),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    IN p_imagen MEDIUMBLOB
+)
+BEGIN
+    INSERT INTO usuarios (usuario, contrasena, rol, nombre, apellido, email, telefono, imagen)
+    VALUES (p_usuario, p_contrasena, p_rol, p_nombre, p_apellido, p_email, p_telefono, p_imagen);
+END //
+DELIMITER ;
+
+
+--Stored Procedure: Crear una nueva cita
+DELIMITER //
+CREATE PROCEDURE sp_crear_cita (
+    IN p_ID_paciente INT,
+    IN p_ID_doctor INT,
+    IN p_ID_servicio INT,
+    IN p_fecha DATETIME
+)
+BEGIN
+    INSERT INTO citas (ID_paciente, ID_doctor, ID_servicio, fecha, estado) 
+    VALUES (p_ID_paciente, p_ID_doctor, p_ID_servicio, p_fecha, 'PENDIENTE');
+END //
+DELIMITER ;
