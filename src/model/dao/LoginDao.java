@@ -25,7 +25,7 @@ public class LoginDao {
      * @return Usuario si las credenciales son correctas, o null si no coinciden
      */
     public Usuario verificarCredenciales(String usuario, String contrasena){
-        String sql = "sp_registrar_usuario(?, ?)";
+        String sql = "{CALL VerificarLogin(?, ?)}";
         Usuario user = null;
 
         try {
@@ -39,19 +39,17 @@ public class LoginDao {
             ResultSet rs = cs.executeQuery();
 
             if (rs.next()) {
-                // Comprobamos que los datos de la contraseña coincidan
-                String contrasenaEnBaseDeDatos = rs.getString("contrasena");
+                // Verifica si la contraseña ingresada coincide con la almacenada
+                String storedPassword = rs.getString("contrasena");
+                if (contrasena.equals(storedPassword)) {
+                    // Si las contraseñas coinciden, crear el objeto Usuario
+                user = new Usuario();
+                user.setId(rs.getInt("id"));
+                user.setUsuario(rs.getString("usuario"));
 
-                if (contrasena.equals(contrasenaEnBaseDeDatos)) {
-                    // Si las contraseñas coinciden, creamos un objeto Usuario y asignamos todos los datos
-                    user = new Usuario();
-                    user.setId(rs.getInt("ID"));
-                    user.setNombreUsuario(rs.getString("nombreUsuario"));
-                    user.setEmail(rs.getString("email"));
-                    user.setImagen(rs.getBytes("imagen"));
-                    user.setRol(rs.getString("rol"));
                 }
-            }
+                  }
+            
         } catch (SQLException e) {
             e.printStackTrace(); // Manejo de errores en caso de que la consulta falle
         } finally {

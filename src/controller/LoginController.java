@@ -7,7 +7,6 @@ package controller;
 import model.dao.LoginDao;
 import model.Usuario;
 import view.Login;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -60,7 +59,7 @@ public class LoginController implements ActionListener {
             );
             
             Dashboard dashboard = new Dashboard(usuario.getRol(),
-                    usuario.getNombreUsuario(), // Cambiar este parametro para que reciba el nombre de la tabla empleado.
+                    usuario.getUsuario(), // Cambiar este parametro para que reciba el nombre de la tabla empleado.
                     usuario.getEmail(),
                     usuario.getImagen());
             dashboard.setVisible(true);

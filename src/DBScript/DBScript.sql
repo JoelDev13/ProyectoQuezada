@@ -150,7 +150,7 @@ foreign key (ID_cita) references citas(ID)
 DELIMITER //
 CREATE PROCEDURE VerificarLogin (
     IN p_usuario VARCHAR(50),
-    IN p_contrasena VARCHAR(255),
+    IN p_contrasena VARCHAR(255)
 
 )
 BEGIN

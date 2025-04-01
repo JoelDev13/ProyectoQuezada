@@ -11,14 +11,14 @@ package model;
 public class Usuario {
     private int id;
     private String usuario;
-    private int contrasena;
+    private String contrasena;
     private String email;
     private byte[] imagen;
     private String rol;
 
     public Usuario() {}
 
-    public Usuario(int id, String usuario, int contrasena, String email, byte[] imagen, String rol) {
+    public Usuario(int id, String usuario, String contrasena, String email, byte[] imagen, String rol) {
         this.id = id;
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -43,17 +43,16 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public int getContrasena() {
+    public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(int contrasena) {
+    public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
-    
-    
-    public String getEmail() {
+
+     public String getEmail() {
         return email;
     }
 
