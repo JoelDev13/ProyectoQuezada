@@ -24,16 +24,16 @@ public class LoginDao {
      * @param contrasena La contraseña ingresada
      * @return Usuario si las credenciales son correctas, o null si no coinciden
      */
-    public Usuario verificarCredenciales(String nombreUsuario, String contrasena){
-        String sql = "call sp_verificar_usuario(?, ?)";
-        Usuario usuario = null;
+    public Usuario verificarCredenciales(String usuario, String contrasena){
+        String sql = "sp_registrar_usuario(?, ?)";
+        Usuario user = null;
 
         try {
             conn = ConexionDB.obtenerConeccion();
             cs = conn.prepareCall(sql);
 
             // Establece los parámetros de la consulta SQL
-            cs.setString(1, nombreUsuario); // Asignamos el nombre de usuario al primer parámetro
+            cs.setString(1, usuario); // Asignamos el nombre de usuario al primer parámetro
             cs.setString(2, contrasena);     // Asignamos la contraseña al segundo parámetro
 
             ResultSet rs = cs.executeQuery();
@@ -44,12 +44,12 @@ public class LoginDao {
 
                 if (contrasena.equals(contrasenaEnBaseDeDatos)) {
                     // Si las contraseñas coinciden, creamos un objeto Usuario y asignamos todos los datos
-                    usuario = new Usuario();
-                    usuario.setId(rs.getInt("ID"));
-                    usuario.setNombreUsuario(rs.getString("nombreUsuario"));
-                    usuario.setEmail(rs.getString("email"));
-                    usuario.setImagen(rs.getBytes("imagen"));
-                    usuario.setRol(rs.getString("rol"));
+                    user = new Usuario();
+                    user.setId(rs.getInt("ID"));
+                    user.setNombreUsuario(rs.getString("nombreUsuario"));
+                    user.setEmail(rs.getString("email"));
+                    user.setImagen(rs.getBytes("imagen"));
+                    user.setRol(rs.getString("rol"));
                 }
             }
         } catch (SQLException e) {
@@ -66,6 +66,6 @@ public class LoginDao {
                 e.getMessage();
             }
         }
-        return usuario;
+        return user;
     }
 }
