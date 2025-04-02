@@ -45,7 +45,14 @@ public class LoginDao {
                     // Si las contraseñas coinciden, crear el objeto Usuario
                 user = new Usuario();
                 user.setId(rs.getInt("id"));
+                user.setNombre(rs.getString("nombre"));
+                user.setApellido(rs.getString("apellido"));
+                user.setTelefono(rs.getString("telefono"));
                 user.setUsuario(rs.getString("usuario"));
+                 user.setContrasena(rs.getString("contrasena"));
+                 user.setEmail(rs.getString("email"));
+                 user.setImagen(rs.getBytes("imagen"));
+                 user.setRol(rs.getString("rol"));
 
                 }
                   }

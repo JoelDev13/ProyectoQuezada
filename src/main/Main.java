@@ -11,7 +11,7 @@ import controller.LoginController;
  */
 /**
  *
- * @author Joel
+ * @author la
  */
 public class Main {
 
