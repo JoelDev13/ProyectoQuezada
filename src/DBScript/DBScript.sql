@@ -154,11 +154,12 @@ CREATE PROCEDURE VerificarLogin (
 
 )
 BEGIN
-    SELECT id, usuario, nombre, apellido, telefono, contrasena, email, rol, imagen
+    SELECT id, nombre, apellido, telefono, usuario, contrasena, email, imagen, rol
     FROM usuarios
     WHERE usuario = p_usuario AND contrasena = p_contrasena;
 END //
 DELIMITER ;
+
 
 
 

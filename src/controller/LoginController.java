@@ -62,6 +62,7 @@ public class LoginController implements ActionListener {
                     usuario.getUsuario(), // Cambiar este parametro para que reciba el nombre de la tabla empleado.
                     usuario.getEmail(),
                     usuario.getImagen());
+                    
             dashboard.setVisible(true);
             loginView.dispose();
             

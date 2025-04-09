@@ -21,10 +21,10 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(int id, String usuario, String contrasena, String email, byte[] imagen, String rol) {
+    public Usuario(int id, String nombre, String apellido, String telefono, String usuario, String contrasena, String email, byte[] imagen, String rol) {
         this.id = id;
         this.nombre = nombre;
-        this.nombre = apellido;
+        this.apellido = apellido;
         this.telefono = telefono;
         this.usuario = usuario;
         this.contrasena = contrasena;
