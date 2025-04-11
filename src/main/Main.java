@@ -11,7 +11,7 @@ import controller.LoginController;
  */
 /**
  *
- * @author Joel
+ * @author la
  */
 public class Main {
 
@@ -28,5 +28,6 @@ public class Main {
             loginView.setVisible(true);
         });
     }
+    
 
 }

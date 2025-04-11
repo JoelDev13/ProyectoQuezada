@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/la/Desktop/MedManagerP1/src/view/Login.java</file>
             <file>file:/C:/Users/la/Desktop/MedManagerP1/src/controller/LoginController.java</file>
             <file>file:/C:/Users/la/Desktop/MedManagerP1/src/model/dao/LoginDao.java</file>
+            <file>file:/C:/Users/la/Desktop/MedManagerP1/src/model/Usuario.java</file>
             <file>file:/C:/Users/la/Desktop/MedManagerP1/src/DBScript/DBScript.sql</file>
             <file>file:/C:/Users/la/Desktop/MedManagerP1/src/main/Main.java</file>
         </group>

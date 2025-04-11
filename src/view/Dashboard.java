@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
+import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
 
@@ -22,16 +23,13 @@ import view.component.menu.event.EventMenu;
 public class Dashboard extends javax.swing.JFrame {
 
     /**
-     * Crea una nueva vista Dashboard usando los parametros entregados.
-     * @param rol rol del usuario que inicio sesion
-     * @param nombrePerfil nombre del usuario que inicio sesion
-     * @param email ;  email del usuario que inicio sesion
-     * @param imagenPerfil iamgen de perfil del usuario que inicio sesion
+     * Crea una nueva vista Dashboard usando la informacion de un usuario
+     * @usuario usuario de donde se extraen los datos
      */
     
     // TODO cambiar el detalle del rol a un ENUM
 
-    public Dashboard(String rol, String nombrePerfil, String email, byte[] imagenPerfil) { 
+    public Dashboard(Usuario usuario) { 
         initComponents();
         setBackground(new Color(0, 0, 0, 0)); // hacemos transparente la ventana
  
@@ -66,19 +64,19 @@ public class Dashboard extends javax.swing.JFrame {
         };
         
         // Dependiendo del rol entregado, se inicializa el menu adecuado.
-        switch (rol) {
-            case "admin": menu1.initAdmin(event); break;
-            case "doctor": menu1.initDoctor(event); break;
-            case "secretaria": menu1.initSecretaria(event); break;
+        switch (usuario.getRol()) {
+            case ADMIN: menu1.initAdmin(event); break;
+            case DOCTOR: menu1.initDoctor(event); break;
+            case SECRETARIA: menu1.initSecretaria(event); break;
             default: throw new AssertionError();
             
         }
         
         // setteamos la informacion del usuario en el perfil del menu.
-        menu1.cambiarNombrePerfil(nombrePerfil);
-        menu1.cambiarCorreoPerfil(email);
-        menu1.cambiarRolPerfil(rol);
-        menu1.cambiarFotoPerfil(imagenPerfil);
+        menu1.cambiarNombrePerfil(usuario.getNombre() + usuario.getApellido());
+        menu1.cambiarCorreoPerfil(usuario.getEmail());
+        menu1.cambiarRolPerfil(usuario.getRol().name());
+        menu1.cambiarFotoPerfil(usuario.getImagen());
 
 //         Debuggin Logs
         System.out.printf("%d , %d ", panelCambiante.getWidth(), panelCambiante.getHeight());
