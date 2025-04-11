@@ -163,7 +163,7 @@ public class Menu extends javax.swing.JPanel {
      */
     public void initSecretaria(EventMenu event) {
         this.event = event;
-        agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES);
+        agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.PACIENTES);
         agregarMenu(getIconResource("calendarAdd.png"), "Agendar una cita", Paneles.AGENDAR_CITAS);
         agregarMenu(getIconResource("calendarEdit.png"), "Gestor de citas", Paneles.GESTOR_DE_CITAS);
         agregarLogOut();
@@ -175,7 +175,6 @@ public class Menu extends javax.swing.JPanel {
      */
     public void initDoctor(EventMenu event) {
         this.event = event;
-        agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES_DOC);
         agregarMenu(getIconResource("agenda.png"), "Agenda", Paneles.AGENDA_DOC);
         agregarLogOut();
 
@@ -188,17 +187,17 @@ public class Menu extends javax.swing.JPanel {
      */
     public void initAdmin(EventMenu event) {
         this.event = event;
-        agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.GESTOR_DE_PACIENTES);
+        agregarMenu(getIconResource("paciente.png"), "Pacientes", Paneles.PACIENTES);
         agregarMenu(getIconResource("calendarAdd.png"), "Agendar una cita", Paneles.AGENDAR_CITAS);
         agregarMenu(getIconResource("calendarEdit.png"), "Gestor de citas", Paneles.GESTOR_DE_CITAS);
-        // aqui se supone que va el panel GESTOR_DE_PACIENTES_DOC, pero no seguro aun si es un panel aparte o uno nuevo.
-        // simplemente he pensando que GESTOR_DE_PACIENTES_DOC sea un GESTOR_DE_PACIENTES con mas habilidades. Hereda y agrega funcionalidad.
-        agregarMenu(getIconResource("agenda.png"), "Agenda", Paneles.AGENDA_DOC);
-        agregarMenu(getIconResource("usuarios.png"), "Gestor de Usuarios", Paneles.GESTOR_DE_USUARIOS);
-        agregarMenu(getIconResource("doctor.png"), "Doctores", Paneles.GESTOR_DE_DOCTORES);
-        agregarMenu(getIconResource("hospital.png"), "Turnos", Paneles.GESTOR_DE_TURNOS);
-        agregarMenu(getIconResource("servicios.png"), "Servicios", Paneles.GESTOR_DE_SERVICIOS);
-        agregarMenu(getIconResource("pagos.png"), "Pagos", Paneles.PAGOS);
+        // se elimino panel_pacienes_Doc. Carecia de sentido al final.
+        // un admin no es un doctor. por ende no tiene Agenda.
+        agregarMenu(getIconResource("usuarios.png"), "Gestor de Usuarios", Paneles.USUARIOS);
+        agregarMenu(getIconResource("doctor.png"), "Doctores", Paneles.DOCTORES);
+
+        agregarMenu(getIconResource("servicios.png"), "Servicios", Paneles.SERVICIOS);
+        agregarMenu(getIconResource("pagos.png"), "Historico de pagos", Paneles.HISTORICO_DE_PAGOS);
+        agregarMenu(getIconResource("pagos.png"), "Metodos de pago", Paneles.HISTORICO_DE_PAGOS);
         agregarLogOut();
     }
     
@@ -302,12 +301,10 @@ public class Menu extends javax.swing.JPanel {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 System.out.println("Ops!, No se encontro la ruta mi pana");
-            } finally {
-                return;
             }
-        } 
-        ImageIcon imagen = new ImageIcon(imagenBytes);
-        imageAvatar1.setIcon(imagen);
+            ImageIcon imagen = new ImageIcon(imagenBytes);
+            imageAvatar1.setIcon(imagen);
+        }
     }
 
 
