@@ -2,13 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package model.usuario;
 
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 /**
  *
  * @author la
  */
 public class Usuario {
+
     private int id;
     private String nombre;
     private String apellido;
@@ -16,12 +21,14 @@ public class Usuario {
     private String usuario;
     private String contrasena;
     private String email;
+    private boolean activo;
     private byte[] imagen;
-    private String rol;
+    private Rol rol;
 
-    public Usuario() {}
+    public Usuario() {
+    }
 
-    public Usuario(int id, String nombre, String apellido, String telefono, String usuario, String contrasena, String email, byte[] imagen, String rol) {
+    public Usuario(int id, String nombre, String apellido, String telefono, String usuario, String contrasena, String email, byte[] imagen, Rol rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -60,8 +67,6 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    
-    
 
     public void setId(int id) {
         this.id = id;
@@ -70,7 +75,7 @@ public class Usuario {
     public String getUsuario() {
         return usuario;
     }
- 
+
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
@@ -83,8 +88,7 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-
-     public String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -100,19 +104,26 @@ public class Usuario {
         this.imagen = imagen;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public boolean getActivo() {
+        return this.activo;
+    }
+
+    public void setActivo(boolean b) {
+        this.activo = b;
     }
 
     @Override
     public String toString() {
         StringBuffer formatString = new StringBuffer("");
-        return  formatString.append("\n" + getUsuario() + "\n" + getRol()).toString();
+        return formatString.append("\n" + getUsuario() + "\n" + getRol()).toString();
     }
 
-   
-    }
+}

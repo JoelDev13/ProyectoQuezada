@@ -5,10 +5,11 @@
 package controller;
 
 import model.dao.LoginDao;
-import model.Usuario;
+import model.usuario.Usuario;
 import view.Login;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import view.Dashboard;
 
@@ -44,37 +45,30 @@ public class LoginController implements ActionListener {
             );
             return;
         }
+        
         System.out.println(username + " " + password);
-        // Llama al método de LoginDao para verificar las credenciales con los nombres correctos
-        Usuario usuario = loginDAO.verificarCredenciales(username, password);
-
-        // Verifica si las credenciales son correctas
-        if (usuario != null) {
+        Usuario usuario;
+        try {
+            usuario = loginDAO.verificarCredenciales(username, password);
             
             JOptionPane.showMessageDialog(
                     loginView,
-                    "Conexion Exitosa. Nota: Deberiamos cambiar este ShowMessage en algun punto del desarrollo. " + usuario.toString(),
-                    "Succes",
+                    "Conexion Exitosa! User: " + usuario.getUsuario() + " Rol:" + usuario.getRol(),
+                    "Error",
                     JOptionPane.INFORMATION_MESSAGE
             );
             
-            Dashboard dashboard = new Dashboard(usuario.getRol(),
-                    usuario.getUsuario(), // Cambiar este parametro para que reciba el nombre de la tabla empleado.
-                    usuario.getEmail(),
-                    usuario.getImagen());
-                    
+            Dashboard dashboard = new Dashboard(usuario);
             dashboard.setVisible(true);
             loginView.dispose();
-            
-        } else {
-            System.out.println("Usuario o contraseña incorrectos");
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(
                     loginView,
-                    "Credenciales incorrectas !. Nota: Deberiamos cambiar este ShowMessage en algun punto del desarrollo. ",
-                    "Error !",
+                    ex.getMessage(), // Ahora la base de datos envia la descripcion del error !
+                    "Error",
                     JOptionPane.INFORMATION_MESSAGE
             );
         }
-    }
 
+    }
 }
