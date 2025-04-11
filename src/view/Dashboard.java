@@ -7,6 +7,7 @@ import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
 
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -47,16 +48,16 @@ public class Dashboard extends javax.swing.JFrame {
             public void seleccionado(Paneles panel) {
                // System.out.println(panel);
                 switch (panel) {
-                    case GESTOR_DE_PACIENTES : mostrarPanel(new FormModelo());  break;
+                    case PACIENTES : mostrarPanel(new FormModelo());  break;
                     case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
                     case GESTOR_DE_CITAS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_PACIENTES_DOC : mostrarPanel(new FormModelo());  break;
                     case AGENDA_DOC : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_USUARIOS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_DOCTORES : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_TURNOS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_SERVICIOS : mostrarPanel(new FormModelo());  break;
-                    case PAGOS : mostrarPanel(new FormModelo());  break;
+                    case DOCTORES : mostrarPanel(new FormModelo());  break;
+                    case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;
+                    case USUARIOS : mostrarPanel(new FormModelo());  break;
+                    case SERVICIOS : mostrarPanel(new FormModelo());  break;
+                    case METODOS_DE_PAGOS: mostrarPanel(new FormModelo()); break;
+                    case HISTORICO_DE_PAGOS: mostrarPanel(new FormModelo());  break;
                     case LOG_OFF :  dispose() ;  break;
                     default: mostrarPanel(new FormModelo());
                 }

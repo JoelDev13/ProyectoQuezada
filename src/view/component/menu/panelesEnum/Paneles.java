@@ -12,15 +12,15 @@ package view.component.menu.panelesEnum;
  */
 
 public enum Paneles {
-    GESTOR_DE_PACIENTES,
+    PACIENTES,
     AGENDAR_CITAS,
     GESTOR_DE_CITAS,
-    GESTOR_DE_PACIENTES_DOC, // No estoy seguro si sera un panel aparte o el mismo.
     AGENDA_DOC,
-    GESTOR_DE_USUARIOS,
-    GESTOR_DE_DOCTORES,
-    GESTOR_DE_TURNOS,
-    GESTOR_DE_SERVICIOS,
-    PAGOS,
+    DOCTORES,
+    ESPECIALIDADES_DOC,
+    USUARIOS,
+    SERVICIOS,
+    HISTORICO_DE_PAGOS,
+    METODOS_DE_PAGOS,
     LOG_OFF // Creamos uno para el log out para no complicarnos.
 }
