@@ -5,7 +5,7 @@
 package controller;
 
 import model.dao.LoginDao;
-import model.Usuario;
+import model.usuario.Usuario;
 import view.Login;
 
 import java.awt.event.ActionEvent;

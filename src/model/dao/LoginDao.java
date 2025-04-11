@@ -1,7 +1,7 @@
 package model.dao;
 
 import DBconexion.ConexionDB;
-import model.Usuario;
+import model.usuario.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.CallableStatement;
