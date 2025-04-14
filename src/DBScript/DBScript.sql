@@ -113,8 +113,12 @@ descripcion varchar(200),
 foreign key (ID_cita) references citas(ID)
 );
 */
+-- ZONA DE TRIGGERS
 
-drop procedure VerificarLogin;
+
+
+-- ZONA DE ESTORE PROCEDURES
+
 -- STORED PROCEDURE: verificar login
 DELIMITER //
 CREATE PROCEDURE VerificarLogin (
@@ -150,11 +154,167 @@ END //
 DELIMITER ;
 
 
+--  Store Procedures de Paciente
+DELIMITER //
+CREATE procedure sp_listar_pacientes ()
+BEGIN
+	SELECT id, nombre, apellido, cedula, sexo, email, telefono, direccion, seguro, fecha_nacimiento
+    FROM pacientes;
+END //
+DELIMITER ;
+
+drop procedure sp_filtrar_pacientes
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_pacientes (
+    IN p_nombre VARCHAR(40),
+    IN p_apellido VARCHAR(40),
+    IN p_cedula VARCHAR(40),
+    IN p_sexo CHAR(1),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    IN p_direccion VARCHAR(70),
+    IN p_seguro VARCHAR(30),
+    IN p_fecha_nacimiento DATE
+)
+BEGIN
+    SELECT id, nombre, apellido, cedula, sexo, email, telefono, direccion, seguro, fecha_nacimiento
+    FROM pacientes
+    WHERE (p_nombre IS NULL OR nombre LIKE CONCAT('%', p_nombre, '%'))
+      AND (p_apellido IS NULL OR apellido LIKE CONCAT('%', p_apellido, '%'))
+      AND (p_cedula IS NULL OR cedula LIKE CONCAT('%', p_cedula, '%'))
+      AND (p_sexo IS NULL OR sexo = p_sexo)
+      AND (p_email IS NULL OR email LIKE CONCAT('%', p_email, '%'))
+      AND (p_telefono IS NULL OR telefono LIKE CONCAT('%', p_telefono, '%'))
+      AND (p_direccion IS NULL OR direccion LIKE CONCAT('%', p_direccion, '%'))
+      AND (p_seguro IS NULL OR seguro LIKE CONCAT('%', p_seguro, '%'))
+      AND (p_fecha_nacimiento IS NULL OR fecha_nacimiento = p_fecha_nacimiento);
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE procedure sp_crear_pacientes (
+	IN p_nombre varchar(40),
+    IN p_apellido varchar(40),
+    IN p_cedula varchar(40),
+    IN p_sexo CHAR(1),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    in p_direccion VARCHAR(70),
+    IN p_seguro VARCHAR(30),
+    IN p_fecha_nacimiento DATE
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+        RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+		IF p_cedula IS NULL OR CHAR_LENGTH(p_cedula) < 10 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'La cédula debe tener al menos 10 caracteres';
+		END IF;
+		
+			IF p_telefono IS NULL OR CHAR_LENGTH(p_telefono) < 10 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'el numero de telefono debe tener al menos 10 caracteres';
+		END IF;
+
+		INSERT INTO pacientes(nombre, apellido, cedula, sexo, email, telefono, direccion, seguro, fecha_nacimiento)
+		VALUES (p_nombre, p_apellido, p_cedula, p_sexo, p_email, p_telefono, p_direccion, p_seguro, p_fecha_nacimiento);
+    COMMIT;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE procedure sp_actualizar_pacientes (
+	IN p_nombre varchar(40),
+    IN p_apellido varchar(40),
+    IN p_cedula varchar(40),
+    IN p_sexo CHAR(1),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    in p_direccion VARCHAR(70),
+    IN p_seguro VARCHAR(30),
+    IN p_fecha_nacimiento DATE
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+        RESIGNAL;
+    END;
+	START TRANSACTION;
+		UPDATE pacientes SET 
+		nombre = p_nombre,
+		apellido = p_apellido,
+		sexo = p_sexo,
+		email = p_email,
+		telefono = p_telefono,
+		direccion = p_direccion,
+		seguro = p_seguro,
+		fecha_nacimiento = p_fecha_nacimiento
+		WHERE cedula = p_cedula;
+		
+		IF ROW_COUNT() = 0 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Paciente no encontrado con esa cédula';
+		END IF;
+
+    COMMIT;
+END //
+DELIMITER ;
+
+
+
+
+DELIMITER //
+CREATE procedure sp_eliminar_paciente (
+    IN p_cedula varchar(40)
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+        RESIGNAL;
+    END;
+	START TRANSACTION;
+	
+		DELETE FROM pacientes WHERE cedula = p_cedula;
+        
+		IF ROW_COUNT() = 0 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Paciente no encontrado con esa cédula';
+		END IF;
+
+    COMMIT;
+END //
+DELIMITER ;
+
+
+
 
 -- Testing, pon aqui cualquier data de prueba.
 /*
 
 insert into usuarios(usuario,contrasena,rol,nombre,apellido,email,telefono,imagen) values ("admin", "1234", "ADMIN", "Fulano", "DeTal", "fulando@gmail.com","123456",null);
+insert into usuarios(usuario,contrasena,rol,nombre,apellido,email,telefono,imagen) values ("doctor", "1234", "DOCTOR", "Fulano", "DeTal", "doctor@gmail.com","123456",null);
+insert into usuarios(usuario,contrasena,rol,nombre,apellido,email,telefono,imagen) values ("secretaria", "1234", "SECRETARIA", "Fulano", "DeTal", "Secretaria@gmail.com","123456",null);
+
+INSERT INTO pacientes (nombre, apellido, cedula, sexo, email, telefono, direccion, seguro, fecha_nacimiento)
+VALUES 
+('Juan', 'Pérez', '12345678', 'M', 'juan.perez@gmail.com', '8091234567', 'Av. Siempre Viva 123', 'ARS Humano', '1990-05-14'),
+('Ana', 'Gómez', '87654321', 'F', 'ana.gomez@hotmail.com', '8297654321', 'Calle Real 45', 'ARS Universal', '1985-11-30'),
+('Carlos', 'Ramírez', '11223344', 'M', 'carlos.ramirez@yahoo.com', '8493344556', 'C/ Duarte #10', NULL, '1992-03-22'),
+('Laura', 'Fernández', '99887766', 'F', 'laura.fernandez@gmail.com', '8096677889', 'Villa del Sol, Apt. 3B', 'ARS Mapfre', '2000-07-10'),
+('Pedro', 'Martínez', '44332211', 'M', 'pedro.martinez@outlook.com', '8091122334', 'Zona Colonial, Edif. 5', 'ARS Monumental', '1978-09-05');
+
+
+
+
+
 call VerificarLogin('admin', '1234');
 select * from usuarios ;
 

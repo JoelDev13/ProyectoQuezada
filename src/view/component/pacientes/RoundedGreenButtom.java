@@ -9,7 +9,8 @@ import javax.swing.JButton;
 import javax.swing.UIManager;
 
 /**
- *
+ *  Boton con diseño. Utilizado para el panel de pacientes.
+ *  Bordes redondos, un color verde y una fuente Bold.
  * @author luis-
  */
 public class RoundedGreenButtom extends JButton{

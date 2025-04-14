@@ -25,6 +25,9 @@ import view.Pacientes;
  * Clase intermediara entre la vista Pacientes.java, el modelo Paciente.java y el DAO PacienteDAO.java
  *
  * @author luis-
+ * @see Paciente
+ * @see PacienteDAO
+ * @see Pacientes
  */
 public class PacienteController implements ActionListener{  
 

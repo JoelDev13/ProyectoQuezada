@@ -9,7 +9,8 @@ package model.usuario;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 /**
- *
+ * DTO que se encarga de transportar la informacion de un usuario.
+ * usado en la vista del login
  * @author la
  */
 public class Usuario {

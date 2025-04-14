@@ -16,12 +16,20 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 
 /**
- *
+ * DAO para manejar y manipular la informacion de los pacientes.
+ * Usado en la vista del panel Paciente.java
+ * 
  * @author luis-
+ * @see Paciente;
+ * @see PacienteController
  */
 public class PacienteDAO {
     
-    
+    /**
+     * Trae todos los pacientes registrados
+     * @return <code>List&lt;Paciente&gt</code> con todos los pacientes
+     * @throws SQLException con un mensaje desde la db
+     */
     public List listarPacientes() throws SQLException{
         String sql = "{CALL sp_listar_pacientes()}";
         List<Paciente> pacientes = new ArrayList();
@@ -48,7 +56,14 @@ public class PacienteDAO {
         return pacientes;
     }
     
-    
+    /**
+     * 
+     * Trae todos los pacientes que tengan parecido a los valores entregados por el usuario.
+     *
+     * @return <code>List&lt;Paciente&gt</code> con todos los pacientes que cumplan las descripciones entregadas
+     * @param p objeto <code>Paciente</code> que contiene todas las descripciones
+     * @throws SQLException con un mensaje desde la db
+     */
     public List FiltrarPacientes(Paciente p) throws SQLException {
 
         String sql = "{CALL sp_filtrar_pacientes(?,?,?,?,?,?,?,?,?)}";
@@ -87,7 +102,11 @@ public class PacienteDAO {
     }
 
     
-    
+    /**
+     * Registra un paciente nuevo en la DB.
+     * @param p objeto <code>Paciente</code> con todos los datos de un Paciente
+     * @throws SQLException con un mensaje de la db
+     */
     public void agregarPaciente(Paciente p) throws SQLException {
         String sql = "{CALL sp_crear_pacientes(?,?,?,?,?,?,?,?,?)}";
         try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
@@ -104,7 +123,12 @@ public class PacienteDAO {
         }
     }
     
-    
+    /**
+     * Actualiza los datos de un paciente en la DB. Se usa la cedula
+     * de la persona como ID
+     * @param p objeto <code>Paciente</code> con la nueva informacion de la persona
+     * @throws SQLException con un mensaje de la db
+     */
     public void actualizarPaciente(Paciente p) throws SQLException {
         String sql = "{CALL sp_actualizar_pacientes(?,?,?,?,?,?,?,?,?)}";
         try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
@@ -121,7 +145,11 @@ public class PacienteDAO {
         }
     }
     
-    
+    /**
+     * Elimina la informacion de un paciente. 
+     * @param cedula ID que se usara para eliminar la informacion
+     * @throws SQLException con mensaje desde la db
+     */
     public void eliminarPaciente (String cedula) throws SQLException {
         String sql = "{CALL sp_eliminar_paciente(?)}";
         try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
