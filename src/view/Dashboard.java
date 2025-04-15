@@ -57,7 +57,7 @@ public class Dashboard extends javax.swing.JFrame {
                         mostrarPanel(p);
                         break;
                     case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_CITAS : mostrarPanel(new FormModelo());  break;
+                    case GESTOR_DE_CITAS : mostrarPanel(new Citas());  break;
                     case AGENDA_DOC : mostrarPanel(new FormModelo());  break;
                     case DOCTORES : mostrarPanel(new FormModelo());  break;
                     case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;

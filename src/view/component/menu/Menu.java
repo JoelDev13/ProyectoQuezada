@@ -194,6 +194,8 @@ public class Menu extends javax.swing.JPanel {
         // un admin no es un doctor. por ende no tiene Agenda.
         agregarMenu(getIconResource("usuarios.png"), "Gestor de Usuarios", Paneles.USUARIOS);
         agregarMenu(getIconResource("doctor.png"), "Doctores", Paneles.DOCTORES);
+        
+        agregarMenu(getIconResource("doctor.png"), "Especialidades", Paneles.ESPECIALIDADES_DOC);
 
         agregarMenu(getIconResource("servicios.png"), "Servicios", Paneles.SERVICIOS);
         agregarMenu(getIconResource("pagos.png"), "Historico de pagos", Paneles.HISTORICO_DE_PAGOS);

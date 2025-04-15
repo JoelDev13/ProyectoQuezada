@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package view.component.pacientes.table;
+package view.component.table;
 
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -25,7 +25,7 @@ public class TableHeaderAlignment implements TableCellRenderer {
     private final TableCellRenderer oldHeaderRenderer;
     // Guardamos una referencia al rederizador de todas las otras celdas de la tabla
     private final TableCellRenderer oldCellRenderer;
-
+ 
 
     /**
      * Este constructor se encarga de settear el alineado de todas
@@ -39,6 +39,7 @@ public class TableHeaderAlignment implements TableCellRenderer {
 
         this.oldHeaderRenderer = table.getTableHeader().getDefaultRenderer();        
         this.oldCellRenderer = table.getDefaultRenderer(Object.class);
+
         
         // Con la referencia de al renderizador de todas las celdas de la tabla
         // extraemos el componente de dicha celda (que es un Jlabel) para alinear su texto.
