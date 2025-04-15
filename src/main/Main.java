@@ -1,9 +1,6 @@
 package main;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import view.Dashboard;
 import view.Login;
 import model.dao.LoginDao;
 import controller.LoginController;
@@ -26,6 +23,7 @@ public class Main {
         FlatLightLaf.setup();
         UIManager.put("TextComponent.arc", 10);
         UIManager.put("Component.focusWidth", 1);
+        
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {

@@ -149,6 +149,12 @@ BEGIN
 END //
 DELIMITER ;
 
+-- STORED PROCEDURE: Mostrar Historial De pagos
+DELIMETER //
+CREATE PROCEDURE mostrarHistorialDePago (
+    IN
+)
+
 
 
 -- Testing, pon aqui cualquier data de prueba.
@@ -159,4 +165,6 @@ call VerificarLogin('admin', '1234');
 select * from usuarios ;
 
 */
+
+
 
