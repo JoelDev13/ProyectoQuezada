@@ -151,9 +151,38 @@ DELIMITER ;
 
 -- STORED PROCEDURE: Mostrar Historial De pagos
 DELIMETER //
-CREATE PROCEDURE mostrarHistorialDePago (
-    IN
-)
+CREATE PROCEDURE BuscarHistoricoPagos(IN filtro VARCHAR(100))
+BEGIN
+    SELECT 
+        CONCAT(p.nombre, ' ', p.apellido) AS paciente,
+        CONCAT(u.nombre, ' ', u.apellido) AS doctor,
+        c.fecha,
+        hp.monto AS total,
+        s.descripcion AS servicio_realizado,
+        mp.descripcion AS metodo_pago
+    FROM 
+        historico_pagos hp
+    JOIN 
+        metodos_pagos mp ON hp.ID_metodo_pago = mp.ID
+    JOIN 
+        citas c ON hp.ID_cita = c.ID
+    JOIN 
+        pacientes p ON c.ID_paciente = p.ID
+    JOIN 
+        doctor d ON c.ID_doctor = d.ID
+    JOIN 
+        usuarios u ON d.ID = u.ID
+    JOIN 
+        servicios s ON c.ID_servicio = s.ID
+    WHERE 
+        CONCAT(p.nombre, ' ', p.apellido) LIKE CONCAT('%', filtro, '%')
+        OR CONCAT(u.nombre, ' ', u.apellido) LIKE CONCAT('%', filtro, '%')
+        OR hp.monto LIKE CONCAT('%', filtro, '%')
+        OR s.descripcion LIKE CONCAT('%', filtro, '%')
+        OR mp.descripcion LIKE CONCAT('%', filtro, '%');
+END$$
+
+DELIMITER ;
 
 
 
