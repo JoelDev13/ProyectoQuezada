@@ -4,6 +4,11 @@
  */
 package view;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.HistorialPago;
+import model.dao.HistorialPagosDAO;
+
 /**
  *
  * @author la
@@ -120,13 +125,34 @@ public class PagosPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+    // Método para actualizar la tabla con los resultados de la búsqueda
+    private void actualizarTabla(List<HistorialPago> pagos) {
+        // Limpia la tabla antes de actualizar
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0);
 
+        // Llena la tabla con los nuevos datos
+        for (HistorialPago pago : pagos) {
+            modelo.addRow(new Object[]{
+                pago.getPaciente(),
+                pago.getDoctor(),
+                pago.getFecha(),
+                pago.getTotal(),
+                pago.getServicioRealizado(),
+                pago.getMetodoPago()
+            });
+        }
+    }
+    
     private void filtrocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrocActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_filtrocActionPerformed
 
     private void jButtonbuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonbuscadorActionPerformed
-        // TODO add your handling code here:
+        String filtro = filtroc.getText().trim();  // Obtiene el texto del filtro
+        HistorialPagosDAO dao = new HistorialPagosDAO();
+        List<HistorialPago> pagos = dao.buscarHistoricoPagos(filtro);// Busca los pagos usando el DAO
+        actualizarTabla(pagos); // Actualiza la tabla con los resultados obtenidos
     }//GEN-LAST:event_jButtonbuscadorActionPerformed
 
    
