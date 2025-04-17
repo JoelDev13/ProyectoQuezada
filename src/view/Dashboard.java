@@ -1,10 +1,11 @@
 package view;
 
+import controller.CitasController;
 import controller.PacienteController;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
-import model.dao.PacienteDAO;
+import model.dao.PacienteDao;
 import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
@@ -52,15 +53,22 @@ public class Dashboard extends javax.swing.JFrame {
                 switch (panel) {
                     case PACIENTES :
                         Pacientes p = new Pacientes();
-                        PacienteDAO pDAO = new PacienteDAO();
+                        PacienteDao pDAO = new PacienteDao();
                         PacienteController pController = new PacienteController(pDAO, p);
                         mostrarPanel(p);
                         break;
                     case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_CITAS : mostrarPanel(new Citas());  break;
+                    case GESTOR_DE_CITAS : 
+                            System.out.println("ENTRASTE AL PANEL");
+                            
+                            Citas citasView = new Citas();
+                            CitasController citasController = new CitasController(citasView);
+                            mostrarPanel(citasView);
+                        
+                        break;
                     case AGENDA_DOC : mostrarPanel(new FormModelo());  break;
                     case DOCTORES : mostrarPanel(new FormModelo());  break;
-                    case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;
+                    case ESPECIALIDADES_DOC: mostrarPanel(new Prueba1()); break;
                     case USUARIOS : mostrarPanel(new FormModelo());  break;
                     case SERVICIOS : mostrarPanel(new FormModelo());  break;
                     case METODOS_DE_PAGOS: mostrarPanel(new FormModelo()); break;
@@ -96,7 +104,7 @@ public class Dashboard extends javax.swing.JFrame {
      * Metodo usado para cambiar el panel mostrado por el Dashboard. 
      * @param comp El panel que va a mostrar ahora el dashboard.
      */
-    private void mostrarPanel(Component comp) {
+    public void mostrarPanel(Component comp) {
         panelCambiante.removeAll();
         panelCambiante.add(comp);
         panelCambiante.revalidate();

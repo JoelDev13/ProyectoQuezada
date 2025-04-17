@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.dao.PacienteDAO;
+import model.dao.PacienteDao;
 import model.paciente.Paciente;
 import view.Pacientes;
 
@@ -26,15 +26,15 @@ import view.Pacientes;
  *
  * @author luis-
  * @see Paciente
- * @see PacienteDAO
+ * @see PacienteDao
  * @see Pacientes
  */
 public class PacienteController implements ActionListener{  
 
-    private PacienteDAO pacienteDAO;
+    private PacienteDao pacienteDAO;
     private Pacientes pacientesView;
 
-    public PacienteController(PacienteDAO pacienteDAO, Pacientes pacientesView) {
+    public PacienteController(PacienteDao pacienteDAO, Pacientes pacientesView) {
         this.pacienteDAO = pacienteDAO;
         this.pacientesView = pacientesView;
 

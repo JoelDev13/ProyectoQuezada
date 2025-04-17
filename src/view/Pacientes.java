@@ -322,7 +322,7 @@ public class Pacientes extends javax.swing.JPanel {
         scroll.setViewportView(tabla);
         if (tabla.getColumnModel().getColumnCount() > 0) {
             tabla.getColumnModel().getColumn(0).setResizable(false);
-            tabla.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(1).setResizable(false);
             tabla.getColumnModel().getColumn(1).setPreferredWidth(50);
             tabla.getColumnModel().getColumn(2).setResizable(false);

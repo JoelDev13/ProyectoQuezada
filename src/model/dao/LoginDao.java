@@ -25,7 +25,7 @@ public class LoginDao {
         String sql = "{CALL VerificarLogin(?, ?)}";
         Usuario user = new Usuario();
 
-        try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
 
             // Establece los parámetros de la consulta SQL
             cs.setString(1, usuario); // Asignamos el nombre de usuario al primer parámetro

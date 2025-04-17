@@ -65,9 +65,9 @@ public class TableHeaderAlignment implements TableCellRenderer {
     }
 
     protected int getAlignment(int column) {
-        if (column == 0) {
-            return SwingConstants.CENTER;
-        }
+//        if (column == 0) {
+//            return SwingConstants.CENTER;
+//        }
         return SwingConstants.LEADING;
     }
 }
