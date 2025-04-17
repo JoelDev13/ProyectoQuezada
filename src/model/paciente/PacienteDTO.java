@@ -11,14 +11,14 @@ package model.paciente;
  */
 public class PacienteDTO {
 
-    private long id;
+    private int id;
     private String nombre;
     private String apellido;
     private String cedula;
 
     public PacienteDTO() {    }
 
-    public PacienteDTO(long id, String nombre, String apellido, String cedula) {
+    public PacienteDTO(int id, String nombre, String apellido, String cedula) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -28,14 +28,14 @@ public class PacienteDTO {
     /**
      * @return the id
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -82,8 +82,4 @@ public class PacienteDTO {
     }
 
     
-
-    
-  
-
 }

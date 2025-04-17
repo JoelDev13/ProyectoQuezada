@@ -2,21 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model.especialidad;
+package model.servicios;
 
 /**
  *
  * @author luis-
  */
-public class Especialidad {
+public class Servicio {
+
     private int id;
     private String descripcion;
+    private double precio;
 
-    public Especialidad() { }
-
-    public Especialidad(int id, String descripcion) {
+    public Servicio() { }
+    
+    public Servicio(int id, String descripcion, double precio) {
         this.id = id;
         this.descripcion = descripcion;
+        this.precio = precio;
     }
 
     /**
@@ -47,12 +50,26 @@ public class Especialidad {
         this.descripcion = descripcion;
     }
 
+    /**
+     * @return the precio
+     */
+    public double getPrecio() {
+        return precio;
+    }
+
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     @Override
     public String toString() {
         return getDescripcion();
     }
+
     
-    
-    
-    
+       
+
 }

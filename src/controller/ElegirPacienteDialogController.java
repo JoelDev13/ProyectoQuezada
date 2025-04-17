@@ -12,10 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import model.dao.PacienteDao;
 import model.paciente.PacienteDTO;
 import view.ElegirPacienteDialog;
@@ -43,7 +40,7 @@ public class ElegirPacienteDialogController implements ActionListener {
                 if(e.getClickCount() == 2) {
                     int fila = dg.getCustomTable().getSelectedRow();
                     if (fila != -1) {
-                        pacienteSeleccionado.setId((long)dg.getCustomTable().getValueAt(fila, 0));
+                        pacienteSeleccionado.setId((int)dg.getCustomTable().getValueAt(fila, 0));
                         pacienteSeleccionado.setNombre((String)dg.getCustomTable().getValueAt(fila, 1));
                         pacienteSeleccionado.setApellido((String) dg.getCustomTable().getValueAt(fila, 2));
                         pacienteSeleccionado.setCedula((String) dg.getCustomTable().getValueAt(fila, 3));
@@ -54,7 +51,12 @@ public class ElegirPacienteDialogController implements ActionListener {
         });
 
     }
-
+    
+    
+    public PacienteDTO obtenerPaciente() {
+        return pacienteSeleccionado;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
@@ -77,8 +79,5 @@ public class ElegirPacienteDialogController implements ActionListener {
     }
     
     
-    public PacienteDTO obtenerPaciente() {
-        return pacienteSeleccionado;
-    }
 
 }

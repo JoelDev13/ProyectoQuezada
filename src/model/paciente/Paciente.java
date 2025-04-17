@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @author luis-
  */
 public class Paciente {
-    private long id;
+    private int id;
     private String nombre;
     private String apellido;
     private String cedula;
@@ -24,7 +24,7 @@ public class Paciente {
 
     public Paciente() {}
     
-    public Paciente(long id, String nombre, String apellido, String cedula, String sexo, String email, String telefono, String direccion, String seguro, LocalDate fechaNacimiento) {
+    public Paciente(int id, String nombre, String apellido, String cedula, String sexo, String email, String telefono, String direccion, String seguro, LocalDate fechaNacimiento) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -47,7 +47,7 @@ public class Paciente {
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

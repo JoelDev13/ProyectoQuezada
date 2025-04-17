@@ -6,6 +6,9 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import model.dao.PacienteDao;
+import model.dao.citas.CitasDao;
+import model.dao.especialidad.EspecialidadDao;
+import model.dao.servicios.ServiciosDao;
 import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
@@ -58,17 +61,21 @@ public class Dashboard extends javax.swing.JFrame {
                         mostrarPanel(p);
                         break;
                     case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_CITAS : 
-                            System.out.println("ENTRASTE AL PANEL");
-                            
-                            Citas citasView = new Citas();
-                            CitasController citasController = new CitasController(citasView);
-                            mostrarPanel(citasView);
+                    case GESTOR_DE_CITAS:
+                        System.out.println("ENTRASTE AL PANEL");
+
+                        Citas citasView = new Citas();
+                        CitasDao citasDao = new CitasDao();
+                        ServiciosDao servicioDao = new ServiciosDao();
+                        EspecialidadDao especialidadDao = new EspecialidadDao();
+
+                        CitasController citasController = new CitasController(citasView, citasDao, servicioDao, especialidadDao);
+                        mostrarPanel(citasView);
                         
                         break;
                     case AGENDA_DOC : mostrarPanel(new FormModelo());  break;
                     case DOCTORES : mostrarPanel(new FormModelo());  break;
-                    case ESPECIALIDADES_DOC: mostrarPanel(new Prueba1()); break;
+                    case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;
                     case USUARIOS : mostrarPanel(new FormModelo());  break;
                     case SERVICIOS : mostrarPanel(new FormModelo());  break;
                     case METODOS_DE_PAGOS: mostrarPanel(new FormModelo()); break;
@@ -104,7 +111,7 @@ public class Dashboard extends javax.swing.JFrame {
      * Metodo usado para cambiar el panel mostrado por el Dashboard. 
      * @param comp El panel que va a mostrar ahora el dashboard.
      */
-    public void mostrarPanel(Component comp) {
+    private void mostrarPanel(Component comp) {
         panelCambiante.removeAll();
         panelCambiante.add(comp);
         panelCambiante.revalidate();

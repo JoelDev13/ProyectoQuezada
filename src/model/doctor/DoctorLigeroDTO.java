@@ -11,7 +11,7 @@ package model.doctor;
  */
 public class DoctorLigeroDTO {
 
-    private long id;
+    private int id;
     private String nombre;
     private String apellido;
     private String especialidad;
@@ -19,7 +19,7 @@ public class DoctorLigeroDTO {
 
     public DoctorLigeroDTO() {    }
 
-    public DoctorLigeroDTO(long id, String nombre, String apellido, String especialidad, byte[] imagen) {
+    public DoctorLigeroDTO(int id, String nombre, String apellido, String especialidad, byte[] imagen) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -30,14 +30,14 @@ public class DoctorLigeroDTO {
     /**
      * @return the id
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -84,23 +84,19 @@ public class DoctorLigeroDTO {
     }
 
     /**
-     * @return the perfil
+     * @return the imagen
      */
     public byte[] getImagen() {
         return imagen;
     }
 
     /**
-     * @param imagen the perfil to set
+     * @param imagen the imagen to set
      */
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
 
- 
-
-    
-    
     
 
 }

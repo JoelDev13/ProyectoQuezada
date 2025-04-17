@@ -4,19 +4,14 @@
  */
 package controller;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -53,7 +48,7 @@ public class ElegirDoctorDialogController implements ActionListener {
 
     private void llenarCbEspecialidad() {
         try {
-            List<Especialidad> especialidades = espDAO.listarEspecialidades(null);
+            List<Especialidad> especialidades = espDAO.listarEspecialidades();
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             modelo.addElement(" ");
             
@@ -77,7 +72,7 @@ public class ElegirDoctorDialogController implements ActionListener {
             List<DoctorLigeroDTO> doctores = dDAO.filtrarDoctores(dialog.obtenerDatos());
             for (DoctorLigeroDTO doctor : doctores) {
                 TarjetaDoc tarjeta = new TarjetaDoc(doctor);
-                agregarFuncionalidad(tarjeta);
+                this.agregarFuncionalidad(tarjeta);
                 panel.add(tarjeta, "growx");
             }
             
@@ -108,12 +103,15 @@ public class ElegirDoctorDialogController implements ActionListener {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    doctorSeleccionado = tarjeta.getDoctor();
-                    dialog.dispose();
-                }
+            public void mouseClicked(MouseEvent e) {
+                doctorSeleccionado = tarjeta.getDoctor();
+                dialog.dispose();
+
             }
+
+            
+
+            
         });
     }
     

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- * Este DTO esta pensado para ser usado en la Jtable del panel de Citas.
+ * Este DTO enriquecido esta pensado para ser usado en la Jtable del panel de Citas.
  *
  * @author luis-
  */
@@ -24,6 +24,10 @@ public class CitasDTO {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private String estado;
+
+    public CitasDTO() { }
+    
+    
 
     public CitasDTO(int id, String nombrePaciente, String cedulaPaciente, String nombreDoctor, String especialidad, String servicio, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String estado) {
         this.id = id;

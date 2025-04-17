@@ -19,14 +19,12 @@ import DBconexion.ConexionDB;
  */
 public class EspecialidadDao {
 
-    public List<Especialidad> listarEspecialidades(String esp) throws SQLException {
-        String sql = "{CALL filtrar_especialidades(?)}";
+    public List<Especialidad> listarEspecialidades() throws SQLException {
+        String sql = "{CALL filtrar_especialidades()}";
         List<Especialidad> especialidades = new ArrayList<>();
 
         try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
-            cs.setString(1, esp);
             ResultSet rs = cs.executeQuery();
-
             while (rs.next()) {
                 Especialidad e = new Especialidad();
                 e.setId(rs.getInt("id"));
