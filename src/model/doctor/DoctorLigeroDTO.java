@@ -5,7 +5,8 @@
 package model.doctor;
 
 /**
- * Este DTO esta pensado para ser usado en los Dialog que filtren Doctores
+ * Este DTO esta pensado para ser usado en los Dialog que filtren Doctores.
+ *
  *
  * @author luis-
  */

@@ -11,11 +11,17 @@ import java.util.List;
 import model.servicios.Servicio;
 
 /**
- *
+ * Clase que se encarga de manipular los servicios
  * @author luis-
  */
 public class ServiciosDao {
 
+    /**
+     * Lista todos los servicios registrados
+     *
+     * @return <code>List Servicio</code> con todos los servicios registrados
+     * @throws SQLException con mensaje de la dba
+     */
     public List<Servicio> listarServicios() throws SQLException {
         String sql = "{CALL listar_servicios()}";
         List<Servicio> servicios = new ArrayList<>();

@@ -18,7 +18,12 @@ import DBconexion.ConexionDB;
  * @author luis-
  */
 public class EspecialidadDao {
-
+    
+    /**
+     * Trae todas las especialidades registradas
+     * @return <code>List&lt;Especialidad&gt;</code> con todas las especialidades
+     * @throws SQLException con un mesaje de la db
+     */
     public List<Especialidad> listarEspecialidades() throws SQLException {
         String sql = "{CALL filtrar_especialidades()}";
         List<Especialidad> especialidades = new ArrayList<>();

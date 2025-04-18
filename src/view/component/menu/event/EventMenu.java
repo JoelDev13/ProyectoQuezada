@@ -11,7 +11,8 @@ import view.component.menu.panelesEnum.Paneles;
  * @author luis-
  * 
  * Esta interfaz existe unicamente
- * para ser sobrescrita en la vista Dashboard.
+ * para ser sobrescrita en la vista Dashboard para brindar
+ * la funcionalidad de cambiar de paneles
  */
 public interface EventMenu {
 

@@ -19,7 +19,7 @@ import model.paciente.Paciente;
 import raven.datetime.DatePicker;
 
 /**
- *
+ * Crea una vista que permite filtrar y manipular los pacientes registrados
  * @author luis-
  */
 public class Pacientes extends javax.swing.JPanel {

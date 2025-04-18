@@ -5,7 +5,7 @@
 package model.especialidad;
 
 /**
- *
+ * DTo que se encargara de transportar informacion de especialidades
  * @author luis-
  */
 public class Especialidad {

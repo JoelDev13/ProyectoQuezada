@@ -11,7 +11,9 @@ import javax.swing.UIManager;
 import model.paciente.PacienteDTO;
 
 /**
- *
+ * Esta clase, junto a ElegirPacienteDialogController, se encarga de filtrar,
+ * seleccionar y recuperar un objeto Paciente para posterior uso de quien llame
+ * a este dialogo.
  * @author luis-
  */
 public class ElegirPacienteDialog extends javax.swing.JDialog {

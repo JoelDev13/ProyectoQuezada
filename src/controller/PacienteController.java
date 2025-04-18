@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.dao.PacienteDao;
@@ -22,7 +20,7 @@ import view.Pacientes;
 
 
 /**
- * Clase intermediara entre la vista Pacientes.java, el modelo Paciente.java y el DAO PacienteDAO.java
+ * Clase intermedia entre la vista Pacientes, el modelo Paciente y el DAO PacienteDAO
  *
  * @author luis-
  * @see Paciente
@@ -84,7 +82,10 @@ public class PacienteController implements ActionListener{
     }
     
 
-    
+    /**
+     * Si se ha hecho click sobre una fila de la tabla de la vista, permite la edicion
+     * de los datos de dicho paciente
+     */
     private void editar() {
         int fila = this.pacientesView.getTabla().getSelectedRow();
         if (fila == -1) {

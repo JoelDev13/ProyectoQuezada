@@ -8,7 +8,7 @@ package view.component.menu.panelesEnum;
  *
  * @author luis-
  * Este enum recopila los identificadores unicos de todos
- * los paneles existentes
+ * los paneles existentes en la aplicacion
  */
 
 public enum Paneles {

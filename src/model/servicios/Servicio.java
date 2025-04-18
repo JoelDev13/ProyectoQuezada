@@ -5,7 +5,7 @@
 package model.servicios;
 
 /**
- *
+ * DTO que se encargara de transportar la informacion de un servicio
  * @author luis-
  */
 public class Servicio {

@@ -18,7 +18,9 @@ import model.paciente.PacienteDTO;
 import view.ElegirPacienteDialog;
 
 /**
- *
+ * Esta clase, junto al view ElegirPacienteDialog, se encarga de filtrar,
+ * seleccionar y recuperar un objeto Paciente para posterior uso de quien llame
+ * a este dialogo.
  * @author luis-
  */
 public class ElegirPacienteDialogController implements ActionListener {
@@ -34,6 +36,8 @@ public class ElegirPacienteDialogController implements ActionListener {
         
         this.DialogView.getBtnFiltrar().addActionListener(this);
         
+        // Agregamos un mouse adapter a la tabla del dialogo que recupere la informacion
+        // del medico
         this.DialogView.getCustomTable().addMouseListener(new MouseAdapter () {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -53,10 +57,20 @@ public class ElegirPacienteDialogController implements ActionListener {
     }
     
     
+    /**
+     * Metodo que recupera la información del paciente elegido. Es ejecutado cuando
+     * el dialogo ElegirPacienteDialog se cierra.
+     * @return objeto <code>PacienteDTO</code> con la informacion del paciente elegido
+     */
     public PacienteDTO obtenerPaciente() {
         return pacienteSeleccionado;
     }
     
+    
+    /**
+     * Filtra los pacientes que cumplan las descripciones
+     * @param e evento del boton de filtrado
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         try {

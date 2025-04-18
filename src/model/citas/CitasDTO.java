@@ -15,6 +15,12 @@ import java.time.LocalTime;
 public class CitasDTO {
 
     private int id;
+    private int idPaciente;
+    private int idDoc;
+    private int idServicio;
+    private int idEspecialidad;
+    private int idHorario;
+
     private String nombrePaciente;
     private String cedulaPaciente;
     private String nombreDoctor;
@@ -25,12 +31,16 @@ public class CitasDTO {
     private LocalTime horaFin;
     private String estado;
 
-    public CitasDTO() { }
-    
-    
+    public CitasDTO() {
+    }
 
-    public CitasDTO(int id, String nombrePaciente, String cedulaPaciente, String nombreDoctor, String especialidad, String servicio, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String estado) {
+    public CitasDTO(int id, int idPaciente, int idDoc, int idServicio, int idEspecialidad, int idHorario, String nombrePaciente, String cedulaPaciente, String nombreDoctor, String especialidad, String servicio, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, String estado) {
         this.id = id;
+        this.idPaciente = idPaciente;
+        this.idDoc = idDoc;
+        this.idServicio = idServicio;
+        this.idEspecialidad = idEspecialidad;
+        this.idHorario = idHorario;
         this.nombrePaciente = nombrePaciente;
         this.cedulaPaciente = cedulaPaciente;
         this.nombreDoctor = nombreDoctor;
@@ -42,8 +52,6 @@ public class CitasDTO {
         this.estado = estado;
     }
 
-    
-    
     /**
      * @return the id
      */
@@ -56,6 +64,76 @@ public class CitasDTO {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * @return the idPaciente
+     */
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    /**
+     * @param idPaciente the idPaciente to set
+     */
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    /**
+     * @return the idDoc
+     */
+    public int getIdDoc() {
+        return idDoc;
+    }
+
+    /**
+     * @param idDoc the idDoc to set
+     */
+    public void setIdDoc(int idDoc) {
+        this.idDoc = idDoc;
+    }
+
+    /**
+     * @return the idServicio
+     */
+    public int getIdServicio() {
+        return idServicio;
+    }
+
+    /**
+     * @param idServicio the idServicio to set
+     */
+    public void setIdServicio(int idServicio) {
+        this.idServicio = idServicio;
+    }
+
+    /**
+     * @return the idEspecialidad
+     */
+    public int getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    /**
+     * @param idEspecialidad the idEspecialidad to set
+     */
+    public void setIdEspecialidad(int idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
+    }
+
+    /**
+     * @return the idHorario
+     */
+    public int getIdHorario() {
+        return idHorario;
+    }
+
+    /**
+     * @param idHorario the idHorario to set
+     */
+    public void setIdHorario(int idHorario) {
+        this.idHorario = idHorario;
     }
 
     /**

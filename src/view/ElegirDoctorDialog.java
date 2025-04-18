@@ -13,7 +13,9 @@ import model.doctor.DoctorLigeroDTO;
 import net.miginfocom.swing.MigLayout;
 
 /**
- *
+ * Esta clase, junto a ElegirDoctorDialogController, se encarga de filtrar,
+ * seleccionar y recuperar un objeto DoctorDto.
+ * 
  * @author luis-
  */
 public class ElegirDoctorDialog extends javax.swing.JDialog {
@@ -29,7 +31,11 @@ public class ElegirDoctorDialog extends javax.swing.JDialog {
         customizarScrollBar();
     }
     
-    
+    /**
+     * Este metodo es quien recupera el objeto <code>DoctorDto</code>. Es llamado despues
+     * de que este dialogo se haya cerrado (dispose)
+     * @return <code>DoctorDto</code> con la informacion del doctor seleccionado.
+     */
     public DoctorLigeroDTO obtenerDatos() {
         String nombre = (txtNombre.getText().trim().isEmpty()) ? null : txtNombre.getText().trim();
         String apellido = (txtApellido.getText().trim().isEmpty()) ? null : txtApellido.getText().trim();

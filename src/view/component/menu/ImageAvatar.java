@@ -14,12 +14,15 @@ import javax.swing.JComponent;
 
 /**
  *
- * @author luis-
+ * Clase que muestra los perfiles de los usuarios con un borde circular
  * 
  * Esta clase tiene 3 propiedades que puedes cambiar en el 
  * explorador de propiedades de netbeans. ForeGround, borderSize y Icon.
  * Si cambias estas propiedades el componente modificara su aspecto visual.
  * Compruebalo tu mismo, cambia alguna propiedad
+ * 
+ * @author luis-
+ * 
  */
 public class ImageAvatar extends JComponent {
 
@@ -62,7 +65,7 @@ public class ImageAvatar extends JComponent {
      * Esta sobreEscritura pinta de manera circular la foto de perfil
      * del usuario. También pinta un borde del color de #foreGround alrededor de la foto 
      * Si el valor de borderSize es diferente de cero.
-     * @param g 
+     * @param g objeto <code>Graphics</code> entregado por Swing
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -72,7 +75,6 @@ public class ImageAvatar extends JComponent {
             El borde seria el circulo mas grande, y la foto del perfil del usuario seria el mas pequeño
         */
         if (icon != null) {
-            //System.out.println("Me llamaron, Sea Directamente o Indirectamente");
             int width = getWidth();
             int height = getHeight();
             int diameter = Math.min(width, height); // El diametro del ciculo sera la Dmension mas pequeña.
@@ -120,7 +122,7 @@ public class ImageAvatar extends JComponent {
 
     /**
      * Reescala la imagen en base a la relacion (el cociente) que hay entre las dimensiones 
-     * de la imagen entregada y las dimensiones del componente que contiene dicha imagen.
+     * de la imagen entregada y las dimensiones del componente que contendra dicha imagen.
      *
      * @param image Imagen original
      * @param size Tamaño a redimensionar

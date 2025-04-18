@@ -24,6 +24,7 @@ import view.ElegirDoctorDialog;
 import view.component.elegirDoctorDialog.TarjetaDoc;
 
 /**
+ * Esta clase, junto ElegirDoctorDialog, se encarga de filtrar, seleccionar y recuperar un objeto DoctorDto.
  *
  * @author luis-
  */
@@ -32,7 +33,6 @@ public class ElegirDoctorDialogController implements ActionListener {
     private ElegirDoctorDialog dialog;
     private DoctorLigeroDAO dDAO;
     private EspecialidadDao espDAO;
-    
     private DoctorLigeroDTO doctorSeleccionado;
 
     public ElegirDoctorDialogController(ElegirDoctorDialog dialog, DoctorLigeroDAO dDAO, EspecialidadDao espDAO) {
@@ -40,30 +40,34 @@ public class ElegirDoctorDialogController implements ActionListener {
         this.dDAO = dDAO;
         this.espDAO = espDAO;
         this.dialog.getBtnFiltrar().addActionListener(this);
-        System.out.print("LLEGUE");
-        
+
         this.llenarCbEspecialidad();
         this.filtrarDoctores();
     }
 
+    /**
+     * Llena el ComboBox con las especialidades que estan registradas
+     */
     private void llenarCbEspecialidad() {
         try {
             List<Especialidad> especialidades = espDAO.listarEspecialidades();
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             modelo.addElement(" ");
-            
+
             for (Especialidad e : especialidades) {
                 modelo.addElement(e.getDescripcion());
             }
-            
+
             dialog.getCbEspecialidad().setModel(modelo);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(dialog, ex.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
 
-
     }
 
+    /**
+     * Filtra los doctores usando las descripciones dadas por el usuario. Si el usuario no da ninguna descripcion, se traen todos los registros
+     */
     private void filtrarDoctores() {
         JPanel panel = dialog.getPanelMig();
         panel.removeAll();
@@ -75,19 +79,23 @@ public class ElegirDoctorDialogController implements ActionListener {
                 this.agregarFuncionalidad(tarjeta);
                 panel.add(tarjeta, "growx");
             }
-            
+
             panel.revalidate();
             panel.repaint();
             JScrollPane scroll = (JScrollPane) panel.getParent().getParent(); // aparentemente, un Scroll pane esta compuesto de dos panels.
             scroll.revalidate();
             scroll.repaint();
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(dialog, ex.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
-    
+    /**
+     * este metodo le agrega comportamiento a las tarjetas que se muestran en el dialogo ElegirDoctorDialog. Estas cambian de color cuando el mouse entra y sale de ellas y recuperan la informacion del doctor en la que haga click
+     *
+     * @param tarjeta objeto <code>TarjetaDoc</code> al que se le agregara la funcionalidad
+     */
     private void agregarFuncionalidad(TarjetaDoc tarjeta) {
         tarjeta.addMouseListener(new MouseAdapter() {
             @Override
@@ -109,17 +117,17 @@ public class ElegirDoctorDialogController implements ActionListener {
 
             }
 
-            
-
-            
         });
     }
-    
-    
+
+    /**
+     * Este metodo recupera la informacion del doctor seleccionado por el usuario.
+     * @return objeto <code>DoctorLigeroDTO</code> con la informacion del medico elegido
+     */
     public DoctorLigeroDTO obtenerDoctorSeleccionado() {
         return doctorSeleccionado;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dialog.getBtnFiltrar()) {

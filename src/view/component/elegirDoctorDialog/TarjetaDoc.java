@@ -5,15 +5,12 @@
 package view.component.elegirDoctorDialog;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,11 +19,17 @@ import model.doctor.DoctorLigeroDTO;
 import net.miginfocom.swing.MigLayout;
 
 /**
- *
+ * Tarjetas que mostraran doctors en el ElegirDoctorDialog.
+ * Estas guardan y presentan un objeto DoctorDTO que luego puede ser recuperado
+ * 
+ * El Layout de estas tarjetas esta hecho en MigLayOut
  * @author luis-
+ * @see MigLayout;
  */
 public class TarjetaDoc extends JPanel {
-
+    /**
+     * Guarda la informacion del doctor
+     */
     private DoctorLigeroDTO doctor;
 
     public TarjetaDoc(DoctorLigeroDTO doctor) {

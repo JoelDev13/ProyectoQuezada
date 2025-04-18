@@ -12,7 +12,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 /**
- *
+ * tabla con diseño. Todos los elementos estan alineados al izquierda
  * @author luis-
  */
 public class CustomTable extends JTable {

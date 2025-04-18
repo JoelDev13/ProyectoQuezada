@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 /**
+ * Crea un panel con los bordes redondeados
  *
  * @author luis-
  */

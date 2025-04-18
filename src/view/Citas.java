@@ -26,11 +26,13 @@ public class Citas extends javax.swing.JPanel {
         initComponents();
         customTable1.customizarScrollBar(jScrollPane1);
 
-        this.deshabilitarCampos();
+        this.deshabilitarCampos(); // Solamente se puede modificar los otros filtros
+        this.ocultarIds();
+        this.entrarEstadoNormal();
+        this.datePicker1.setCloseAfterSelected(true);
     }
 
-    // Haz que los comboxes guarden objetos de sus clases, no se sus descripciones.
-    // extrae el ID de estos objetos y usa un unico DTO compuesto de ID para filtrar.
+
     public void limpiarCampos() {
         this.txtPacienteCedula.setText("");
         this.txtPacienteNombre.setText("");
@@ -40,10 +42,63 @@ public class Citas extends javax.swing.JPanel {
         cbServicio.setSelectedIndex(0);
         cbEstado.setSelectedIndex(0);
     }
+    
+    public void limpiarCamposPaciente() {
+        this.txtPacienteCedula.setText("");
+        this.txtPacienteNombre.setText("");
+    }
+    
+    public void limpiarCamposDoctor() {
+        this.txtDoctorNombre.setText("");
+    }
+    
+    public void limpiarOtrosFiltros() {
+        this.datePicker1.clearSelectedDate();
+        cbEspecialidad.setSelectedIndex(0);
+        cbServicio.setSelectedIndex(0);
+        cbEstado.setSelectedIndex(0);
+    }
 
     /**
-     * Tengamos en cuenta que el controlador es quien contiene al doctor y al paciente, de ahi que se envien como parametros para concentrar la logica de recoleccion aqui
-     *
+     * La tabla de citas tiene ocultas las ID de doctores, horarios, pacientes...
+     * para que puedan ser recuperadas ala hora de actualizar los datos. Estos se ocultan.
+     */
+    private void ocultarIds() {
+        for (int i = 1; i <= 5; i++) {
+            this.customTable1.getColumnModel().getColumn(i).setMinWidth(0); // Ocultamos el IDDOC
+            this.customTable1.getColumnModel().getColumn(i).setMaxWidth(0);
+            this.customTable1.getColumnModel().getColumn(i).setWidth(0);
+        }
+    }
+    
+    /**
+     * Una vez seleccionada una cita, solamente se permite Reagendarla o cambiar su estado
+     */
+    public void entrarEstadoPreEdicion() {
+        this.btnCitasFiltrar.setEnabled(false);
+        this.btnLimpiarFiltros.setEnabled(false);
+        this.btnEditarEstado.setEnabled(true);
+        this.btnCancelar.setEnabled(true);
+        this.btnReagendar.setEnabled(true);
+    }
+    
+    /**
+     * Vuelve al estado normal del view. Solamente permite filtrar y borrar los filtros
+     */
+    public void entrarEstadoNormal() {
+        this.btnCitasFiltrar.setEnabled(true);
+        this.btnLimpiarFiltros.setEnabled(true);
+        this.btnEditarEstado.setEnabled(false);
+        this.btnCancelar.setEnabled(false);
+        this.btnReagendar.setEnabled(false);
+    }
+    /**
+     * Recupera todos los datos proporcionados para filtrar citas que cumplan las descripcions.
+     * Este metodo recibe (desde su controlador) los objetos que contienen al paciente y doctor seleccionado
+     * para encapsular la logica de desempaque aqui.
+     * 
+     * Los parametros que no fueron entregados se convierten en null, para que la consulta no los considere,
+     * de ahi que se usen objetos como Integer
      * @param paciente objeto <code>#PacienteDTO</code> que enviara el controllador
      * @param doctor objeto <code>#DoctorDTO</code> que enviara el controllador
      * @return Objeto <code>#Citas</code> con todos los ID para el filtrado.
@@ -91,6 +146,11 @@ public class Citas extends javax.swing.JPanel {
         txtDoctorNombre.setEditable(false);
     }
 
+    /**
+     * Muestra el nombre y cedula del paciente elegido desde el 
+     * ElegirPacienteDialog
+     * @param paciente 
+     */
     public void mostrarPacienteElegido(PacienteDTO paciente) {
         if (paciente != null) {
             txtPacienteNombre.setText(paciente.getNombre());
@@ -98,12 +158,18 @@ public class Citas extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Muestra el nombre del doctor elegido desde el 
+     * ElegirDoctorDialog
+     * @param doctor 
+     */
     public void mostrarDoctorElegido(DoctorLigeroDTO doctor) {
         if (doctor != null) {
             txtDoctorNombre.setText(doctor.getNombre());
         }
     }
-
+    
+    // Getters de objetos de esta vista
     public JButton getBtnPacienteFiltrar() {
         return btnPacienteFiltrar;
     }
@@ -132,8 +198,16 @@ public class Citas extends javax.swing.JPanel {
         return btnLimpiarFiltros;
     }
 
-    public JButton getBtnEditar() {
-        return btnEditar;
+    public JButton getBtnEditarEstado() {
+        return btnEditarEstado;
+    }
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+    
+    public JButton getBtnReAgendar() {
+        return btnReagendar;
     }
 
     /**
@@ -168,7 +242,9 @@ public class Citas extends javax.swing.JPanel {
         pnlContendorBotones = new javax.swing.JPanel();
         btnLimpiarFiltros = new view.component.RoundedGreenButtom();
         btnCitasFiltrar = new view.component.RoundedGreenButtom();
-        btnEditar = new view.component.RoundedGreenButtom();
+        btnReagendar = new view.component.RoundedGreenButtom();
+        btnCancelar = new view.component.RoundedGreenButtom();
+        btnEditarEstado = new view.component.RoundedGreenButtom();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         customTable1 = new view.component.table.CustomTable();
@@ -297,14 +373,14 @@ public class Citas extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addGroup(pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlOtrosFiltrosLayout.createSequentialGroup()
                         .addComponent(lbEstado)
                         .addGap(8, 8, 8)
                         .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(70, 70, 70)))
+                .addContainerGap())
         );
         pnlOtrosFiltrosLayout.setVerticalGroup(
             pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +401,7 @@ public class Citas extends javax.swing.JPanel {
                 .addGroup(pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pnlOtrosFiltrosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbEspecialidad, jtxtDatePicker});
@@ -337,32 +413,57 @@ public class Citas extends javax.swing.JPanel {
 
         btnCitasFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-search-30.png"))); // NOI18N
         btnCitasFiltrar.setText("Filtrar");
+        btnCitasFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCitasFiltrarActionPerformed(evt);
+            }
+        });
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-edit-30.png"))); // NOI18N
-        btnEditar.setText("Editar");
+        btnReagendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-edit-calendar-30.png"))); // NOI18N
+        btnReagendar.setText("Reagendar");
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-cancel-30.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+
+        btnEditarEstado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-edit-30.png"))); // NOI18N
+        btnEditarEstado.setText("C. Estado");
 
         javax.swing.GroupLayout pnlContendorBotonesLayout = new javax.swing.GroupLayout(pnlContendorBotones);
         pnlContendorBotones.setLayout(pnlContendorBotonesLayout);
         pnlContendorBotonesLayout.setHorizontalGroup(
             pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCitasFiltrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
+                            .addComponent(btnReagendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
+                            .addComponent(btnCitasFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pnlContendorBotonesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCitasFiltrar, btnLimpiarFiltros, btnReagendar});
+
         pnlContendorBotonesLayout.setVerticalGroup(
             pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnCitasFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCitasFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReagendar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -377,9 +478,9 @@ public class Citas extends javax.swing.JPanel {
                     .addComponent(pnlDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlOtrosFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(pnlContendorBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlContendorBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pnlDoctor, pnlPacientes});
@@ -388,13 +489,15 @@ public class Citas extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlOtrosFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlOtrosFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(pnlPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlContendorBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(pnlContendorBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -406,11 +509,11 @@ public class Citas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "FECHA", "ESTADO", "CEDULA", "PACIENTE", "DOCTOR", "SERVICIO", "ESPECIALIDAD", "HORARIO"
+                "#", "idPaciente", "idDoctor", "idServicio", "idEspecialidad", "idHorario", "FECHA", "ESTADO", "CEDULA", "PACIENTE", "DOCTOR", "SERVICIO", "ESPECIALIDAD", "HORARIO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -423,20 +526,24 @@ public class Citas extends javax.swing.JPanel {
             customTable1.getColumnModel().getColumn(0).setResizable(false);
             customTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
             customTable1.getColumnModel().getColumn(1).setResizable(false);
-            customTable1.getColumnModel().getColumn(1).setPreferredWidth(60);
             customTable1.getColumnModel().getColumn(2).setResizable(false);
-            customTable1.getColumnModel().getColumn(2).setPreferredWidth(60);
             customTable1.getColumnModel().getColumn(3).setResizable(false);
-            customTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
             customTable1.getColumnModel().getColumn(4).setResizable(false);
-            customTable1.getColumnModel().getColumn(4).setPreferredWidth(60);
             customTable1.getColumnModel().getColumn(5).setResizable(false);
-            customTable1.getColumnModel().getColumn(5).setPreferredWidth(60);
             customTable1.getColumnModel().getColumn(6).setResizable(false);
-            customTable1.getColumnModel().getColumn(6).setPreferredWidth(40);
+            customTable1.getColumnModel().getColumn(6).setPreferredWidth(60);
             customTable1.getColumnModel().getColumn(7).setResizable(false);
-            customTable1.getColumnModel().getColumn(7).setPreferredWidth(50);
+            customTable1.getColumnModel().getColumn(7).setPreferredWidth(60);
             customTable1.getColumnModel().getColumn(8).setResizable(false);
+            customTable1.getColumnModel().getColumn(8).setPreferredWidth(50);
+            customTable1.getColumnModel().getColumn(9).setResizable(false);
+            customTable1.getColumnModel().getColumn(9).setPreferredWidth(40);
+            customTable1.getColumnModel().getColumn(10).setResizable(false);
+            customTable1.getColumnModel().getColumn(10).setPreferredWidth(60);
+            customTable1.getColumnModel().getColumn(11).setResizable(false);
+            customTable1.getColumnModel().getColumn(11).setPreferredWidth(100);
+            customTable1.getColumnModel().getColumn(12).setResizable(false);
+            customTable1.getColumnModel().getColumn(13).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -468,17 +575,23 @@ public class Citas extends javax.swing.JPanel {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCitasFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitasFiltrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCitasFiltrarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.component.RoundedGreenButtom btnCancelar;
     private view.component.RoundedGreenButtom btnCitasFiltrar;
     private view.component.RoundedGreenButtom btnDoctorFiltrar;
-    private view.component.RoundedGreenButtom btnEditar;
+    private view.component.RoundedGreenButtom btnEditarEstado;
     private view.component.RoundedGreenButtom btnLimpiarFiltros;
     private view.component.RoundedGreenButtom btnPacienteFiltrar;
+    private view.component.RoundedGreenButtom btnReagendar;
     private javax.swing.JComboBox<String> cbEspecialidad;
     private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JComboBox<String> cbServicio;
