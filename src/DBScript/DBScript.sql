@@ -193,6 +193,8 @@ insert into usuarios(usuario,contrasena,rol,nombre,apellido,email,telefono,image
 call VerificarLogin('admin', '1234');
 select * from usuarios ;
 
+
+
 */
 
 

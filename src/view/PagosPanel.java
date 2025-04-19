@@ -20,6 +20,17 @@ public class PagosPanel extends javax.swing.JPanel {
      */
     public PagosPanel() {
         initComponents();
+        
+     // Inicializa el modelo de tabla con columnas correctas
+    DefaultTableModel modelo = new DefaultTableModel(
+        new Object[]{"Paciente", "Medico", "Fecha", "Total", "Servicio Realizado", "Metodo De Pago"}, 0
+    );
+    jTable1.setModel(modelo);
+
+    // Llena     la tabla con todos los pagos al iniciar
+    HistorialPagosDAO dao = new HistorialPagosDAO();
+    List<HistorialPago> pagos = dao.buscarHistoricoPagos(""); // Sin filtro
+    actualizarTabla(pagos);
     }
 
     /**
@@ -130,6 +141,7 @@ public class PagosPanel extends javax.swing.JPanel {
         // Limpia la tabla antes de actualizar
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0);
+        
 
         // Llena la tabla con los nuevos datos
         for (HistorialPago pago : pagos) {

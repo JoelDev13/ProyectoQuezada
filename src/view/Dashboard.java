@@ -48,6 +48,7 @@ public class Dashboard extends javax.swing.JFrame {
             @Override
             public void seleccionado(Paneles panel) {
                // System.out.println(panel);
+                        
                
                 switch (panel) {
                     case PACIENTES : mostrarPanel(new FormModelo()); break;
@@ -58,7 +59,7 @@ public class Dashboard extends javax.swing.JFrame {
                     case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;
                     case USUARIOS : mostrarPanel(new FormModelo());  break;
                     case SERVICIOS : mostrarPanel(new FormModelo());  break;
-                    case METODOS_DE_PAGOS: mostrarPanel(new FormModelo()); break;
+                    case METODOS_DE_PAGOS: mostrarPanel(new MetodoDePago()); break;
                     case HISTORICO_DE_PAGOS: mostrarPanel(new PagosPanel());  break;
                     case LOG_OFF :  dispose() ;  break;
                     default: mostrarPanel(new FormModelo());

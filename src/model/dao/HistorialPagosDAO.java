@@ -23,7 +23,7 @@ public class HistorialPagosDAO {
         try (Connection conn = ConexionDB.obtenerConeccion();  // Usamos la conexión centralizada
              CallableStatement stmt = conn.prepareCall(sql)) {
 
-            stmt.setString(1, filtro);  // Pasa el filtro al procedimiento
+            stmt.setString(1, "%" + filtro.toLowerCase() + "%");  // Filtro insensible a mayúsculas y minúsculas
             ResultSet rs = stmt.executeQuery();  // Ejecuta la consulta
 
             while (rs.next()) {
