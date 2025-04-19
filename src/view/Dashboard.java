@@ -1,10 +1,14 @@
 package view;
 
+import controller.CitasController;
 import controller.PacienteController;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
-import model.dao.PacienteDAO;
+import model.dao.PacienteDao;
+import model.dao.citas.CitasDao;
+import model.dao.especialidad.EspecialidadDao;
+import model.dao.servicios.ServiciosDao;
 import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
@@ -52,12 +56,23 @@ public class Dashboard extends javax.swing.JFrame {
                 switch (panel) {
                     case PACIENTES :
                         Pacientes p = new Pacientes();
-                        PacienteDAO pDAO = new PacienteDAO();
+                        PacienteDao pDAO = new PacienteDao();
                         PacienteController pController = new PacienteController(pDAO, p);
                         mostrarPanel(p);
                         break;
                     case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_CITAS : mostrarPanel(new FormModelo());  break;
+                    case GESTOR_DE_CITAS:
+                        System.out.println("ENTRASTE AL PANEL");
+
+                        Citas citasView = new Citas();
+                        CitasDao citasDao = new CitasDao();
+                        ServiciosDao servicioDao = new ServiciosDao();
+                        EspecialidadDao especialidadDao = new EspecialidadDao();
+
+                        CitasController citasController = new CitasController(citasView, citasDao, servicioDao, especialidadDao);
+                        mostrarPanel(citasView);
+                        
+                        break;
                     case AGENDA_DOC : mostrarPanel(new FormModelo());  break;
                     case DOCTORES : mostrarPanel(new FormModelo());  break;
                     case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;

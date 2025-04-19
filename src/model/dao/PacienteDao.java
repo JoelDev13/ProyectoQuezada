@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import model.paciente.PacienteDTO;
 
 /**
  * DAO para manejar y manipular la informacion de los pacientes.
@@ -23,7 +24,7 @@ import java.time.format.DateTimeFormatter;
  * @see Paciente;
  * @see PacienteController
  */
-public class PacienteDAO {
+public class PacienteDao {
     
     /**
      * Trae todos los pacientes registrados
@@ -34,7 +35,7 @@ public class PacienteDAO {
         String sql = "{CALL sp_listar_pacientes()}";
         List<Paciente> pacientes = new ArrayList();
 
-        try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
             ResultSet rs = cs.executeQuery(); 
             while (rs.next()) {
                 Paciente paciente = new Paciente();
@@ -69,7 +70,7 @@ public class PacienteDAO {
         String sql = "{CALL sp_filtrar_pacientes(?,?,?,?,?,?,?,?,?)}";
         List<Paciente> pacientes = new ArrayList();
 
-        try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
             cs.setString(1, p.getNombre());
             cs.setString(2, p.getApellido());
             cs.setString(3, p.getCedula());
@@ -103,13 +104,47 @@ public class PacienteDAO {
 
     
     /**
+     * 
+     * Trae todos los pacientes que tengan parecido a los valores entregados por el usuario.
+     * Este metodo es para Pacientes DTO, una simplificacion de Pacientes
+     *
+     * @return <code>List&lt;PacienteDTO&gt</code> con todos los pacientes que cumplan las descripciones entregadas
+     * @param p objeto <code>PacienteDTO</code> que contiene todas las descripciones
+     * @throws SQLException con un mensaje desde la db
+     */
+    public List FiltrarPacientesDTO(PacienteDTO p) throws SQLException {
+
+        String sql = "{CALL sp_filtrar_pacientesDTO(?,?,?)}";
+        List<PacienteDTO> pacientes = new ArrayList();
+
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setString(1, p.getNombre());
+            cs.setString(2, p.getApellido());
+            cs.setString(3, p.getCedula());
+
+            ResultSet rs = cs.executeQuery();
+
+            while (rs.next()) {
+                PacienteDTO paciente = new PacienteDTO();
+                paciente.setId(rs.getInt("id"));
+                paciente.setNombre(rs.getString("nombre"));
+                paciente.setApellido(rs.getString("apellido"));
+                paciente.setCedula(rs.getString("cedula"));
+                pacientes.add(paciente);
+            }
+        }
+        return pacientes;
+    }
+    
+    
+    /**
      * Registra un paciente nuevo en la DB.
      * @param p objeto <code>Paciente</code> con todos los datos de un Paciente
      * @throws SQLException con un mensaje de la db
      */
     public void agregarPaciente(Paciente p) throws SQLException {
         String sql = "{CALL sp_crear_pacientes(?,?,?,?,?,?,?,?,?)}";
-        try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
             cs.setString(1, p.getNombre());
             cs.setString(2, p.getApellido());
             cs.setString(3, p.getCedula());
@@ -131,7 +166,7 @@ public class PacienteDAO {
      */
     public void actualizarPaciente(Paciente p) throws SQLException {
         String sql = "{CALL sp_actualizar_pacientes(?,?,?,?,?,?,?,?,?)}";
-        try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
             cs.setString(1, p.getNombre());
             cs.setString(2, p.getApellido());
             cs.setString(3, p.getCedula());
@@ -152,7 +187,7 @@ public class PacienteDAO {
      */
     public void eliminarPaciente (String cedula) throws SQLException {
         String sql = "{CALL sp_eliminar_paciente(?)}";
-        try (Connection conn = ConexionDB.obtenerConeccion(); CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
             cs.setString(1, cedula);
             cs.execute();
         }

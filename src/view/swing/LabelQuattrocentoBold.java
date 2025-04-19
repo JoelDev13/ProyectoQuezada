@@ -16,6 +16,10 @@ import javax.swing.JLabel;
  * @author luis-
  */
 
+/**
+ * Esta clase crea objetos label que usen la fuenta QuattrocentoBold
+ * @author luis-
+ */
 public class LabelQuattrocentoBold extends JLabel {
 
     public LabelQuattrocentoBold() {

@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**
- *
+ * Esta clase crea objetos label que usen la fuente LoraFont
  * @author luis-
  */
 public class LabelCenzilFont extends JLabel {
@@ -32,7 +32,7 @@ public class LabelCenzilFont extends JLabel {
         
 
     }
-    
+
     public void centrarEsteComponente() {
         SwingUtilities.invokeLater(() -> { // Para evitar que me explote el programa. Que se centre la GUI cuando todo este cargado
             Container parentContainer = this.getParent();

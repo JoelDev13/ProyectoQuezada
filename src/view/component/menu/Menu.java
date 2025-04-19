@@ -70,43 +70,38 @@ public class Menu extends javax.swing.JPanel {
         );
         panelMenuMIGLayout.setVerticalGroup(
             panelMenuMIGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 537, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelBotonesLayout = new javax.swing.GroupLayout(panelBotones);
         panelBotones.setLayout(panelBotonesLayout);
         panelBotonesLayout.setHorizontalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBotonesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelMenuMIG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(panelMenuMIG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBotonesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelMenuMIG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(panelMenuMIG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panelPerfil.setBackground(new java.awt.Color(67, 152, 117));
+        panelPerfil.setPreferredSize(new java.awt.Dimension(162, 200));
 
         imageAvatar1.setForeground(new java.awt.Color(94, 189, 153));
         imageAvatar1.setBorderSize(5);
         imageAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/menu/icons/avatar/p2.png"))); // NOI18N
 
-        labelCorreo.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        labelCorreo.setFont(new java.awt.Font("Consolas", 1, 16)); // NOI18N
         labelCorreo.setForeground(new java.awt.Color(255, 255, 255));
         labelCorreo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelCorreo.setText("Correo");
 
-        LabelNombre.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        LabelNombre.setFont(new java.awt.Font("Consolas", 1, 16)); // NOI18N
         LabelNombre.setForeground(new java.awt.Color(255, 255, 255));
         LabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabelNombre.setText("Nombre");
 
-        labelRol.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        labelRol.setFont(new java.awt.Font("Consolas", 1, 16)); // NOI18N
         labelRol.setForeground(new java.awt.Color(255, 255, 255));
         labelRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelRol.setText("Rol");
@@ -115,43 +110,43 @@ public class Menu extends javax.swing.JPanel {
         panelPerfil.setLayout(panelPerfilLayout);
         panelPerfilLayout.setHorizontalGroup(
             panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPerfilLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
+                .addGap(0, 73, Short.MAX_VALUE)
+                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPerfilLayout.createSequentialGroup()
-                        .addGap(0, 47, Short.MAX_VALUE)
-                        .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))
                     .addComponent(labelCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LabelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(labelRol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LabelNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelPerfilLayout.setVerticalGroup(
             panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPerfilLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LabelNombre)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelCorreo)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelRol)
-                .addContainerGap())
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
             .addComponent(panelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -194,6 +189,8 @@ public class Menu extends javax.swing.JPanel {
         // un admin no es un doctor. por ende no tiene Agenda.
         agregarMenu(getIconResource("usuarios.png"), "Gestor de Usuarios", Paneles.USUARIOS);
         agregarMenu(getIconResource("doctor.png"), "Doctores", Paneles.DOCTORES);
+        
+        agregarMenu(getIconResource("doctor.png"), "Especialidades", Paneles.ESPECIALIDADES_DOC);
 
         agregarMenu(getIconResource("servicios.png"), "Servicios", Paneles.SERVICIOS);
         agregarMenu(getIconResource("pagos.png"), "Historico de pagos", Paneles.HISTORICO_DE_PAGOS);
@@ -322,7 +319,7 @@ public class Menu extends javax.swing.JPanel {
 
         // pintantdo el gap que hay entre panelPerfil y panelBotones
         g2.setColor(panelPerfil.getBackground());
-        g2.fillRect(0, panelPerfil.getHeight() - 15, panelPerfil.getWidth(), 25);
+        g2.fillRect(0, panelPerfil.getHeight() - 15, panelPerfil.getWidth(), 20);
 
         // pintar el costado derecho.
         g2.fillRect(panelPerfil.getWidth() - 10, 0, panelPerfil.getWidth(), panelPerfil.getHeight());

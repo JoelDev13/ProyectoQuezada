@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
 /**
- *
+ * Esta clase crea botones con un hover de color verde en su parte izquierda
  * @author luis-
  */
 public class whiteHollowButtom extends JButton {

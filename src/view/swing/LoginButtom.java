@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
 /**
+ * Crea un boton redondo de color verde.
+ * Es bueno mencionar que el icono de flecha
+ * que tiene este boton es agregado usando la ventana properties de Netbeans
  *
  * @author luis-
  */

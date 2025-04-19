@@ -26,7 +26,7 @@ public class ConexionDB {
      * @return una conexión a la base de datos
      * @throws SQLException es para si ocurre un error al conectar
      */
-    public static Connection obtenerConeccion() throws SQLException {
+    public static Connection obtenerConexion() throws SQLException {
         if (conexion != null && !conexion.isClosed()) {
             return conexion;
         }

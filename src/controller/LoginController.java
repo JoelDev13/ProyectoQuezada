@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import view.Dashboard;
 
 /**
- *
+ *  Esta clase maneja la autentificacion de los usuarios
  * @author la
  */
 public class LoginController implements ActionListener {

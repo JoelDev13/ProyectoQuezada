@@ -12,7 +12,7 @@ import java.io.InputStream;
 import javax.swing.JLabel;
 
 /**
- *
+ * Esta clase crea objetos label que usen la fuente LoraFont
  * @author luis-
  */
 public class LabelLoraFont extends JLabel {

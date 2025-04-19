@@ -1,18 +1,12 @@
 package main;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import view.Dashboard;
 import view.Login;
 import model.dao.LoginDao;
 import controller.LoginController;
 import javax.swing.UIManager;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 /**
  *
  * @author la
