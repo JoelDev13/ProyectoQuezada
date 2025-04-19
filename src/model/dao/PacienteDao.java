@@ -24,7 +24,7 @@ import model.paciente.PacienteDTO;
  * @see Paciente;
  * @see PacienteController
  */
-public class PacienteDAO {
+public class PacienteDao {
     
     /**
      * Trae todos los pacientes registrados
