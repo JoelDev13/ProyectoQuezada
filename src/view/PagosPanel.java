@@ -4,10 +4,11 @@
  */
 package view;
 
+import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.HistorialPago;
-import model.dao.HistorialPagosDAO;
+import model.dao.HistorialPagosDao;
 
 /**
  *
@@ -28,7 +29,7 @@ public class PagosPanel extends javax.swing.JPanel {
     jTable1.setModel(modelo);
 
     // Llena     la tabla con todos los pagos al iniciar
-    HistorialPagosDAO dao = new HistorialPagosDAO();
+    HistorialPagosDao dao = new HistorialPagosDao();
     List<HistorialPago> pagos = dao.buscarHistoricoPagos(""); // Sin filtro
     actualizarTabla(pagos);
     }
@@ -162,7 +163,7 @@ public class PagosPanel extends javax.swing.JPanel {
 
     private void jButtonbuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonbuscadorActionPerformed
         String filtro = filtroc.getText().trim();  // Obtiene el texto del filtro
-        HistorialPagosDAO dao = new HistorialPagosDAO();
+        HistorialPagosDao dao = new HistorialPagosDao();
         List<HistorialPago> pagos = dao.buscarHistoricoPagos(filtro);// Busca los pagos usando el DAO
         actualizarTabla(pagos); // Actualiza la tabla con los resultados obtenidos
     }//GEN-LAST:event_jButtonbuscadorActionPerformed

@@ -3,9 +3,12 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
+import model.MetodoDePagoModel;
+import model.dao.MetodoDePagoDao;
 import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
+import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
 ;
 
 
@@ -51,6 +54,7 @@ public class Dashboard extends javax.swing.JFrame {
                         
                
                 switch (panel) {
+
                     case PACIENTES : mostrarPanel(new FormModelo()); break;
                     case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
                     case GESTOR_DE_CITAS : mostrarPanel(new FormModelo());  break;
@@ -59,8 +63,15 @@ public class Dashboard extends javax.swing.JFrame {
                     case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;
                     case USUARIOS : mostrarPanel(new FormModelo());  break;
                     case SERVICIOS : mostrarPanel(new FormModelo());  break;
-                    case METODOS_DE_PAGOS: mostrarPanel(new MetodoDePago()); break;
-                    case HISTORICO_DE_PAGOS: mostrarPanel(new PagosPanel());  break;
+                    
+                    case METODOS_DE_PAGOS: 
+                    mostrarPanel(new MetodoDePago());
+                      break;
+                    
+                    case HISTORICO_DE_PAGOS: 
+                        mostrarPanel(new PagosPanel());  
+                        break;
+                        
                     case LOG_OFF :  dispose() ;  break;
                     default: mostrarPanel(new FormModelo());
                 }
