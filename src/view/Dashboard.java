@@ -1,5 +1,6 @@
 package view;
 
+import controller.AgendaDoctorController;
 import controller.CitasController;
 import controller.PacienteController;
 import java.awt.Color;
@@ -12,6 +13,7 @@ import model.dao.servicios.ServiciosDao;
 import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
+import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
 
 
 /*
@@ -20,12 +22,12 @@ import view.component.menu.event.EventMenu;
  */
 
 /**
+ * * Este dashboard tiene la propiedad undecorated activada, por lo que no se muestran sus bordes.
+ * Este es el siguiente view que viene despues del Login. Este recibe un parametro llamado ROl
+ * que utilizara para llamar a un inicializador espececifico del menu.
  *
  * @author luis-
- * Este dashboard tiene la propiedad undecorated activada, por lo que no se muestran sus bordes
- * Este es el siguiente view que viene despues del Login.
- * Este recibe un parametro llamado ROl que utilizara para llamar
- * a un inicializador espececifico del menu.
+ *
  */
 public class Dashboard extends javax.swing.JFrame {
 
@@ -68,18 +70,31 @@ public class Dashboard extends javax.swing.JFrame {
                         CitasDao citasDao = new CitasDao();
                         ServiciosDao servicioDao = new ServiciosDao();
                         EspecialidadDao especialidadDao = new EspecialidadDao();
-
+                        
                         CitasController citasController = new CitasController(citasView, citasDao, servicioDao, especialidadDao);
                         mostrarPanel(citasView);
                         
                         break;
-                    case AGENDA_DOC : mostrarPanel(new FormModelo());  break;
+                    case AGENDA_DOC : 
+                        Citas citasView2 = new Citas();
+                        CitasDao citasDao2 = new CitasDao();
+                        ServiciosDao servicioDao2 = new ServiciosDao();
+                        EspecialidadDao especialidadDao2 = new EspecialidadDao();
+                        
+                        AgendaDoctorController agendaController = new AgendaDoctorController(citasView2, citasDao2, servicioDao2, especialidadDao2, usuario);
+                        mostrarPanel(citasView2);
+                        
+                        break;
                     case DOCTORES : mostrarPanel(new FormModelo());  break;
                     case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;
                     case USUARIOS : mostrarPanel(new FormModelo());  break;
                     case SERVICIOS : mostrarPanel(new FormModelo());  break;
-                    case METODOS_DE_PAGOS: mostrarPanel(new FormModelo()); break;
-                    case HISTORICO_DE_PAGOS: mostrarPanel(new FormModelo());  break;
+                    
+                    case HISTORICO_DE_PAGOS:
+                        System.out.println("Llegue");
+                        break;
+                        
+                    case METODOS_DE_PAGOS: mostrarPanel(new Citas()); break;
                     case LOG_OFF :  dispose() ;  break;
                     default: mostrarPanel(new FormModelo());
                 }
@@ -132,7 +147,6 @@ public class Dashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1244, 708));
 
         panelBackground.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -146,7 +160,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(panelBackgroundLayout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(panelCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+                .addComponent(panelCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
                 .addGap(3, 3, 3))
         );
         panelBackgroundLayout.setVerticalGroup(

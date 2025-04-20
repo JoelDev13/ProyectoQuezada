@@ -14,7 +14,7 @@ import model.servicios.Servicio;
 import view.component.table.CustomTable;
 
 /**
- *
+ * Vista de las Citas
  * @author luis-
  */
 public class Citas extends javax.swing.JPanel {
@@ -28,7 +28,6 @@ public class Citas extends javax.swing.JPanel {
 
         this.deshabilitarCampos(); // Solamente se puede modificar los otros filtros
         this.ocultarIds();
-        this.entrarEstadoNormal();
         this.datePicker1.setCloseAfterSelected(true);
     }
 
@@ -42,22 +41,19 @@ public class Citas extends javax.swing.JPanel {
         cbServicio.setSelectedIndex(0);
         cbEstado.setSelectedIndex(0);
     }
-    
-    public void limpiarCamposPaciente() {
+
+    public void LimpiarPacienteSeleccionado() {
         this.txtPacienteCedula.setText("");
         this.txtPacienteNombre.setText("");
     }
-    
-    public void limpiarCamposDoctor() {
-        this.txtDoctorNombre.setText("");
-    }
-    
+
     public void limpiarOtrosFiltros() {
         this.datePicker1.clearSelectedDate();
         cbEspecialidad.setSelectedIndex(0);
         cbServicio.setSelectedIndex(0);
         cbEstado.setSelectedIndex(0);
     }
+
 
     /**
      * La tabla de citas tiene ocultas las ID de doctores, horarios, pacientes...
@@ -71,27 +67,6 @@ public class Citas extends javax.swing.JPanel {
         }
     }
     
-    /**
-     * Una vez seleccionada una cita, solamente se permite Reagendarla o cambiar su estado
-     */
-    public void entrarEstadoPreEdicion() {
-        this.btnCitasFiltrar.setEnabled(false);
-        this.btnLimpiarFiltros.setEnabled(false);
-        this.btnEditarEstado.setEnabled(true);
-        this.btnCancelar.setEnabled(true);
-        this.btnReagendar.setEnabled(true);
-    }
-    
-    /**
-     * Vuelve al estado normal del view. Solamente permite filtrar y borrar los filtros
-     */
-    public void entrarEstadoNormal() {
-        this.btnCitasFiltrar.setEnabled(true);
-        this.btnLimpiarFiltros.setEnabled(true);
-        this.btnEditarEstado.setEnabled(false);
-        this.btnCancelar.setEnabled(false);
-        this.btnReagendar.setEnabled(false);
-    }
     /**
      * Recupera todos los datos proporcionados para filtrar citas que cumplan las descripcions.
      * Este metodo recibe (desde su controlador) los objetos que contienen al paciente y doctor seleccionado
@@ -321,20 +296,22 @@ public class Citas extends javax.swing.JPanel {
                 .addComponent(lbDoctorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(txtDoctorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDoctorFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlDoctorLayout.setVerticalGroup(
             pnlDoctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDoctorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlDoctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbDoctorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDoctorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(pnlDoctorLayout.createSequentialGroup()
-                .addComponent(btnDoctorFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlDoctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDoctorLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(pnlDoctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbDoctorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDoctorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlDoctorLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnDoctorFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -353,16 +330,16 @@ public class Citas extends javax.swing.JPanel {
         lbEstado.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbEstado.setText("Estado:");
 
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "PENDIENTE", "CANCELADA" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "PENDIENTE", "CANCELADA", "COMPLETADA" }));
 
         javax.swing.GroupLayout pnlOtrosFiltrosLayout = new javax.swing.GroupLayout(pnlOtrosFiltros);
         pnlOtrosFiltros.setLayout(pnlOtrosFiltrosLayout);
         pnlOtrosFiltrosLayout.setHorizontalGroup(
             pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOtrosFiltrosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlOtrosFiltrosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOtrosFiltrosLayout.createSequentialGroup()
                         .addGroup(pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lbDesde, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,16 +348,17 @@ public class Citas extends javax.swing.JPanel {
                                 .addGap(38, 38, 38)
                                 .addComponent(lblServicio)))
                         .addGap(8, 8, 8)
-                        .addGroup(pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlOtrosFiltrosLayout.createSequentialGroup()
+                        .addGroup(pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtxtDatePicker, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbEspecialidad, javax.swing.GroupLayout.Alignment.LEADING, 0, 171, Short.MAX_VALUE)
+                                .addComponent(cbServicio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOtrosFiltrosLayout.createSequentialGroup()
                         .addComponent(lbEstado)
                         .addGap(8, 8, 8)
-                        .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)))
-                .addContainerGap())
+                        .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60))))
         );
         pnlOtrosFiltrosLayout.setVerticalGroup(
             pnlOtrosFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,23 +411,23 @@ public class Citas extends javax.swing.JPanel {
         pnlContendorBotonesLayout.setHorizontalGroup(
             pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
-                            .addComponent(btnReagendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
-                            .addComponent(btnCitasFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlContendorBotonesLayout.createSequentialGroup()
+                        .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnCitasFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReagendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEditarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(btnLimpiarFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlContendorBotonesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCitasFiltrar, btnLimpiarFiltros, btnReagendar});
+        pnlContendorBotonesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnCitasFiltrar, btnEditarEstado, btnLimpiarFiltros, btnReagendar});
 
         pnlContendorBotonesLayout.setVerticalGroup(
             pnlContendorBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,6 +445,8 @@ public class Citas extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        pnlContendorBotonesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnCitasFiltrar, btnEditarEstado, btnLimpiarFiltros, btnReagendar});
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -477,9 +457,9 @@ public class Citas extends javax.swing.JPanel {
                     .addComponent(pnlPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlOtrosFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlOtrosFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlContendorBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlContendorBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -488,17 +468,21 @@ public class Citas extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlOtrosFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pnlPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(pnlOtrosFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(pnlPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pnlDoctor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(29, 29, 29)
                         .addComponent(pnlContendorBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jSeparator3.setForeground(new java.awt.Color(0, 153, 0));
@@ -550,19 +534,16 @@ public class Citas extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator3)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator3)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

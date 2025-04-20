@@ -8,7 +8,7 @@ import java.awt.Container;
 import javax.swing.SwingUtilities;
 
 /**
- *
+ * Esta clase genera Jpanels que se centran en el panel en elque se encuentran
  * @author luis-
  */
 public class ContentBlock extends javax.swing.JPanel {

@@ -8,9 +8,9 @@ import java.io.InputStream;
 import java.io.IOException;
 
 /**
- *
+ *Clase que gestiona la db
  * @author la
- * Clase que gestiona la db
+ * 
  */
 public class ConexionDB {
 

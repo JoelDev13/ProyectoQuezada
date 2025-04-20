@@ -8,7 +8,7 @@ import javax.swing.UIManager;
 
 
 /**
- *
+ * Main
  * @author la
  */
 public class Main {

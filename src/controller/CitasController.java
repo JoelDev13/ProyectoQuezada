@@ -34,19 +34,19 @@ import view.ElegirPacienteDialog;
 import view.EditarFechaCitaDialog;
 
 /**
- *
+ * Clase intermedia entre el panel Citas y el Dao CitasDao
  * @author luis-
  */
 public class CitasController implements ActionListener {
 
     // Atributos usados para guardar la seleccion del usuario
-    private PacienteDTO pacienteSeleccionado;
-    private DoctorLigeroDTO doctorSeleccionado;
+    protected PacienteDTO pacienteSeleccionado;
+    protected DoctorLigeroDTO doctorSeleccionado;
 
-    private Citas citasView;
-    private CitasDao citasDao;
-    private ServiciosDao serviciosDao;
-    private EspecialidadDao especialidadDao;
+    protected Citas citasView;
+    protected CitasDao citasDao;
+    protected ServiciosDao serviciosDao;
+    protected EspecialidadDao especialidadDao;
 
     public CitasController(Citas citasView, CitasDao citasDao, ServiciosDao servicioDao, EspecialidadDao especialidadDao) {
         this.citasView = citasView;
@@ -68,10 +68,11 @@ public class CitasController implements ActionListener {
         this.citasView.getCustomTable().addMouseListener(new MouseAdapter() { // creamos un listener para la tabla.
             @Override
             public void mousePressed(MouseEvent e) {
-                citasView.entrarEstadoPreEdicion();
+                entrarEstadoPreEdicion();
             }
         });
-
+        
+        this.entrarEstadoNormal();
         this.listarTodos();
     }
     
@@ -79,7 +80,7 @@ public class CitasController implements ActionListener {
      * Llena la tabla de la vista Citas con el objeto List&lt;CitasDTO&gt; entregado
      * @param citas objeto List&lt;CitasDTO&gt; de donde se sacara la informacion
      */
-    private void llenarTabla(List<CitasDTO> citas) {
+    protected void llenarTabla(List<CitasDTO> citas) {
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyy");
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
         DefaultTableModel modelo = (DefaultTableModel) citasView.getCustomTable().getModel();
@@ -108,7 +109,7 @@ public class CitasController implements ActionListener {
     /**
      * Lista todas las citas agendadas
      */
-    private void listarTodos() {
+    protected void listarTodos() {
         try {
             model.citas.Citas cita = new model.citas.Citas(); // objeto vacio para que filtre todos;
             this.llenarTabla(citasDao.filtrarCitas(cita));
@@ -120,7 +121,7 @@ public class CitasController implements ActionListener {
     /**
      * LLena el ComboBox de especialidades con Objetos <code>Especialidad</code>
      */
-    private void llenarCbEspecialidades() {
+    protected void llenarCbEspecialidades() {
         try {
             DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
             modelo.addElement(null);
@@ -137,7 +138,7 @@ public class CitasController implements ActionListener {
     /**
      * LLena el ComboBox de servicios con Objetos <code>Servicio</code>
      */
-    private void llenarCbServicios() {
+    protected void llenarCbServicios() {
         try {
             DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
             modelo.addElement(null); // para tener una seleeccion que sea "ningun servicio"
@@ -151,7 +152,7 @@ public class CitasController implements ActionListener {
         }
     }
 
-    private void limpiarFiltros() {
+    protected void limpiarFiltros() {
         pacienteSeleccionado = null;
         doctorSeleccionado = null;
         citasView.limpiarCampos();
@@ -162,7 +163,7 @@ public class CitasController implements ActionListener {
      * permite la reprogramacion de la fecha de la misma. Solamente se puede reprogramar desde hoy
      * a futuro, en los dias laborables de un medico (los dias en los que posee horarios)
      */
-    private void editarFechaCitaSeleccionada() {
+    protected void editarFechaCitaSeleccionada() {
         model.citas.Citas citaOriginal = this.ObtenerCitaSelecciona();
         if (citaOriginal != null) {
             Frame ventanaPadre = (Frame) SwingUtilities.getWindowAncestor(citasView);
@@ -193,7 +194,7 @@ public class CitasController implements ActionListener {
      * doctores pueden cambiar una cita PENDIENTE a COMPLETADA
      * 
      */
-    private void editarEstadoCitaSeleccionada() {
+    protected void editarEstadoCitaSeleccionada() {
         model.citas.Citas citaOriginal = this.ObtenerCitaSelecciona();
         if (citaOriginal != null) {
             Frame ventanaPadre = (Frame) SwingUtilities.getWindowAncestor(citasView);
@@ -219,12 +220,34 @@ public class CitasController implements ActionListener {
         }
     }
     
+        /**
+     * Una vez seleccionada una cita, solamente se permite Reagendarla o cambiar su estado
+     */
+    protected void entrarEstadoPreEdicion() {
+        this.citasView.getBtnCitasFiltrar().setEnabled(false);
+        this.citasView.getBtnLimpiarFiltros().setEnabled(false);
+        this.citasView.getBtnEditarEstado().setEnabled(true);
+        this.citasView.getBtnCancelar().setEnabled(true);
+        this.citasView.getBtnReAgendar().setEnabled(true);
+    }
+    
+    /**
+     * Vuelve al estado normal del view. Solamente permite filtrar y borrar los filtros
+     */
+    protected void entrarEstadoNormal() {
+        this.citasView.getBtnCitasFiltrar().setEnabled(true);
+        this.citasView.getBtnLimpiarFiltros().setEnabled(true);
+        this.citasView.getBtnEditarEstado().setEnabled(false);
+        this.citasView.getBtnCancelar().setEnabled(false);
+        this.citasView.getBtnReAgendar().setEnabled(false);
+    }
+    
     /**
      * Recupera la informacion de una fila de la tabla de la vista Citas en un objeto modelo Citas siempre
      * y cuando la cita seleccionada este PENDIENTE
      * @return <code>Citas</code>
      */
-    private model.citas.Citas ObtenerCitaSelecciona() {
+    protected model.citas.Citas ObtenerCitaSelecciona() {
         model.citas.Citas citaOriginal = null;
         int fila = this.citasView.getCustomTable().getSelectedRow();
 
@@ -319,7 +342,7 @@ public class CitasController implements ActionListener {
             
         // Vuelve la vista al modo normal (es decir, sale del modo de Pre-edicion)
         } else if (e.getSource() == citasView.getBtnCancelar()) {
-            citasView.entrarEstadoNormal();
+            this.entrarEstadoNormal();
         }
     }
 

@@ -9,7 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Dialog que administra la edicion de estado de una cita.
+ * Dependiendo del valor del paramtro <code>esDoctor</code>
  * @author luis-
  */
 public class EditarEstadoCitaDialog extends javax.swing.JDialog {
