@@ -21,8 +21,8 @@ import model.paciente.PacienteDTO;
  * Usado en la vista del panel Paciente.java
  * 
  * @author luis-
- * @see Paciente;
- * @see PacienteController
+ * @see #Paciente 
+ * @see #PacienteDao() 
  */
 public class PacienteDao {
     

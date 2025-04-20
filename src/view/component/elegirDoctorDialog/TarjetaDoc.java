@@ -24,7 +24,7 @@ import net.miginfocom.swing.MigLayout;
  * 
  * El Layout de estas tarjetas esta hecho en MigLayOut
  * @author luis-
- * @see MigLayout;
+ * @see #MigLayout;
  */
 public class TarjetaDoc extends JPanel {
     /**

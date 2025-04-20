@@ -14,14 +14,41 @@ import java.sql.ResultSet;
 import DBconexion.ConexionDB;
 
 /**
- *
+ * Clase que gestiona y manipula los cambios en la base de datos asociados a 
+ * las especialidades
  * @author luis-
  */
 public class EspecialidadDao {
-    
+
+    /**
+     * Trae todas las especialidades que tiene un medico
+     * @param idDoc id del medico
+     * @return <code>List&lt;Especialidad&gt;</code> con todas las especialidades del medico
+     * @throws SQLException con mensaje de la db
+     */
+    public List<Especialidad> listarEspecialidadesDeUnMedico(int idDoc) throws SQLException {
+        String sql = "{CALL sp_listar_especialidades_medico_especifico(?)}";
+        List<Especialidad> especialidades = new ArrayList<>();
+
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, idDoc);
+            try (ResultSet rs = cs.executeQuery();) {
+                while (rs.next()) {
+                    Especialidad e = new Especialidad();
+                    e.setId(rs.getInt("id"));
+                    e.setDescripcion(rs.getString("descripcion"));
+                    especialidades.add(e);
+                }
+
+                return especialidades;
+            }
+        }
+    }
+
+
     /**
      * Trae todas las especialidades registradas
-     * @return <code>List&lt;Especialidad&gt;</code> con todas las especialidades
+     * @return <code>List&lt;Especialidad&gt;</code> con todas las especialidades registradas
      * @throws SQLException con un mesaje de la db
      */
     public List<Especialidad> listarEspecialidades() throws SQLException {
@@ -29,12 +56,14 @@ public class EspecialidadDao {
         List<Especialidad> especialidades = new ArrayList<>();
 
         try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
-            ResultSet rs = cs.executeQuery();
-            while (rs.next()) {
-                Especialidad e = new Especialidad();
-                e.setId(rs.getInt("id"));
-                e.setDescripcion(rs.getString("descripcion"));
-                especialidades.add(e);
+
+            try (ResultSet rs = cs.executeQuery();) {
+                while (rs.next()) {
+                    Especialidad e = new Especialidad();
+                    e.setId(rs.getInt("id"));
+                    e.setDescripcion(rs.getString("descripcion"));
+                    especialidades.add(e);
+                }
             }
             return especialidades;
         }

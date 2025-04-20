@@ -47,7 +47,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="menu1" min="-2" pref="220" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                  <Component id="panelCambiante" pref="1021" max="32767" attributes="0"/>
+                  <Component id="panelCambiante" pref="1024" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               </Group>
           </Group>

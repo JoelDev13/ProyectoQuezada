@@ -4,13 +4,9 @@
  */
 package view.component.login;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
 /**
- *
+ * Layered panel que es invisible. Se utiliza para sobreponer las capas que
+ * forman la vista del Login
  * @author luis-
  */
 public class LayeredPanel extends javax.swing.JLayeredPane {

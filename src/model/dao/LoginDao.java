@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import model.usuario.Rol;
 
 /**
- *
+ * Clase que se encara de la verificacion de usuarios
  * @author la
  */
 public class LoginDao {

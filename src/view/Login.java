@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import view.swing.LoginButtom;
 
 /**
- *
+ * Panel del login
  * @author luis-
  */
 public class Login extends javax.swing.JFrame {

@@ -1,4 +1,4 @@
--- version 3
+-- version 4
 create database citas;
 use citas;
 
@@ -12,7 +12,7 @@ create table usuarios (
     email varchar(70) unique not null,
     telefono varchar(12) not null,
     activo boolean not null default true,
-    imagen mediumblob
+    imagen mediumblob 
 );
 
 
@@ -20,6 +20,8 @@ Create table doctor(
 	ID int primary key, 
     foreign key (ID) references usuarios(ID)
 );
+
+
 
 create table especialidad (
 	ID int auto_increment primary key,
@@ -160,7 +162,26 @@ SELECT
 FROM doctor d
 JOIN usuarios u ON d.ID = u.ID
 JOIN doctor_especialidad de ON d.ID = de.ID_doctor
+JOIN especialidad e ON de.ID_especialidad = e.ID;
+
+-- Recopila todos los servicios que brinda cada  medico
+CREATE VIEW vista_servicios_doctor AS
+SELECT distinct
+    d.ID AS ID_doctor,
+    CONCAT(u.nombre, ' ', u.apellido) AS doctor,
+    e.ID AS ID_especialidad,
+    e.descripcion AS especialidad,
+    s.ID AS ID_servicio,
+    s.descripcion AS servicio,
+    s.precio
+FROM doctor d
+JOIN usuarios u ON d.ID = u.ID
+JOIN doctor_especialidad de ON d.ID = de.ID_doctor
 JOIN especialidad e ON de.ID_especialidad = e.ID
+JOIN servicios_especialidad se ON e.ID = se.ID_especialidad
+JOIN servicios s ON se.ID_servicio = s.ID
+ORDER BY d.ID, e.ID, s.ID;
+
 
 
 -- ZONA DE TRIGGERS
@@ -177,6 +198,8 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
 -- previene la eliminacion de pacientes que tengan citas
 DELIMITER //
 CREATE TRIGGER before_eliminar_paciente
@@ -189,6 +212,43 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+
+    
+    
+-- verifica que el medico tenga la especialidad en la que sei ntenta agendar la cita
+-- verifica que el medico tenga el servicio
+drop trigger before_agendar_cita
+DELIMITER //
+
+CREATE TRIGGER before_agendar_cita 
+BEFORE INSERT ON citas
+FOR EACH ROW
+BEGIN
+    -- Validar que el doctor tenga la especialidad de la cita
+    IF NOT EXISTS (
+        SELECT 1
+        FROM doctor_especialidad
+        WHERE ID_doctor = NEW.ID_doctor
+          AND ID_especialidad = NEW.ID_especialidad
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El doctor no posee la especialidad indicada en la cita';
+    END IF;
+
+    -- Validar que el doctor pueda brindar ese servicio
+    IF NOT EXISTS (
+        SELECT 1
+        FROM vista_servicios_doctor
+        WHERE ID_doctor = NEW.ID_doctor
+          AND ID_servicio = NEW.ID_servicio
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El doctor no brinda ese servicio';
+    END IF;
+END //
+DELIMITER ;
+    
+    
 
 
 -- ZONA DE STORE PROCEDURES
@@ -373,7 +433,7 @@ BEGIN
         RESIGNAL;
     END;
 	START TRANSACTION;
-	
+	-- agregar verificacion que no tenga citas trigger
 		DELETE FROM pacientes WHERE cedula = p_cedula;
         
 		IF ROW_COUNT() = 0 THEN
@@ -463,6 +523,58 @@ BEGIN
 	SELECT id, descripcion from especialidad;
 END //
 DELIMITER ;
+
+
+-- ESPECIALIDADES
+
+DELIMITER //
+CREATE PROCEDURE sp_listar_especialidades_medico_especifico(
+    IN id_doc INT
+)
+BEGIN
+    -- Validar si el doctor existe primero 
+    IF NOT EXISTS (
+        SELECT 1 FROM doctor WHERE ID = id_doc
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Doctor no encontrado con ese ID';
+    END IF;
+
+    -- Listar especialidades
+    SELECT e.ID, e.descripcion
+    FROM doctor_especialidad de
+    JOIN especialidad e ON de.ID_especialidad = e.ID
+    WHERE de.ID_doctor = id_doc;
+END //
+DELIMITER ;
+
+call sp_listar_especialidades_medico_especifico(2)
+
+-- Recopila todos los servicios que puede brindar un medico
+DELIMITER //
+CREATE PROCEDURE sp_listar_servicios_medico_especifico(
+	IN id_doc INT
+)
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM doctor WHERE ID = id_doc
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Doctor no encontrado con ese ID';
+    END IF;
+		
+	SELECT DISTINCT
+    id_servicio,
+    servicio,
+    precio
+    FROM vista_servicios_doctor
+    WHERE ID_doctor = id_doc;
+END //
+
+
+
+
+
 
 -- SERVICIOS
 
@@ -568,18 +680,19 @@ DELIMITER ;
 /*
 
 
-insert into usuarios(usuario,contrasena,rol,nombre,apellido,email,telefono,imagen) values ("admin", "1234", "ADMIN", "Fulano", "DeTal", "fulando@gmail.com","123456",null);
-insert into usuarios(usuario,contrasena,rol,nombre,apellido,email,telefono,imagen) values ("doctor", "1234", "DOCTOR", "Fulano", "DeTal", "doctor@gmail.com","123456",null);
-insert into usuarios(usuario,contrasena,rol,nombre,apellido,email,telefono,imagen) values ("secretaria", "1234", "SECRETARIA", "Fulano", "DeTal", "Secretaria@gmail.com","123456",null);
+
 
 INSERT INTO usuarios(usuario, contrasena, rol, nombre, apellido, email, telefono, imagen) 
 VALUES 
+("admin", "1234", "ADMIN", "Fulano", "DeTal", "fulando@gmail.com","123456",null),
+("doctor", "1234", "DOCTOR", "FulanoDoc", "DeTal", "doctor@gmail.com","123456",null),
+("secretaria", "1234", "SECRETARIA", "FulanoSEC", "DeTal", "Secretaria@gmail.com","123456",null),
 ('dr.rodriguez', '1234', 'DOCTOR', 'Andrés', 'Rodríguez', 'andres.rodriguez@clinicmail.com', '8291234567', null),
 ('dr.natalia', '1234', 'DOCTOR', 'Natalia', 'Mejía', 'natalia.mejia@clinicmail.com', '8497654321', null),
 ('dr.gomez', '1234', 'DOCTOR', 'Ricardo', 'Gómez', 'ricardo.gomez@clinicmail.com', '8091122444', null);
 
 
-select * from pacientes
+
 
 INSERT INTO pacientes (nombre, apellido, cedula, sexo, email, telefono, direccion, seguro, fecha_nacimiento)
 VALUES 
@@ -588,8 +701,8 @@ VALUES
 ('Carlos', 'Ramírez', '11223344', 'M', 'carlos.ramirez@yahoo.com', '8493344556', 'C/ Duarte #10', NULL, '1992-03-22'),
 ('Laura', 'Fernández', '99887766', 'F', 'laura.fernandez@gmail.com', '8096677889', 'Villa del Sol, Apt. 3B', 'ARS Mapfre', '2000-07-10'),
 ('Pedro', 'Martínez', '44332211', 'M', 'pedro.martinez@outlook.com', '8091122334', 'Zona Colonial, Edif. 5', 'ARS Monumental', '1978-09-05');
-select * from usuarios
-select * from doctor
+
+
 INSERT INTO horarios (dia, inicio, fin, ID_doctor)
 VALUES 
 ('LUNES', '08:00:00', '15:00:00', 2);
@@ -606,39 +719,25 @@ VALUES ('MIERCOLES', '08:00:00', '14:00:00', 5);
 INSERT INTO horarios (dia, inicio, fin, ID_doctor)
 VALUES ('JUEVES', '10:00:00', '18:00:00', 6);
 
-
-
-
-
-INSERT INTO servicios(descripcion, precio)
-VALUES
-('Consulta General', 200.00);
-
 INSERT INTO servicios (descripcion, precio) 
 VALUES 
+('Consulta General', 200.00), 		-- ID = 1
 ('Consulta Pediátrica', 300.00),    -- ID = 2
 ('Consulta Dermatológica', 350.00), -- ID = 3
 ('Consulta Cardiológica', 400.00);  -- ID = 4
 
 
-INSERT INTO especialidad (descripcion)
-VALUES
-('Medico General');
-
 INSERT INTO especialidad (descripcion) 
 VALUES 
+('Medico General'),	  -- ID = 1
 ('Pediatría'),        -- ID = 2
 ('Dermatología'),     -- ID = 3
 ('Cardiología');      -- ID = 4
 
 
--- relaciones de especialidad con servicio
-INSERT INTO servicios_especialidad(ID_servicio,ID_especialidad)
-VALUES
-(1,1);
-
 INSERT INTO servicios_especialidad(ID_servicio, ID_especialidad) 
 VALUES 
+(1, 1),
 (2, 2),
 (3, 3),
 (4, 4);
@@ -646,7 +745,10 @@ VALUES
 -- relaciones de este medico
 INSERT INTO doctor_especialidad (ID_doctor, ID_especialidad)
 VALUES
-(2,1);
+(2,2),
+(2,3),
+(2, 1);
+
 -- Doctor Andrés Rodríguez → Pediatría
 INSERT INTO doctor_especialidad (ID_doctor, ID_especialidad) 
 VALUES (4, 2);
@@ -659,12 +761,26 @@ VALUES (5, 3);
 INSERT INTO doctor_especialidad (ID_doctor, ID_especialidad) 
 VALUES (6, 4);
 
-
+select *
 
 INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
 VALUES
-(1, 2, 1, 1, 1, '2025-04-15', 'PENDIENTE');
 
+(1, 2, 1, 3, 4, '2025-04-18', 'PENDIENTE')
+(1, 2, 1, 3, 3, '2025-04-17', 'PENDIENTE'),
+(1, 2, 1, 2, 2, '2025-04-16', 'PENDIENTE'),
+(1, 2, 1, 1, 1, '2025-04-15', 'PENDIENTE'),
+
+
+
+
+select * from vista_doctores
+select * from especialidad
+select * from doctor_especialidad
+select * from servicios
+
+select * from especialidad
+select * from doctor_especialidad
 -- Doctor 4 con paciente 2 (Ana Gómez)
 INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
 VALUES (2, 4, 2, 2, 2, '2025-04-17', 'PENDIENTE');
@@ -677,14 +793,5 @@ VALUES (3, 5, 3, 3, 3, '2025-04-18', 'PENDIENTE');
 INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
 VALUES (5, 6, 4, 4, 4, '2025-04-19', 'PENDIENTE');
 
-
-call VerificarLogin('admin', '1234');
-select * from usuarios ;
-
-
-select * from servicio
-call sp_filtrar_citas(null,null,null,null, NULL ,'2025-04-17','2025-04-18')
-select * from vista_cita
-where id_paciente= 2;
 */
 

@@ -70,18 +70,24 @@ public class Menu extends javax.swing.JPanel {
         );
         panelMenuMIGLayout.setVerticalGroup(
             panelMenuMIGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
+            .addGap(0, 525, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelBotonesLayout = new javax.swing.GroupLayout(panelBotones);
         panelBotones.setLayout(panelBotonesLayout);
         panelBotonesLayout.setHorizontalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMenuMIG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelMenuMIG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMenuMIG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelMenuMIG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelPerfil.setBackground(new java.awt.Color(67, 152, 117));
@@ -194,7 +200,7 @@ public class Menu extends javax.swing.JPanel {
 
         agregarMenu(getIconResource("servicios.png"), "Servicios", Paneles.SERVICIOS);
         agregarMenu(getIconResource("pagos.png"), "Historico de pagos", Paneles.HISTORICO_DE_PAGOS);
-        agregarMenu(getIconResource("pagos.png"), "Metodos de pago", Paneles.HISTORICO_DE_PAGOS);
+        agregarMenu(getIconResource("pagos.png"), "Metodos de pago", Paneles.METODOS_DE_PAGOS);
         agregarLogOut();
     }
     
@@ -319,7 +325,7 @@ public class Menu extends javax.swing.JPanel {
 
         // pintantdo el gap que hay entre panelPerfil y panelBotones
         g2.setColor(panelPerfil.getBackground());
-        g2.fillRect(0, panelPerfil.getHeight() - 15, panelPerfil.getWidth(), 20);
+        g2.fillRect(0, panelPerfil.getHeight() - 15, panelPerfil.getWidth(), 25);
 
         // pintar el costado derecho.
         g2.fillRect(panelPerfil.getWidth() - 10, 0, panelPerfil.getWidth(), panelPerfil.getHeight());

@@ -5,7 +5,7 @@
 package view;
 
 /**
- *
+ * Esta clase simplemente es Dummy data para probar el metodo mostrarPanel() del dashboard
  * @author luis-
  */
 public class FormModelo extends javax.swing.JPanel {
