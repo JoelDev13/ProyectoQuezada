@@ -30,7 +30,9 @@ public class Pacientes extends javax.swing.JPanel {
     public Pacientes() {
         initComponents();
         init();
+        this.datePicker1.setCloseAfterSelected(true);
         entrarEstadoDeGuardado();
+        
     }
 
     /**
