@@ -43,7 +43,7 @@ public class Menu extends javax.swing.JPanel {
 //            System.out.printf("Panel Perfil: %d, %d \n", panelPerfil.getWidth(), panelPerfil.getHeight());
 //            System.out.printf("Panel Botones: %d, %d \n", panelBotones.getWidth(), panelBotones.getHeight());
 //        });
-
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -214,10 +214,11 @@ public class Menu extends javax.swing.JPanel {
     }
     
     /**
-     * Agrega en EL FONDO el boton logout del menu;
+     * Agrega en EL FONDO el boton logout del menu; "split 2, growx, pushx"
      */
     private void agregarLogOut() {
         panelMenuMIG.add(new JLabel(), "Push");
+        agregarMenu(getIconResource("acercaDe.png"), "Acerca de", Paneles.ACERCA_DE);
         agregarMenu(getIconResource("logOut.png"), "log out", Paneles.LOG_OFF);
 
     }
@@ -244,7 +245,7 @@ public class Menu extends javax.swing.JPanel {
         });
 
     }
-
+    
     /**
      * Este metodo le da el estado de seleccionado al boton que toco el usuario.
      * Los demas botones del menu se les quita este estado.
