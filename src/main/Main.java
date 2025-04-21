@@ -21,6 +21,7 @@ public class Main {
         UIManager.put("TextComponent.arc", 10);
         UIManager.put("Component.focusWidth", 1);
         
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             Login loginView = new Login();

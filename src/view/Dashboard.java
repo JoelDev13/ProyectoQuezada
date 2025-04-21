@@ -7,6 +7,7 @@ import controller.PacienteController;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
+import model.HistorialPago;
 import model.dao.PacienteDao;
 import model.dao.citas.CitasDao;
 import model.dao.doctor.DoctorLigeroDAO;
@@ -57,6 +58,8 @@ public class Dashboard extends javax.swing.JFrame {
             @Override
             public void seleccionado(Paneles panel) {
                // System.out.println(panel);
+                        
+               
                 switch (panel) {
                     case PACIENTES -> {
                         Pacientes p = new Pacientes();
@@ -98,7 +101,7 @@ public class Dashboard extends javax.swing.JFrame {
                     case USUARIOS -> mostrarPanel(new FormModelo());
                     case SERVICIOS -> mostrarPanel(new FormModelo());
                     
-                    case HISTORICO_DE_PAGOS -> System.out.println("Llegue");
+                    case HISTORICO_DE_PAGOS -> mostrarPanel(new PagosPanel());
                         
                     case METODOS_DE_PAGOS -> mostrarPanel(new Citas());
                     case LOG_OFF -> dispose() ;

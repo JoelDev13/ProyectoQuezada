@@ -1,4 +1,4 @@
--- version 4
+-- version 5
 create database citas;
 use citas;
 
@@ -87,7 +87,7 @@ ID_horario_doc int not null,
 ID_servicio int not null,
 ID_especialidad int not null,
 fecha date not null,
-estado ENUM ('PENDIENTE', 'CANCELADA', 'COMPLETADA'),
+estado ENUM ('PENDIENTE', 'CANCELADA', 'COMPLETADA') NOT NULL DEFAULT 'PENDIENTE',
 foreign key (ID_paciente) references pacientes(ID),
 foreign key (ID_doctor) references doctor(ID),
 foreign key (ID_servicio) references servicios(ID),
@@ -151,12 +151,17 @@ ORDER BY fecha;
 
 
 -- Aqui se haran las consultas del dialog buscarDoctor
+
 CREATE view vista_doctores
 AS
 SELECT
 	d.ID,
+    u.usuario,
 	u.nombre,
 	u.apellido,
+    u.email,
+    u.telefono,
+    e.ID as ID_especialidad,
 	e.descripcion as especialidad,
 	u.imagen
 FROM doctor d
@@ -181,6 +186,22 @@ JOIN especialidad e ON de.ID_especialidad = e.ID
 JOIN servicios_especialidad se ON e.ID = se.ID_especialidad
 JOIN servicios s ON se.ID_servicio = s.ID
 ORDER BY d.ID, e.ID, s.ID;
+
+
+-- Muestra todos los servicios asociados a una especialidad.
+-- Esto es la tabla servicios_especialidad, pero enriquecida. 
+-- Tambien facilita el llenado de servicios en agendar una cita
+CREATE VIEW vista_servicio_especialidad AS
+SELECT
+    e.ID AS ID_especialidad,
+    e.descripcion AS especialidad_descripcion,
+    s.ID AS ID_servicio,
+    s.descripcion AS servicio_descripcion
+FROM especialidad e
+JOIN servicios_especialidad se ON e.ID = se.ID_especialidad 
+JOIN servicios s ON se.ID_servicio = s.ID;
+
+
 
 
 
@@ -215,11 +236,12 @@ DELIMITER ;
 
     
     
--- verifica que el medico tenga la especialidad en la que sei ntenta agendar la cita
--- verifica que el medico tenga el servicio
-drop trigger before_agendar_cita
-DELIMITER //
+-- verifica que el medico tenga la especialidad en la que se intenta agendar la cita
+-- verifica que el medico pueda realizar el servicio
+-- verifica que que el servicio este asociado a la especialidad de la cita
+-- de que se eliga un horario que posea el medico.
 
+DELIMITER //
 CREATE TRIGGER before_agendar_cita 
 BEFORE INSERT ON citas
 FOR EACH ROW
@@ -234,6 +256,30 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'El doctor no posee la especialidad indicada en la cita';
     END IF;
+	
+    
+    -- verifica que el doctor tenga ese horario
+    IF NOT EXISTS (
+		SELECT 1
+        FROM horarios h WHERE h.ID = NEW.ID_horario_doc
+        AND h.ID_doctor = NEW.ID_doctor
+    ) THEN
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El doctor no labora en ese horario';
+    END IF;
+    
+    
+    -- verifica que el servicio escogido este asociado ala especialidad
+	IF NOT EXISTS (
+		SELECT 1
+        FROM servicios_especialidad
+        WHERE ID_especialidad = NEW.ID_especialidad
+			AND ID_servicio = NEW.ID_servicio
+    ) THEN
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El servicio no esta asociado a esta especialidad';
+    END IF;
+
 
     -- Validar que el doctor pueda brindar ese servicio
     IF NOT EXISTS (
@@ -447,6 +493,27 @@ DELIMITER ;
 
 
 -- store procedures de doctores
+
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_doctores(
+	IN p_filtros varchar(100),
+    IN p_id_especialidad int
+)
+BEGIN
+	SELECT
+		ID,
+        usuario,
+		nombre,
+        apellido,
+        email,
+        telefono
+	FROM vista_doctores
+		WHERE (p_filtros is null or CONCAT(usuario,nombre,apellido,email) like CONCAT('%', p_filtros, '%'))
+			AND (p_id_especialidad is null or ID_especialidad = p_id_especialidad);
+END //
+
+
+
 drop procedure sp_filtrar_doctoresDTO
 -- Doctores
 DELIMITER //
@@ -572,9 +639,18 @@ BEGIN
 END //
 
 
+DELIMITER //
+CREATE PROCEDURE sp_listar_servicios_de_especialidad(
+	IN p_id INT
+)
+BEGIN
+	SELECT ID_servicio, servicio_descripcion FROM vista_servicio_especialidad  WHERE ID_especialidad = p_id;
+END //
+DELIMITER ;
 
+CALL sp_listar_servicios_de_especialidad(1)
 
-
+select * from pacientes
 
 -- SERVICIOS
 
@@ -588,6 +664,27 @@ DELIMITER ;
 
 
 -- CITAS
+-- AGENDAR UNA CITA
+DELIMITER //
+CREATE PROCEDURE sp_agendar_cita(
+	IN p_pacienteID INT,
+	IN p_doctorID INT,
+    IN p_id_horario INT,
+    IN p_id_servicio INT,
+    IN p_id_especialidad INT,
+    IN p_fecha date
+)
+BEGIN
+	-- No usare un handler. El trigger se encargara de detener la insercion (BEFORE)
+    
+    INSERT INTO citas(ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha)
+    VALUES
+    (p_pacienteID, p_doctorID,  p_id_horario, p_id_servicio, p_id_especialidad, p_fecha );
+    
+END//
+
+DELIMITER ;
+
 DELIMITER //
 CREATE PROCEDURE sp_filtrar_citas(
 	IN p_pacienteID INT,
@@ -676,6 +773,57 @@ END //
 DELIMITER ;
 
 
+
+
+
+
+
+
+
+
+
+-- STORED PROCEDURE: Mostrar Historial De pagos
+DELIMITER //
+CREATE PROCEDURE BuscarHistoricoPagos(IN filtro VARCHAR(100))
+BEGIN
+    SELECT 
+        CONCAT(p.nombre, ' ', p.apellido) AS paciente,
+        CONCAT(u.nombre, ' ', u.apellido) AS doctor,
+        c.fecha,
+        hp.monto AS total,
+        s.descripcion AS servicio_realizado,
+        mp.descripcion AS metodo_pago
+    FROM 
+        historico_pagos hp
+    JOIN 
+        metodos_pagos mp ON hp.ID_metodo_pago = mp.ID
+    JOIN historico_pagos
+        citas c ON hp.ID_cita = c.ID
+    JOIN 
+        pacientes p ON c.ID_paciente = p.ID
+    JOIN 
+        doctor d ON c.ID_doctor = d.ID
+    JOIN 
+        usuarios u ON d.ID = u.ID
+    JOIN 
+        servicios s ON c.ID_servicio = s.ID
+    WHERE 
+        CONCAT(p.nombre, ' ', p.apellido) LIKE CONCAT('%', filtro, '%')
+        OR CONCAT(u.nombre, ' ', u.apellido) LIKE CONCAT('%', filtro, '%')
+        OR hp.monto LIKE CONCAT('%', filtro, '%')
+        OR s.descripcion LIKE CONCAT('%', filtro, '%')
+        OR mp.descripcion LIKE CONCAT('%', filtro, '%');
+END//
+
+DELIMITER ;
+
+
+
+
+
+
+
+
 -- Testing, pon aqui cualquier data de prueba.
 /*
 
@@ -761,7 +909,6 @@ VALUES (5, 3);
 INSERT INTO doctor_especialidad (ID_doctor, ID_especialidad) 
 VALUES (6, 4);
 
-select *
 
 INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
 VALUES
@@ -772,15 +919,6 @@ VALUES
 (1, 2, 1, 1, 1, '2025-04-15', 'PENDIENTE'),
 
 
-
-
-select * from vista_doctores
-select * from especialidad
-select * from doctor_especialidad
-select * from servicios
-
-select * from especialidad
-select * from doctor_especialidad
 -- Doctor 4 con paciente 2 (Ana Gómez)
 INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
 VALUES (2, 4, 2, 2, 2, '2025-04-17', 'PENDIENTE');
@@ -793,5 +931,9 @@ VALUES (3, 5, 3, 3, 3, '2025-04-18', 'PENDIENTE');
 INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
 VALUES (5, 6, 4, 4, 4, '2025-04-19', 'PENDIENTE');
 
-*/
+insert into historico_pagos(ID_cita, monto, ID_metodo_pago) values (1, 200, 1);
+select * from metodos_pagos;
+insert into metodos_pagos(descripcion) values ('Efectivo');
+insert into metodos_pagos(descripcion) values ('Tarjeta');
 
+*/
