@@ -301,7 +301,7 @@ BEGIN
     FROM usuarios;
 END //
 
-DELIMITER ;
+DELIMITER ;S
 
 DELIMITER //
 
