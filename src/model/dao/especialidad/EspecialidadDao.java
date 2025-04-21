@@ -68,4 +68,12 @@ public class EspecialidadDao {
             return especialidades;
         }
     }
+
+    public void agregarEspecialidad(Especialidad ObtenerDatos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean eliminarEspecialidad(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
