@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import model.citas.Citas;
 import model.dao.PacienteDao;
 import model.dao.citas.CitasDao;
 import model.dao.doctor.DoctorLigeroDAO;
@@ -66,21 +67,37 @@ public class AgendarUnaCitaController implements ActionListener {
         this.view.getBtnPacienteFiltrar().addActionListener(this);
         this.view.getBtnDoctorFiltrar().addActionListener(this);
         this.view.getBtnAgendarUnaCita().addActionListener(this);
+        this.view.getBtnLimpiarFiltros().addActionListener(this);
 
+        // Se le da un actionListener a cbEspecialidad para que actualice el
+        // cb de servicios. Se valida que no este apuntando a null primero
+        // debido ala posibilidad de que el usuario limpie los campos, y genere
+        //una excepcion de NullPointer
         this.view.getCbEspecialidad().addActionListener((e) -> {
-            Especialidad especialidadElegida = (Especialidad) this.view.getCbEspecialidad().getSelectedItem();
-            this.llenarCbServicios(especialidadElegida.getId());
+            if (this.view.getCbEspecialidad().getSelectedItem() != null) {
+                Especialidad especialidadElegida = (Especialidad) this.view.getCbEspecialidad().getSelectedItem();
+                this.llenarCbServicios(especialidadElegida.getId());
+            }
         });
 
+        this.view.desactivarDatePicker();
+
+        //Este listener hace que cuando se eliga una fecha, se llene cbHorarios con los
+        //horarios de ese dia del medico
         this.view.getDatePicker().addDateSelectionListener((dateSelectionEvent) -> {
             this.llenarCbHorarios(this.view.getDatePicker().getSelectedDate());
         });
 
+        // le damos un valor por defecto de nulo al primer elemento del cbHorarios para evitar posibles errores
+        DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement(null);
+        this.view.getCbHorarios().setModel(modelo);
+        this.view.getCbServicios().setModel(modelo);
+        this.view.getCbServicios().setModel(modelo);
         this.llenarCbEspecialidades();
     }
 
     private void llenarCbEspecialidades() {
-
         try {
             DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
             modelo.addElement(null);
@@ -93,7 +110,6 @@ public class AgendarUnaCitaController implements ActionListener {
             JOptionPane.showMessageDialog(this.view, ex.getMessage(), "informacion", JOptionPane.INFORMATION_MESSAGE);
             ex.printStackTrace();
         }
-
     }
 
     /**
@@ -114,6 +130,23 @@ public class AgendarUnaCitaController implements ActionListener {
             ex.printStackTrace();
         }
 
+    }
+
+    private void llenarCbHorarios(LocalDate fecha) {
+        if (fecha != null) {
+            try {
+                String dia = TraductorDias.aString(fecha.getDayOfWeek());
+                DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
+                modelo.addElement(null);
+                List<Horario> horarios = doctorDao.ObtenerHorariosDeUnDia(this.doctorSeleccionado.getId(), dia);
+                for (Horario horario : horarios) {
+                    modelo.addElement(horario);
+                }
+                this.view.getCbHorarios().setModel(modelo);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(view, ex.getMessage(), "informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
     /**
@@ -167,22 +200,31 @@ public class AgendarUnaCitaController implements ActionListener {
             return false;
         });
     }
-
-    private void llenarCbHorarios(LocalDate fecha) {
-        try {
-            String dia = TraductorDias.aString(fecha.getDayOfWeek());
-
-            DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
-            List<Horario> horarios = doctorDao.ObtenerHorariosDeUnDia(this.doctorSeleccionado.getId(), dia);
-            for (Horario horario : horarios) {
-                modelo.addElement(horario);
-            }
-            this.view.getCbHorarios().setModel(modelo);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(view, ex.getMessage(), "informacion", JOptionPane.INFORMATION_MESSAGE);
+    
+    
+    private boolean validarCampos() {
+        if(this.pacienteSeleccionado == null
+                || this.view.getCbEspecialidad().getSelectedItem() == null
+                || this.doctorSeleccionado == null
+                || this.view.getCbServicios().getSelectedItem() == null
+                || !this.view.getDatePicker().isDateSelected()
+                || this.view.getCbHorarios().getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(view, "Todos los campos deben de estar lleno", "Error", JOptionPane.INFORMATION_MESSAGE);
+            return false;
         }
+        return true;
     }
-
+    
+    private Citas obtenerDatos () {
+        Citas nuevaCita = new Citas();
+        nuevaCita.setIdPaciente(this.pacienteSeleccionado.getId());
+        nuevaCita.setIdEspecialidad(((Especialidad) this.view.getCbEspecialidad().getSelectedItem()).getId());
+        nuevaCita.setIdDoctor(this.doctorSeleccionado.getId());
+        nuevaCita.setIdServicio(((Especialidad) this.view.getCbEspecialidad().getSelectedItem()).getId());
+        nuevaCita.setFecha(this.view.getDatePicker().getSelectedDate());
+        nuevaCita.setIdHorarioDoctor(((Horario) this.view.getCbHorarios().getSelectedItem()).getId());
+        return nuevaCita;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -213,9 +255,27 @@ public class AgendarUnaCitaController implements ActionListener {
             this.doctorSeleccionado = dialogController.obtenerDoctorSeleccionado();
             view.mostrarDoctorElegido(doctorSeleccionado);
             this.HabilitarDiasSeleccionables(Convertir(obtenerDiasHabiles()));
+            this.view.getCbHorarios().setSelectedIndex(0);
+            this.view.activarDatePicker();
 
         } else if (e.getSource() == this.view.getBtnAgendarUnaCita()) {
-            System.out.println("Todavia no esta implementado");
+            if (this.validarCampos()) {
+                try {
+                    citasDao.AgendarUnaCita(this.obtenerDatos());
+                    JOptionPane.showMessageDialog(view, "La cita ha sido agendada correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(view, ex.getMessage(),"informacion", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+
+        } else if (e.getSource() == this.view.getBtnAgendarUnaCita()) {
+
+        } else if (e.getSource() == this.view.getBtnLimpiarFiltros()) {
+            this.doctorSeleccionado = null;
+            this.pacienteSeleccionado = null;
+            this.view.limpiarCampos();
+            this.view.desactivarDatePicker();
+
         }
     }
 
