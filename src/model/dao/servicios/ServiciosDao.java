@@ -12,16 +12,52 @@ import model.servicios.Servicio;
 
 /**
  * Clase que se encarga de manipular los servicios
+ *
  * @author luis-
  */
 public class ServiciosDao {
     
+    public void eliminarServicio(int id) throws SQLException {
+        String sql = "CALL sp_eliminar_servicio(?)";
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, id);
+            cs.execute();
+            cs.close();
+        }
+    }
+
+    
+    
+    public void actualizarServicio(Servicio s) throws SQLException {
+        String sql = "CALL sp_actualizar_servicio(?,?,?)";
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, s.getId());
+            cs.setString(2, s.getDescripcion());
+            cs.setDouble(3, s.getPrecio());
+            cs.execute();
+            cs.close();
+        }
+    }
+    
+    
+    
+    public void registrarServicio(Servicio s) throws SQLException {
+        String sql = "CALL sp_registrar_servicio(?,?)";
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setString(1, s.getDescripcion());
+            cs.setDouble(2, s.getPrecio());
+            cs.execute();
+            cs.close();
+        }
+    }
+
     /**
      * Lista todos los servicios asociados a una especialidad
      *
      * @return <code>List Servicio</code> con todos los servicios asociados ala especialidad
      * @throws SQLException con mensaje de la db
      */
+
     public List<Servicio> listarServiciosDeUnaEspecialidad(int idEspecialidad) throws SQLException {
         String sql = "{CALL sp_listar_servicios_de_especialidad(?)}";
         List<Servicio> servicios = new ArrayList<>();
@@ -65,7 +101,7 @@ public class ServiciosDao {
         }
 
     }
-    
+
     /**
      * Lista todos los servicios registrados
      *
