@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.HistorialPago;

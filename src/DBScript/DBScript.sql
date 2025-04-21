@@ -1,4 +1,4 @@
--- version 6
+-- version 5
 create database citas;
 use citas;
 
@@ -896,15 +896,6 @@ END //
 DELIMITER ;
 
 
-
-
-
-
-
-
-
-
-
 -- STORED PROCEDURE: Mostrar Historial De pagos
 DELIMITER //
 CREATE PROCEDURE BuscarHistoricoPagos(IN filtro VARCHAR(100))
@@ -938,6 +929,7 @@ BEGIN
         OR mp.descripcion LIKE CONCAT('%', filtro, '%');
 END//
 DELIMITER ;
+
 
 DELIMITER //
 CREATE PROCEDURE sp_registrar_pago(
@@ -1040,6 +1032,18 @@ DELIMITER ;
 
 
 
+-- METODOS DE PAGO
+DELIMITER //
+
+-- SP: Insertar Método de Pago
+CREATE PROCEDURE insertar_metodo_pago(
+    IN p_descripcion VARCHAR(40)
+)
+BEGIN
+    INSERT INTO metodos_pagos (descripcion) VALUES (p_descripcion);
+END //
+
+DELIMITER ;
 
 
 

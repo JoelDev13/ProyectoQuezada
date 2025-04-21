@@ -9,6 +9,8 @@ import controller.ServiciosController;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
+import model.MetodoDePagoModel;
+import model.dao.MetodoDePagoDao;
 import model.dao.UsuarioDAO;
 import model.HistorialPago;
 import model.dao.PacienteDao;
@@ -20,6 +22,7 @@ import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
 import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
+;
 
 
 /*
@@ -117,7 +120,7 @@ public class Dashboard extends javax.swing.JFrame {
                         mostrarPanel(new PagosPanel());
 
                     case METODOS_DE_PAGOS ->
-                        mostrarPanel(new FormModelo());
+                        mostrarPanel(new MetodoDePago());
                     case LOG_OFF ->
                         dispose();
                     default ->

@@ -1,4 +1,4 @@
-/*
+/*//GEN-LINE:variables
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 import view.component.menu.event.EventMenu;
+import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
 
 /**
  *
@@ -47,7 +48,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         panelBotones = new view.component.RoundPanel();
@@ -155,7 +156,7 @@ public class Menu extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
     
     /**
      * inicializador especifico del rol secretaria.
@@ -337,7 +338,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JLabel LabelNombre;
     private view.component.menu.ImageAvatar imageAvatar1;
     private javax.swing.JLabel labelCorreo;
@@ -345,5 +346,5 @@ public class Menu extends javax.swing.JPanel {
     private view.component.RoundPanel panelBotones;
     private javax.swing.JPanel panelMenuMIG;
     private view.component.RoundPanel panelPerfil;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
