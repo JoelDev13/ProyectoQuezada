@@ -1,10 +1,12 @@
 package view;
 
 import controller.PacienteController;
+import controller.UsuarioController;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import model.dao.PacienteDAO;
+import model.dao.UsuarioDAO;
 import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
@@ -49,24 +51,29 @@ public class Dashboard extends javax.swing.JFrame {
             @Override
             public void seleccionado(Paneles panel) {
                // System.out.println(panel);
-                switch (panel) {
-                    case PACIENTES :
+               switch (panel) {
+                    case PACIENTES -> {
                         Pacientes p = new Pacientes();
                         PacienteDAO pDAO = new PacienteDAO();
                         PacienteController pController = new PacienteController(pDAO, p);
                         mostrarPanel(p);
-                        break;
-                    case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_CITAS : mostrarPanel(new FormModelo());  break;
-                    case AGENDA_DOC : mostrarPanel(new FormModelo());  break;
-                    case DOCTORES : mostrarPanel(new FormModelo());  break;
-                    case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;
-                    case USUARIOS : mostrarPanel(new FormModelo());  break;
-                    case SERVICIOS : mostrarPanel(new FormModelo());  break;
-                    case METODOS_DE_PAGOS: mostrarPanel(new FormModelo()); break;
-                    case HISTORICO_DE_PAGOS: mostrarPanel(new FormModelo());  break;
-                    case LOG_OFF :  dispose() ;  break;
-                    default: mostrarPanel(new FormModelo());
+                    }
+                    case AGENDAR_CITAS -> mostrarPanel(new FormModelo());
+                    case GESTOR_DE_CITAS -> mostrarPanel(new FormModelo());
+                    case AGENDA_DOC -> mostrarPanel(new FormModelo());
+                    case DOCTORES -> mostrarPanel(new FormModelo());
+                    case ESPECIALIDADES_DOC -> mostrarPanel(new FormModelo());
+                    case USUARIOS -> { 
+                        view.Usuarios p = new view.Usuarios();
+                        UsuarioDAO pDAO =  new UsuarioDAO();
+                        UsuarioController pController = new UsuarioController(p ,pDAO);
+                        mostrarPanel (p);
+                    }
+                    case SERVICIOS -> mostrarPanel(new FormModelo());
+                    case METODOS_DE_PAGOS -> mostrarPanel(new FormModelo());
+                    case HISTORICO_DE_PAGOS -> mostrarPanel(new FormModelo());
+                    case LOG_OFF -> dispose() ;
+                    default -> mostrarPanel(new FormModelo());
                 }
             }
         };

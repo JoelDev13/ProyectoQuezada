@@ -293,6 +293,91 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+
+CREATE PROCEDURE sp_listar_usuarios()
+BEGIN
+    SELECT ID, usuario, nombre, apellido, contrasena, email, telefono, rol, activo, imagen
+    FROM usuarios;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_crear_usuario(
+    IN p_nombre VARCHAR(40),
+    IN p_apellido VARCHAR(40),
+    IN p_usuario VARCHAR(50),
+    IN p_contrasena VARCHAR(50),
+    IN p_rol ENUM('DOCTOR', 'SECRETARIA', 'ADMIN'),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    IN p_imagen MEDIUMBLOB
+)
+BEGIN
+    INSERT INTO usuarios (nombre, apellido, usuario, contrasena, rol, email, telefono, imagen)
+    VALUES (p_nombre, p_apellido, p_usuario, p_contrasena, p_rol, p_email, p_telefono, p_imagen);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_actualizar_usuario(
+    IN p_id INT,
+    IN p_nombre VARCHAR(40),
+    IN p_apellido VARCHAR(40),
+    IN p_usuario VARCHAR(50),
+    IN p_contrasena VARCHAR(50),
+    IN p_rol ENUM('DOCTOR', 'SECRETARIA', 'ADMIN'),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    IN p_activo BOOLEAN,
+    IN p_imagen MEDIUMBLOB
+)
+BEGIN
+    UPDATE usuarios
+    SET nombre = p_nombre,
+        apellido = p_apellido,
+        usuario = p_usuario,
+        contrasena = p_contrasena,
+        rol = p_rol,
+        email = p_email,
+        telefono = p_telefono,
+        activo = p_activo,
+        imagen = p_imagen
+    WHERE ID = p_id;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_filtrar_usuarios(
+    IN p_nombre VARCHAR(40),
+    IN p_apellido VARCHAR(40),
+    IN p_usuario VARCHAR(50),
+    IN p_rol ENUM('DOCTOR', 'SECRETARIA', 'ADMIN'),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    IN p_activo BOOLEAN,
+    IN p_imagen MEDIUMBLOB
+)
+BEGIN
+    SELECT ID, usuario, nombre, apellido, email, telefono, rol, activo, imagen
+    FROM usuarios
+    WHERE (p_nombre IS NULL OR nombre LIKE CONCAT('%', p_nombre, '%'))
+      AND (p_apellido IS NULL OR apellido LIKE CONCAT('%', p_apellido, '%'))
+      AND (p_usuario IS NULL OR usuario LIKE CONCAT('%', p_usuario, '%'))
+      AND (p_rol IS NULL OR rol = p_rol)
+      AND (p_email IS NULL OR email LIKE CONCAT('%', p_email, '%'))
+      AND (p_telefono IS NULL OR telefono LIKE CONCAT('%', p_telefono, '%'))
+      AND (p_activo IS NULL OR activo = p_activo)
+      AND (p_imagen IS NULL OR imagen = p_imagen);
+END //
+
+DELIMITER ;
 
 
 

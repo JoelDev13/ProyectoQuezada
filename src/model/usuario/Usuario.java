@@ -117,14 +117,22 @@ public class Usuario {
         return this.activo;
     }
 
+    public boolean isActivo() {
+    return activo;
+}
     public void setActivo(boolean b) {
         this.activo = b;
     }
 
     @Override
-    public String toString() {
-        StringBuffer formatString = new StringBuffer("");
-        return formatString.append("\n" + getUsuario() + "\n" + getRol()).toString();
+   
+      public String toString() {
+    return getNombre() + " " + getApellido() + " (" + getRol() + ")";
+      }
+
+    public void setVisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+  
 }
