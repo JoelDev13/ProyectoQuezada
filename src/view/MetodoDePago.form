@@ -21,26 +21,33 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="286" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
-                      <Component id="roundedGreenButtomGuardar" min="-2" pref="170" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                      <Component id="roundedGreenButtom2" min="-2" pref="181" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="374" max="-2" attributes="0"/>
-                      <Component id="jLabelId" min="-2" pref="27" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="344" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelServicio" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldId" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="jTextFieldServicio" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="374" max="-2" attributes="0"/>
+                              <Component id="jLabelId" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="344" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelServicio" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldId" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldServicio" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace pref="105" max="32767" attributes="0"/>
+                      <Component id="roundedGreenButtomGuardar" min="-2" pref="180" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="roundedGreenButtomeditar" min="-2" pref="172" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="roundedGreenButtom2" min="-2" pref="179" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="181" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,8 +68,9 @@
                       <Component id="jTextFieldServicio" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="roundedGreenButtomGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="roundedGreenButtomGuardar" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                           <Component id="roundedGreenButtom2" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                          <Component id="roundedGreenButtomeditar" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -179,6 +187,17 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roundedGreenButtom2ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="view.RoundedGreenButtom" name="roundedGreenButtomeditar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/view/component/pacientes/icons/icons8-edit-30.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Editar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roundedGreenButtomeditarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
