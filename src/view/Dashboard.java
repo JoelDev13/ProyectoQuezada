@@ -1,6 +1,7 @@
 package view;
 
 import controller.AgendaDoctorController;
+import controller.AgendarUnaCitaController;
 import controller.CitasController;
 import controller.PacienteController;
 import java.awt.Color;
@@ -8,6 +9,7 @@ import java.awt.Component;
 import javax.swing.ImageIcon;
 import model.dao.PacienteDao;
 import model.dao.citas.CitasDao;
+import model.dao.doctor.DoctorLigeroDAO;
 import model.dao.especialidad.EspecialidadDao;
 import model.dao.servicios.ServiciosDao;
 import model.usuario.Usuario;
@@ -56,14 +58,22 @@ public class Dashboard extends javax.swing.JFrame {
             public void seleccionado(Paneles panel) {
                // System.out.println(panel);
                 switch (panel) {
-                    case PACIENTES :
+                    case PACIENTES -> {
                         Pacientes p = new Pacientes();
                         PacienteDao pDAO = new PacienteDao();
                         PacienteController pController = new PacienteController(pDAO, p);
                         mostrarPanel(p);
-                        break;
-                    case AGENDAR_CITAS : mostrarPanel(new FormModelo());  break;
-                    case GESTOR_DE_CITAS:
+                    }
+                    case AGENDAR_CITAS -> { 
+                        AgendarUnaCita agendarView = new AgendarUnaCita();
+                        CitasDao agendarCitaDao = new CitasDao();
+                        ServiciosDao servicioDao = new ServiciosDao();
+                        EspecialidadDao especialidadDao = new EspecialidadDao();
+                        DoctorLigeroDAO doctorDao = new DoctorLigeroDAO();
+                        AgendarUnaCitaController agendarController = new AgendarUnaCitaController(agendarView, agendarCitaDao, especialidadDao, servicioDao, doctorDao);
+                        mostrarPanel(agendarView);
+                    }
+                    case GESTOR_DE_CITAS -> {
                         System.out.println("ENTRASTE AL PANEL");
 
                         Citas citasView = new Citas();
@@ -73,9 +83,8 @@ public class Dashboard extends javax.swing.JFrame {
                         
                         CitasController citasController = new CitasController(citasView, citasDao, servicioDao, especialidadDao);
                         mostrarPanel(citasView);
-                        
-                        break;
-                    case AGENDA_DOC : 
+                    }
+                    case AGENDA_DOC -> { 
                         Citas citasView2 = new Citas();
                         CitasDao citasDao2 = new CitasDao();
                         ServiciosDao servicioDao2 = new ServiciosDao();
@@ -83,20 +92,17 @@ public class Dashboard extends javax.swing.JFrame {
                         
                         AgendaDoctorController agendaController = new AgendaDoctorController(citasView2, citasDao2, servicioDao2, especialidadDao2, usuario);
                         mostrarPanel(citasView2);
-                        
-                        break;
-                    case DOCTORES : mostrarPanel(new FormModelo());  break;
-                    case ESPECIALIDADES_DOC: mostrarPanel(new FormModelo()); break;
-                    case USUARIOS : mostrarPanel(new FormModelo());  break;
-                    case SERVICIOS : mostrarPanel(new FormModelo());  break;
+                    }
+                    case DOCTORES -> mostrarPanel(new FormModelo());
+                    case ESPECIALIDADES_DOC -> mostrarPanel(new FormModelo());
+                    case USUARIOS -> mostrarPanel(new FormModelo());
+                    case SERVICIOS -> mostrarPanel(new FormModelo());
                     
-                    case HISTORICO_DE_PAGOS:
-                        System.out.println("Llegue");
-                        break;
+                    case HISTORICO_DE_PAGOS -> System.out.println("Llegue");
                         
-                    case METODOS_DE_PAGOS: mostrarPanel(new Citas()); break;
-                    case LOG_OFF :  dispose() ;  break;
-                    default: mostrarPanel(new FormModelo());
+                    case METODOS_DE_PAGOS -> mostrarPanel(new Citas());
+                    case LOG_OFF -> dispose() ;
+                    default -> mostrarPanel(new FormModelo());
                 }
             }
         };

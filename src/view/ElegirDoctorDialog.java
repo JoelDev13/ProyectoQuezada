@@ -67,6 +67,7 @@ public class ElegirDoctorDialog extends javax.swing.JDialog {
                 + "background:$Table.background;");
     }
     
+
     
     
     public JButton getBtnFiltrar() {
@@ -136,8 +137,8 @@ public class ElegirDoctorDialog extends javax.swing.JDialog {
         pnlFiltrado.setLayout(pnlFiltradoLayout);
         pnlFiltradoLayout.setHorizontalGroup(
             pnlFiltradoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFiltradoLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltradoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlFiltradoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +151,7 @@ public class ElegirDoctorDialog extends javax.swing.JDialog {
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(60, 60, 60))
         );
 
         pnlFiltradoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelNombre, lbApellido});
@@ -186,7 +187,7 @@ public class ElegirDoctorDialog extends javax.swing.JDialog {
         panelMIG.setLayout(panelMIGLayout);
         panelMIGLayout.setHorizontalGroup(
             panelMIGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGap(0, 527, Short.MAX_VALUE)
         );
         panelMIGLayout.setVerticalGroup(
             panelMIGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +203,7 @@ public class ElegirDoctorDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                    .addComponent(scroll)
                     .addComponent(pnlFiltrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );

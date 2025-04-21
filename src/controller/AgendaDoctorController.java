@@ -165,7 +165,7 @@ public class AgendaDoctorController extends CitasController {
             if (actualizacion != null) {
                 try {
                     citasDao.actualizarCita(actualizacion);
-                    this.listarTodos();
+                    this.listarCitasDelDoctor();
                     JOptionPane.showMessageDialog(ventanaPadre, "Cita actualizada correctamente", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(citasView, e.getMessage(), "informacion", JOptionPane.INFORMATION_MESSAGE);

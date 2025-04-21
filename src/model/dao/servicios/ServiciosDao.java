@@ -17,6 +17,30 @@ import model.servicios.Servicio;
 public class ServiciosDao {
     
     /**
+     * Lista todos los servicios asociados a una especialidad
+     *
+     * @return <code>List Servicio</code> con todos los servicios asociados ala especialidad
+     * @throws SQLException con mensaje de la db
+     */
+    public List<Servicio> listarServiciosDeUnaEspecialidad(int idEspecialidad) throws SQLException {
+        String sql = "{CALL sp_listar_servicios_de_especialidad(?)}";
+        List<Servicio> servicios = new ArrayList<>();
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, idEspecialidad);
+            try (ResultSet rs = cs.executeQuery();) {
+                while (rs.next()) {
+                    Servicio s = new Servicio();
+                    s.setId(rs.getInt("id_servicio"));
+                    s.setDescripcion(rs.getString("servicio_descripcion"));
+                    servicios.add(s);
+                }
+            }
+            return servicios;
+        }
+
+    }
+
+    /**
      * Lista todos los servicios que ofrece un medico
      *
      * @return <code>List Servicio</code> con todos los servicios que ofrece el medico
