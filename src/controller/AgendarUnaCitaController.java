@@ -20,6 +20,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import model.citas.Citas;
+import model.dao.MetodoDePagoDao;
 import model.dao.PacienteDao;
 import model.dao.citas.CitasDao;
 import model.dao.doctor.DoctorLigeroDAO;
@@ -35,9 +36,10 @@ import view.AgendarUnaCita;
 import view.EditarFechaCitaDialog;
 import view.ElegirDoctorDialog;
 import view.ElegirPacienteDialog;
+import view.PagarUnaCitaDialog;
 
 /**
- *
+ * Controllador de la vista AgendarUnaCita
  * @author luis-
  */
 public class AgendarUnaCitaController implements ActionListener {
@@ -200,10 +202,9 @@ public class AgendarUnaCitaController implements ActionListener {
             return false;
         });
     }
-    
-    
+
     private boolean validarCampos() {
-        if(this.pacienteSeleccionado == null
+        if (this.pacienteSeleccionado == null
                 || this.view.getCbEspecialidad().getSelectedItem() == null
                 || this.doctorSeleccionado == null
                 || this.view.getCbServicios().getSelectedItem() == null
@@ -214,8 +215,8 @@ public class AgendarUnaCitaController implements ActionListener {
         }
         return true;
     }
-    
-    private Citas obtenerDatos () {
+
+    private Citas obtenerDatos() {
         Citas nuevaCita = new Citas();
         nuevaCita.setIdPaciente(this.pacienteSeleccionado.getId());
         nuevaCita.setIdEspecialidad(((Especialidad) this.view.getCbEspecialidad().getSelectedItem()).getId());
@@ -224,6 +225,13 @@ public class AgendarUnaCitaController implements ActionListener {
         nuevaCita.setFecha(this.view.getDatePicker().getSelectedDate());
         nuevaCita.setIdHorarioDoctor(((Horario) this.view.getCbHorarios().getSelectedItem()).getId());
         return nuevaCita;
+    }
+
+    private void limpiarFiltros() {
+        this.doctorSeleccionado = null;
+        this.pacienteSeleccionado = null;
+        this.view.limpiarCampos();
+        this.view.desactivarDatePicker();
     }
 
     @Override
@@ -261,20 +269,30 @@ public class AgendarUnaCitaController implements ActionListener {
         } else if (e.getSource() == this.view.getBtnAgendarUnaCita()) {
             if (this.validarCampos()) {
                 try {
-                    citasDao.AgendarUnaCita(this.obtenerDatos());
-                    JOptionPane.showMessageDialog(view, "La cita ha sido agendada correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+                    double monto = ((Servicio) this.view.getCbServicios().getSelectedItem()).getPrecio();
+                    Frame ventanaPadre = (Frame) SwingUtilities.getWindowAncestor(view);
+                    MetodoDePagoDao metodoDao = new MetodoDePagoDao();
+
+                    PagarUnaCitaDialog dialog = new PagarUnaCitaDialog(ventanaPadre, true, monto, metodoDao);
+                    dialog.setLocationRelativeTo(ventanaPadre);
+                    dialog.setVisible(true);
+                    Integer idMetodoDePago = null;
+                    idMetodoDePago = dialog.obtenerMetodoDePago();
+
+                    if (idMetodoDePago != null) {
+                        citasDao.AgendarUnaCita(this.obtenerDatos(), monto, idMetodoDePago);
+                        JOptionPane.showMessageDialog(view, "La cita ha sido agendada correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                        this.limpiarFiltros();
+                    }
+
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(view, ex.getMessage(),"informacion", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(view, ex.getMessage(), "informacion", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
 
-        } else if (e.getSource() == this.view.getBtnAgendarUnaCita()) {
-
         } else if (e.getSource() == this.view.getBtnLimpiarFiltros()) {
-            this.doctorSeleccionado = null;
-            this.pacienteSeleccionado = null;
-            this.view.limpiarCampos();
-            this.view.desactivarDatePicker();
+            this.limpiarFiltros();
 
         }
     }

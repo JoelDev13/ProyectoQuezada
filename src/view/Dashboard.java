@@ -103,7 +103,7 @@ public class Dashboard extends javax.swing.JFrame {
                     
                     case HISTORICO_DE_PAGOS -> mostrarPanel(new PagosPanel());
                         
-                    case METODOS_DE_PAGOS -> mostrarPanel(new Citas());
+                    case METODOS_DE_PAGOS -> mostrarPanel(new FormModelo());
                     case LOG_OFF -> dispose() ;
                     default -> mostrarPanel(new FormModelo());
                 }

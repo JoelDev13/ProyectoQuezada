@@ -49,8 +49,8 @@ public class CitasDao {
      * @param cita objeto Cita con el ID de cita, fecha nueva y estado nuevo.
      * @throws SQLException con un mensaje de la base de datos
      */
-    public void AgendarUnaCita(Citas cita) throws SQLException {
-        String sql = "{CALL sp_agendar_cita(?,?,?,?,?,?)}";
+    public void AgendarUnaCita(Citas cita, double monto, int idMetodo) throws SQLException {
+        String sql = "{CALL sp_agendar_cita(?,?,?,?,?,?,?,?)}";
         try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
             cs.setInt(1, cita.getIdPaciente());
             cs.setInt(2, cita.getIdDoctor());
@@ -58,6 +58,8 @@ public class CitasDao {
             cs.setInt(4, cita.getIdServicio());
             cs.setInt(5, cita.getIdEspecialidad());
             cs.setDate(6, java.sql.Date.valueOf(cita.getFecha()));
+            cs.setDouble(7, monto);
+            cs.setInt(8, idMetodo);
             cs.execute();
         }
     }

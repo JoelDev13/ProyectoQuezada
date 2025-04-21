@@ -32,6 +32,7 @@ public class ServiciosDao {
                     Servicio s = new Servicio();
                     s.setId(rs.getInt("id_servicio"));
                     s.setDescripcion(rs.getString("servicio_descripcion"));
+                    s.setPrecio(rs.getDouble("servicio_precio"));
                     servicios.add(s);
                 }
             }

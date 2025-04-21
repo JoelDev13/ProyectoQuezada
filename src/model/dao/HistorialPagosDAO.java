@@ -9,19 +9,32 @@ import model.HistorialPago;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import model.HistorialPagoModel;
 
 /**
  *
  * @author la
  */
 public class HistorialPagosDAO {
+
+    public void registrarPago(HistorialPagoModel historial) throws SQLException {
+        String sql = "{CALL sp_registrar_pago(?,?,?)}";
+
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql);) {
+            cs.setInt(1, historial.getIdCita());
+            cs.setDouble(2, historial.getMonto());
+            cs.setInt(sql, historial.getIdMetodoDePago());
+            cs.execute();
+
+        }
+    }
+
     public List<HistorialPago> buscarHistoricoPagos(String filtro) {
         List<HistorialPago> pagos = new ArrayList<>();
         String sql = "{CALL BuscarHistoricoPagos(?)}";  // Llamada al STORED PROCEDURE: Mostrar Historial De pagos
 
-        try (Connection conn = ConexionDB.obtenerConexion();  // Usamos la conexión centralizada
-             CallableStatement stmt = conn.prepareCall(sql)) {
+        try (Connection conn = ConexionDB.obtenerConexion(); // Usamos la conexión centralizada
+                 CallableStatement stmt = conn.prepareCall(sql)) {
 
             stmt.setString(1, "%" + filtro.toLowerCase() + "%");  // Filtro insensible a mayúsculas y minúsculas
             ResultSet rs = stmt.executeQuery();  // Ejecuta la consulta
