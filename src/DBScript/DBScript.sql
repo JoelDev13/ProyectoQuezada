@@ -1,4 +1,4 @@
--- version 5
+-- version 6
 create database citas;
 use citas;
 
@@ -196,7 +196,8 @@ SELECT
     e.ID AS ID_especialidad,
     e.descripcion AS especialidad_descripcion,
     s.ID AS ID_servicio,
-    s.descripcion AS servicio_descripcion
+    s.descripcion AS servicio_descripcion,
+    s.precio as servicio_precio
 FROM especialidad e
 JOIN servicios_especialidad se ON e.ID = se.ID_especialidad 
 JOIN servicios s ON se.ID_servicio = s.ID;
@@ -316,9 +317,13 @@ BEGIN
     FROM usuarios
     WHERE usuario = p_usuario;
 
+	IF v_activo = false THEN
+		 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Usuario desactivado';
+    END IF;
+
     -- Verificar si el usuario existe
     IF v_usuario IS NULL THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Usuario no encontrado';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Usuario no encontradVerificarLogino';
     END IF;
 
     -- Verificar si la contraseña coincide
@@ -334,7 +339,7 @@ END //
 DELIMITER ;
 
 
---  Store Procedures de Paciente
+--  PACIENTE
 -- Trae todos los pacientes
 DELIMITER //
 CREATE procedure sp_listar_pacientes ()
@@ -492,7 +497,7 @@ END //
 DELIMITER ;
 
 
--- store procedures de doctores
+-- DOCTORES
 
 DELIMITER //
 CREATE PROCEDURE sp_filtrar_doctores(
@@ -592,7 +597,6 @@ END //
 DELIMITER ;
 
 
--- ESPECIALIDADES
 
 DELIMITER //
 CREATE PROCEDURE sp_listar_especialidades_medico_especifico(
@@ -616,6 +620,9 @@ END //
 DELIMITER ;
 
 call sp_listar_especialidades_medico_especifico(2)
+
+
+-- SERVICIOS
 
 -- Recopila todos los servicios que puede brindar un medico
 DELIMITER //
@@ -644,15 +651,10 @@ CREATE PROCEDURE sp_listar_servicios_de_especialidad(
 	IN p_id INT
 )
 BEGIN
-	SELECT ID_servicio, servicio_descripcion FROM vista_servicio_especialidad  WHERE ID_especialidad = p_id;
+	SELECT ID_servicio, servicio_descripcion, servicio_precio FROM vista_servicio_especialidad  WHERE ID_especialidad = p_id;
 END //
 DELIMITER ;
 
-CALL sp_listar_servicios_de_especialidad(1)
-
-select * from pacientes
-
--- SERVICIOS
 
 
 DELIMITER //
@@ -661,6 +663,113 @@ BEGIN
 	SELECT id, descripcion, precio FROM servicios;
 END //
 DELIMITER ;
+
+
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE sp_registrar_servicio (
+	IN p_descripcion varchar(40),
+    IN p_precio decimal(10,2)
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+        RESIGNAL;
+    END;
+		IF p_descripcion IS NULL OR CHAR_LENGTH(p_descripcion) = 0 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'la descripcion no puede estar vacia';
+		END IF;
+        
+		IF p_precio IS NULL OR p_precio = 0 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'El servicio debe de tener un precio';
+		END IF;
+    
+    
+    START TRANSACTION;
+		INSERT INTO servicios (descripcion, precio) VALUES (p_descripcion, p_precio);
+    COMMIT;
+END //
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE sp_actualizar_servicio (
+	IN p_id INT,
+	IN p_descripcion varchar(40),
+    IN p_precio decimal(10,2)
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+        RESIGNAL;
+    END;
+    
+		IF p_descripcion IS NULL OR CHAR_LENGTH(p_descripcion) = 0 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'la descripcion no puede estar vacia';
+		END IF;
+        
+		IF p_precio IS NULL OR p_precio = 0 THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'El servicio debe de tener un precio';
+		END IF;
+    
+    
+    
+    START TRANSACTION;
+		UPDATE SERVICIOS SET descripcion = p_descripcion,  precio = p_precio WHERE ID = p_id;
+    COMMIT;
+END //
+DELIMITER ;
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_servicio (
+	IN p_id INT
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+        RESIGNAL;
+    END;
+    
+		IF EXISTS (SELECT 1 FROM citas where ID_servicio = p_id) THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'No se puede eliminar un servico al que ya se le haya agendado citas';
+        END IF;
+    
+    START TRANSACTION;
+		DELETE FROM servicios where ID = p_id;
+    COMMIT;
+END //
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 -- CITAS
@@ -672,16 +781,30 @@ CREATE PROCEDURE sp_agendar_cita(
     IN p_id_horario INT,
     IN p_id_servicio INT,
     IN p_id_especialidad INT,
-    IN p_fecha date
+    IN p_fecha date,
+    IN p_monto decimal(10,2),
+    IN p_id_metodo_pago INT
 )
 BEGIN
 	-- No usare un handler. El trigger se encargara de detener la insercion (BEFORE)
+    
+    DECLARE nueva_cita_id INT;
     
     INSERT INTO citas(ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha)
     VALUES
     (p_pacienteID, p_doctorID,  p_id_horario, p_id_servicio, p_id_especialidad, p_fecha );
     
+    -- luego de insertar la cita, se inserta un registro en el historico
+    SET nueva_cita_id = LAST_INSERT_ID();
+     INSERT INTO historico_pagos(
+        ID_cita, monto, ID_metodo_pago 
+    )
+    VALUES (
+        nueva_cita_id, p_monto, p_id_metodo_pago
+    );
+    
 END//
+
 
 DELIMITER ;
 
@@ -814,9 +937,106 @@ BEGIN
         OR s.descripcion LIKE CONCAT('%', filtro, '%')
         OR mp.descripcion LIKE CONCAT('%', filtro, '%');
 END//
-
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE sp_registrar_pago(
+	IN p_id_cita INT,
+    IN p_monto decimal(10,2),
+    IN p_id_metodo_pago INT
+)
+BEGIN
+	INSERT INTO historico_pagos (ID_cita, monto, ID_metodo_pago) values(p_id_cita, p_monto, p_id_metodo_pago);
+END //
+DELIMITER ;
+
+
+
+
+-- USUARIOS
+
+DELIMITER //
+CREATE PROCEDURE sp_listar_usuarios()
+BEGIN
+    SELECT ID, usuario, nombre, apellido, contrasena, email, telefono, rol, activo, imagen
+    FROM usuarios;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE sp_crear_usuario(
+    IN p_nombre VARCHAR(40),
+    IN p_apellido VARCHAR(40),
+    IN p_usuario VARCHAR(50),
+    IN p_contrasena VARCHAR(50),
+    IN p_rol ENUM('DOCTOR', 'SECRETARIA', 'ADMIN'),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    IN p_activo boolean,
+    IN p_imagen MEDIUMBLOB
+)
+BEGIN
+    INSERT INTO usuarios (nombre, apellido, usuario, contrasena, rol, email, activo, telefono, imagen)
+    VALUES (p_nombre, p_apellido, p_usuario, p_contrasena, p_rol, p_email, p_activo, p_telefono, p_imagen);
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE sp_actualizar_usuario(
+    IN p_id INT,
+    IN p_nombre VARCHAR(40),
+    IN p_apellido VARCHAR(40),
+    IN p_usuario VARCHAR(50),
+    IN p_contrasena VARCHAR(50),
+    IN p_rol ENUM('DOCTOR', 'SECRETARIA', 'ADMIN'),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    IN p_activo BOOLEAN,
+    IN p_imagen MEDIUMBLOB
+)
+BEGIN
+    UPDATE usuarios
+    SET nombre = p_nombre,
+        apellido = p_apellido,
+        usuario = p_usuario,
+        contrasena = p_contrasena,
+        rol = p_rol,
+        email = p_email,
+        telefono = p_telefono,
+        activo = p_activo,
+        imagen = p_imagen
+    WHERE ID = p_id;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_usuarios(
+    IN p_nombre VARCHAR(40),
+    IN p_apellido VARCHAR(40),
+    IN p_usuario VARCHAR(50),
+    IN p_rol ENUM('DOCTOR', 'SECRETARIA', 'ADMIN'),
+    IN p_email VARCHAR(70),
+    IN p_telefono VARCHAR(12),
+    IN p_activo BOOLEAN,
+    IN p_imagen MEDIUMBLOB
+)
+BEGIN
+    SELECT ID, usuario, nombre, apellido, email, telefono, rol, activo, imagen
+    FROM usuariosS
+    WHERE (p_nombre IS NULL OR nombre LIKE CONCAT('%', p_nombre, '%'))
+      AND (p_apellido IS NULL OR apellido LIKE CONCAT('%', p_apellido, '%'))
+      AND (p_usuario IS NULL OR usuario LIKE CONCAT('%', p_usuario, '%'))
+      AND (p_rol IS NULL OR rol = p_rol)
+      AND (p_email IS NULL OR email LIKE CONCAT('%', p_email, '%'))
+      AND (p_telefono IS NULL OR telefono LIKE CONCAT('%', p_telefono, '%'))
+      AND (p_activo IS NULL OR activo = p_activo)
+      AND (p_imagen IS NULL OR imagen = p_imagen);
+END //
+
+DELIMITER ;
 
 
 

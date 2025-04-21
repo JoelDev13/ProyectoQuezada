@@ -4,10 +4,12 @@ import controller.AgendaDoctorController;
 import controller.AgendarUnaCitaController;
 import controller.CitasController;
 import controller.PacienteController;
+import controller.UsuarioController;
 import controller.ServiciosController;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
+import model.dao.UsuarioDAO;
 import model.HistorialPago;
 import model.dao.PacienteDao;
 import model.dao.citas.CitasDao;
@@ -24,11 +26,8 @@ import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
- * * Este dashboard tiene la propiedad undecorated activada, por lo que no se muestran sus bordes.
- * Este es el siguiente view que viene despues del Login. Este recibe un parametro llamado ROl
- * que utilizara para llamar a un inicializador espececifico del menu.
+ * * Este dashboard tiene la propiedad undecorated activada, por lo que no se muestran sus bordes. Este es el siguiente view que viene despues del Login. Este recibe un parametro llamado ROl que utilizara para llamar a un inicializador espececifico del menu.
  *
  * @author luis-
  *
@@ -37,15 +36,14 @@ public class Dashboard extends javax.swing.JFrame {
 
     /**
      * Crea una nueva vista Dashboard usando la informacion de un usuario
+     *
      * @usuario usuario de donde se extraen los datos
      */
-    
     // TODO cambiar el detalle del rol a un ENUM
-
-    public Dashboard(Usuario usuario) { 
+    public Dashboard(Usuario usuario) {
         initComponents();
         setBackground(new Color(0, 0, 0, 0)); // hacemos transparente la ventana
- 
+
         /*
             La interfaz EventMenu fue creada unicamente para ser sobreescrita
             en este punto. 
@@ -53,14 +51,12 @@ public class Dashboard extends javax.swing.JFrame {
             Si quieres agregar tu panel a los botones del Dashboard, haz que
             el case especifico de tu panel cree una vista y un controlador y los una.
             Luego que pase la vista al metodo mostrarPanel
-        */
-        
+         */
         EventMenu event = new EventMenu() {
             @Override
             public void seleccionado(Paneles panel) {
-               // System.out.println(panel);
-                        
-               
+                // System.out.println(panel);
+
                 switch (panel) {
                     case PACIENTES -> {
                         Pacientes p = new Pacientes();
@@ -68,7 +64,7 @@ public class Dashboard extends javax.swing.JFrame {
                         PacienteController pController = new PacienteController(pDAO, p);
                         mostrarPanel(p);
                     }
-                    case AGENDAR_CITAS -> { 
+                    case AGENDAR_CITAS -> {
                         AgendarUnaCita agendarView = new AgendarUnaCita();
                         CitasDao agendarCitaDao = new CitasDao();
                         ServiciosDao servicioDao = new ServiciosDao();
@@ -84,22 +80,31 @@ public class Dashboard extends javax.swing.JFrame {
                         CitasDao citasDao = new CitasDao();
                         ServiciosDao servicioDao = new ServiciosDao();
                         EspecialidadDao especialidadDao = new EspecialidadDao();
-                        
+
                         CitasController citasController = new CitasController(citasView, citasDao, servicioDao, especialidadDao);
                         mostrarPanel(citasView);
                     }
-                    case AGENDA_DOC -> { 
+                    case AGENDA_DOC -> {
                         Citas citasView2 = new Citas();
                         CitasDao citasDao2 = new CitasDao();
                         ServiciosDao servicioDao2 = new ServiciosDao();
                         EspecialidadDao especialidadDao2 = new EspecialidadDao();
-                        
+
                         AgendaDoctorController agendaController = new AgendaDoctorController(citasView2, citasDao2, servicioDao2, especialidadDao2, usuario);
                         mostrarPanel(citasView2);
                     }
-                    case DOCTORES -> mostrarPanel(new FormModelo());
-                    case ESPECIALIDADES_DOC -> mostrarPanel(new FormModelo());
-                    case USUARIOS -> mostrarPanel(new FormModelo());
+                    case DOCTORES ->
+                        mostrarPanel(new FormModelo());
+                        
+                    case ESPECIALIDADES_DOC ->
+                        mostrarPanel(new FormModelo());
+                        
+                    case USUARIOS -> {
+                        view.Usuarios p = new view.Usuarios();
+                        UsuarioDAO pDAO = new UsuarioDAO();
+                        UsuarioController pController = new UsuarioController(p, pDAO);
+                        mostrarPanel(p);
+                    }
                     case SERVICIOS -> {
                         panelServicios panelServicios = new panelServicios();
                         ServiciosDao servicioDao = new ServiciosDao();
@@ -107,25 +112,36 @@ public class Dashboard extends javax.swing.JFrame {
                         mostrarPanel(panelServicios);
 
                     }
-                    
-                    case HISTORICO_DE_PAGOS -> mostrarPanel(new PagosPanel());
-                        
-                    case METODOS_DE_PAGOS -> mostrarPanel(new FormModelo());
-                    case LOG_OFF -> dispose() ;
-                    default -> mostrarPanel(new FormModelo());
+
+                    case HISTORICO_DE_PAGOS ->
+                        mostrarPanel(new PagosPanel());
+
+                    case METODOS_DE_PAGOS ->
+                        mostrarPanel(new FormModelo());
+                    case LOG_OFF ->
+                        dispose();
+                    default ->
+                        mostrarPanel(new FormModelo());
                 }
             }
         };
-        
+
         // Dependiendo del rol entregado, se inicializa el menu adecuado.
         switch (usuario.getRol()) {
-            case ADMIN: menu1.initAdmin(event); break;
-            case DOCTOR: menu1.initDoctor(event); break;
-            case SECRETARIA: menu1.initSecretaria(event); break;
-            default: throw new AssertionError();
-            
+            case ADMIN:
+                menu1.initAdmin(event);
+                break;
+            case DOCTOR:
+                menu1.initDoctor(event);
+                break;
+            case SECRETARIA:
+                menu1.initSecretaria(event);
+                break;
+            default:
+                throw new AssertionError();
+
         }
-        
+
         // setteamos la informacion del usuario en el perfil del menu.
         menu1.cambiarNombrePerfil(usuario.getNombre() + usuario.getApellido());
         menu1.cambiarCorreoPerfil(usuario.getEmail());
@@ -137,9 +153,10 @@ public class Dashboard extends javax.swing.JFrame {
 //        Agregar en este comentario un menu predeterminado.
 //        mostrarPanel(new FormModelo());
     }
-    
+
     /**
-     * Metodo usado para cambiar el panel mostrado por el Dashboard. 
+     * Metodo usado para cambiar el panel mostrado por el Dashboard.
+     *
      * @param comp El panel que va a mostrar ahora el dashboard.
      */
     private void mostrarPanel(Component comp) {
@@ -148,8 +165,7 @@ public class Dashboard extends javax.swing.JFrame {
         panelCambiante.revalidate();
         panelCambiante.repaint();
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */

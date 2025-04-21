@@ -295,6 +295,7 @@ public class Menu extends javax.swing.JPanel {
      * @param imagenBytes imagen a ser mostrada.
      */
     public void cambiarFotoPerfil(byte[] imagenBytes) {
+        System.out.println("Hola");
         if (imagenBytes == null) {
             try {
                 URL url = getClass().getResource("/view/component/menu/icons/avatar/p2.png");
@@ -305,9 +306,9 @@ public class Menu extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
                 System.out.println("Ops!, No se encontro la ruta mi pana");
             }
-            ImageIcon imagen = new ImageIcon(imagenBytes);
-            imageAvatar1.setIcon(imagen);
         }
+        ImageIcon imagen = new ImageIcon(imagenBytes);
+        imageAvatar1.setIcon(imagen);
     }
 
 
