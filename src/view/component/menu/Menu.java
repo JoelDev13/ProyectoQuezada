@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 import view.component.menu.event.EventMenu;
+import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
 
 /**
  *
@@ -197,7 +198,7 @@ public class Menu extends javax.swing.JPanel {
 
         agregarMenu(getIconResource("servicios.png"), "Servicios", Paneles.SERVICIOS);
         agregarMenu(getIconResource("pagos.png"), "Historico de pagos", Paneles.HISTORICO_DE_PAGOS);
-        agregarMenu(getIconResource("pagos.png"), "Metodos de pago", Paneles.HISTORICO_DE_PAGOS);
+        agregarMenu(getIconResource("pagos.png"), "Metodos de pago", Paneles.METODOS_DE_PAGOS);
         agregarLogOut();
     }
     

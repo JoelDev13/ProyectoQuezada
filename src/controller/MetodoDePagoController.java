@@ -59,7 +59,7 @@ public class MetodoDePagoController {
         }
 
         // Verifica que la descripción no esté repetida
-        if (dao.obtenerPorDescripcion(descripcion) != null) { // getter
+        if (dao.obtenerPorDescripcion(descripcion) != null) { 
             System.out.println("La descripción ya está en uso.");
             return false;
         }

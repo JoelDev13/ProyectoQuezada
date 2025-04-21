@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author la
  */
-public class HistorialPagosDAO {
+public class HistorialPagosDao {
     public List<HistorialPago> buscarHistoricoPagos(String filtro) {
         List<HistorialPago> pagos = new ArrayList<>();
         String sql = "{CALL BuscarHistoricoPagos(?)}";  // Llamada al STORED PROCEDURE: Mostrar Historial De pagos

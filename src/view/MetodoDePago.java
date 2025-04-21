@@ -22,6 +22,8 @@ public class MetodoDePago extends javax.swing.JPanel {
         initComponents();
         cargarLista();
         
+    
+        
 
     }
 
@@ -39,7 +41,6 @@ public class MetodoDePago extends javax.swing.JPanel {
         jLabelServicio = new javax.swing.JLabel();
         jTextFieldServicio = new javax.swing.JTextField();
         jButtonGuardar = new javax.swing.JButton();
-        jButtonEditar = new javax.swing.JButton();
         jButtonBorrar = new javax.swing.JButton();
         jPanelFondo = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
@@ -56,13 +57,6 @@ public class MetodoDePago extends javax.swing.JPanel {
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
-            }
-        });
-
-        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-edit-30.png"))); // NOI18N
-        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditarActionPerformed(evt);
             }
         });
 
@@ -95,6 +89,13 @@ public class MetodoDePago extends javax.swing.JPanel {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setToolTipText("");
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -113,7 +114,7 @@ public class MetodoDePago extends javax.swing.JPanel {
                         .addGap(246, 246, 246)
                         .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(211, 211, 211)
+                        .addGap(233, 233, 233)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
@@ -122,11 +123,9 @@ public class MetodoDePago extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(jButtonBorrar)))
-                .addContainerGap(238, Short.MAX_VALUE))
+                        .addGap(181, 181, 181)
+                        .addComponent(jButtonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,9 +145,8 @@ public class MetodoDePago extends javax.swing.JPanel {
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(264, 380, Short.MAX_VALUE))
+                            .addComponent(jButtonBorrar))
+                        .addGap(264, 374, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,6 +155,8 @@ public class MetodoDePago extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        
+        
         String descripcion = jTextFieldServicio.getText();
         MetodoDePagoModel nuevoMetodo = new MetodoDePagoModel(descripcion);
 
@@ -166,23 +166,6 @@ public class MetodoDePago extends javax.swing.JPanel {
         jTextFieldServicio.setText("");
         cargarLista();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
-
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        int id = Integer.parseInt(jTextFieldId.getText());
-        String descripcion = jTextFieldServicio.getText();
-
-        jTextFieldId.setEnabled(true);
-        jTextFieldServicio.setEnabled(true);
-
-        MetodoDePagoDao dao = new MetodoDePagoDao();
-        if (dao.actualizarMetodo(id, descripcion)) {
-            cargarLista();
-            jTextFieldId.setText("");
-            jTextFieldServicio.setText("");
-            jTextFieldId.setEnabled(false);
-            jTextFieldServicio.setEnabled(false);
-        }
-    }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
        int id = Integer.parseInt(jTextFieldId.getText());
@@ -195,10 +178,20 @@ public class MetodoDePago extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        // Verifica que no sea un cambio intermedio osea que el valor haya sido completamente seleccionado
+    if (!evt.getValueIsAdjusting()) {
+        // Obtiene el valor seleccionado en el JList
+        String metodoPagoSeleccionado = jList1.getSelectedValue();
+        
+        // Actualiza el JTextField con el valor seleccionado
+        jTextFieldServicio.setText(metodoPagoSeleccionado);
+    }
+    }//GEN-LAST:event_jList1ValueChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBorrar;
-    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelId;
     private javax.swing.JLabel jLabelServicio;
@@ -214,7 +207,6 @@ public class MetodoDePago extends javax.swing.JPanel {
     private void cargarLista() {
     DefaultListModel<String> model = new DefaultListModel<>();
     
-    // Obtenemos la lista de métodos de pago desde el DAO
     MetodoDePagoDao dao = new MetodoDePagoDao();
     List<MetodoDePagoModel> lista = dao.listarMetodos();
     
@@ -223,6 +215,15 @@ public class MetodoDePago extends javax.swing.JPanel {
     }
     
     jList1.setModel(model);
+    
+    // Limpiar los campos después de cargar la lista
+    jTextFieldId.setText("");
+    jTextFieldServicio.setText("");
+
     }
+    
+
+    
+    
 
 }

@@ -129,4 +129,26 @@ public class MetodoDePagoDao {
         return null;
     }
     
+    public MetodoDePagoModel obtenerPorDescripcion(String descripcion) {
+    String sql = "SELECT * FROM metodos_pagos WHERE descripcion = ?";
+    try (Connection conn = ConexionDB.obtenerConeccion();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setString(1, descripcion);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            MetodoDePagoModel metodo = new MetodoDePagoModel();
+            metodo.setId(rs.getInt("id"));
+            metodo.setDescripcion(rs.getString("descripcion"));
+            return metodo;
+        }
+
+    } catch (SQLException e) {
+        LOGGER.log(Level.SEVERE, "Error al obtener método de pago por descripción", e);
+    }
+    return null;
+}
+
+    
 }
