@@ -30,20 +30,17 @@
                       <Component id="jLabelId" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                              <Component id="jTextFieldServicio" min="-2" pref="111" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jLabelServicio" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                       <Component id="jButtonGuardar" min="-2" pref="103" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
                       <Component id="jButtonBorrar" min="-2" pref="56" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabelServicio" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
+                          <Component id="jTextFieldServicio" min="-2" pref="111" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace pref="218" max="32767" attributes="0"/>
@@ -98,7 +95,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Desripcion Del Servicio"/>
+        <Property name="text" type="java.lang.String" value="Metodo de pago"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldServicio">
@@ -134,8 +131,8 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                  <Component id="jLabelTitulo" min="-2" pref="205" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="jLabelTitulo" min="-2" pref="250" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -154,9 +151,9 @@
         <Component class="javax.swing.JLabel" name="jLabelTitulo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Consolas" size="36" style="1"/>
+              <Font name="Consolas" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Servicios"/>
+            <Property name="text" type="java.lang.String" value="Metodo De Pago"/>
           </Properties>
         </Component>
       </SubComponents>

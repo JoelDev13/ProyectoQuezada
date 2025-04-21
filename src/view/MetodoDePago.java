@@ -50,7 +50,7 @@ public class MetodoDePago extends javax.swing.JPanel {
         jLabelId.setText("ID");
 
         jLabelServicio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabelServicio.setText("Desripcion Del Servicio");
+        jLabelServicio.setText("Metodo de pago");
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-save-30.png"))); // NOI18N
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -68,16 +68,16 @@ public class MetodoDePago extends javax.swing.JPanel {
 
         jPanelFondo.setBackground(new java.awt.Color(0, 153, 0));
 
-        jLabelTitulo.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
-        jLabelTitulo.setText("Servicios");
+        jLabelTitulo.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
+        jLabelTitulo.setText("Metodo De Pago");
 
         javax.swing.GroupLayout jPanelFondoLayout = new javax.swing.GroupLayout(jPanelFondo);
         jPanelFondo.setLayout(jPanelFondoLayout);
         jPanelFondoLayout.setHorizontalGroup(
             jPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFondoLayout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelFondoLayout.setVerticalGroup(
@@ -113,17 +113,15 @@ public class MetodoDePago extends javax.swing.JPanel {
                         .addGap(246, 246, 246)
                         .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jTextFieldServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelServicio)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(181, 181, 181)
-                        .addComponent(jButtonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(233, 233, 233)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(218, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
