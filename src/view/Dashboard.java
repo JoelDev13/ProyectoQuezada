@@ -4,6 +4,7 @@ import controller.AgendaDoctorController;
 import controller.AgendarUnaCitaController;
 import controller.CitasController;
 import controller.PacienteController;
+import controller.ServiciosController;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ImageIcon;
@@ -99,7 +100,13 @@ public class Dashboard extends javax.swing.JFrame {
                     case DOCTORES -> mostrarPanel(new FormModelo());
                     case ESPECIALIDADES_DOC -> mostrarPanel(new FormModelo());
                     case USUARIOS -> mostrarPanel(new FormModelo());
-                    case SERVICIOS -> mostrarPanel(new FormModelo());
+                    case SERVICIOS -> {
+                        panelServicios panelServicios = new panelServicios();
+                        ServiciosDao servicioDao = new ServiciosDao();
+                        ServiciosController servicioController = new ServiciosController(panelServicios, servicioDao);
+                        mostrarPanel(panelServicios);
+
+                    }
                     
                     case HISTORICO_DE_PAGOS -> mostrarPanel(new PagosPanel());
                         
