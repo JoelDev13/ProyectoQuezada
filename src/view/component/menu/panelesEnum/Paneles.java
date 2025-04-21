@@ -22,5 +22,6 @@ public enum Paneles {
     SERVICIOS,
     HISTORICO_DE_PAGOS,
     METODOS_DE_PAGOS,
-    LOG_OFF // Creamos uno para el log out para no complicarnos.
+    LOG_OFF, // Creamos uno para el log out para no complicarnos.
+    ACERCA_DE
 }

@@ -54,7 +54,8 @@ public class Dashboard extends javax.swing.JFrame {
             Si quieres agregar tu panel a los botones del Dashboard, haz que
             el case especifico de tu panel cree una vista y un controlador y los una.
             Luego que pase la vista al metodo mostrarPanel
-         */
+        */
+        this.mostrarPanel(new FormModelo());
         EventMenu event = new EventMenu() {
             @Override
             public void seleccionado(Paneles panel) {
@@ -121,6 +122,10 @@ public class Dashboard extends javax.swing.JFrame {
 
                     case METODOS_DE_PAGOS ->
                         mostrarPanel(new MetodoDePago());
+                        
+                    case ACERCA_DE -> {
+                        mostrarPanel(new AcercaDe());
+                    }
                     case LOG_OFF ->
                         dispose();
                     default ->
