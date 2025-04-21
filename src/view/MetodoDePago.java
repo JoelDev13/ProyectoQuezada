@@ -21,11 +21,10 @@ public class MetodoDePago extends javax.swing.JPanel {
     public MetodoDePago() {
         initComponents();
         cargarLista();
+        // Hace que el campo ID sea de solo lectura
+        jTextFieldId.setEditable(false);
         
-    
-        
-
-    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,37 +154,83 @@ public class MetodoDePago extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        
-        
-        String descripcion = jTextFieldServicio.getText();
-        MetodoDePagoModel nuevoMetodo = new MetodoDePagoModel(descripcion);
-
-        MetodoDePagoDao dao = new MetodoDePagoDao();
-        dao.guardarMetodoDePago(nuevoMetodo);
-
-        jTextFieldServicio.setText("");
-        cargarLista();
+        String descripcion = jTextFieldServicio.getText().trim();
+    String idText = jTextFieldId.getText().trim();
+    
+    controller.MetodoDePagoController controller = new controller.MetodoDePagoController();
+    
+    // Si hay un ID, es una actualización
+    if (!idText.isEmpty()) {
+        int id = Integer.parseInt(idText);
+        if (controller.validarDescripcion(descripcion, id)) { // Usa la validación con ID
+            boolean actualizado = controller.actualizarMetodo(id, descripcion);
+            if (actualizado) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Método de pago actualizado correctamente.");
+                cargarLista(); // recarga la lista con los métodos actualizados
+                // Limpiar campos
+                jTextFieldId.setText("");
+                jTextFieldServicio.setText("");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al actualizar el método de pago.");
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "La descripción no es válida o ya existe.");
+        }
+    } else {
+        // Si no hay ID, es un nuevo registro
+        if (controller.validarDescripcion(descripcion)) {
+            boolean guardado = controller.guardarMetodo(descripcion);
+            if (guardado) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Método de pago guardado correctamente.");
+                cargarLista(); // recarga la lista con los métodos actualizados
+                jTextFieldServicio.setText(""); // limpia el campo
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar el método de pago.");
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "La descripción no es válida o ya existe.");
+        }
+    }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
-       int id = Integer.parseInt(jTextFieldId.getText());
+       String idText = jTextFieldId.getText();
+    if (idText.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Selecciona un método de pago para eliminar.");
+        return;
+    }
 
-        MetodoDePagoDao dao = new MetodoDePagoDao();
-        if (dao.eliminarMetodo(id)) {
-            cargarLista();
-            jTextFieldId.setText("");
-            jTextFieldServicio.setText("");
-        }
+    int id = Integer.parseInt(idText);
+    controller.MetodoDePagoController controller = new controller.MetodoDePagoController();
+    boolean eliminado = controller.eliminarMetodo(id);
+    
+    if (eliminado) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Método de pago eliminado.");
+        cargarLista();
+        // Limpiar campos
+        jTextFieldId.setText("");
+        jTextFieldServicio.setText("");
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al eliminar método de pago.");
+    }
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
-        // Verifica que no sea un cambio intermedio osea que el valor haya sido completamente seleccionado
-    if (!evt.getValueIsAdjusting()) {
-        // Obtiene el valor seleccionado en el JList
-        String metodoPagoSeleccionado = jList1.getSelectedValue();
+        if (!evt.getValueIsAdjusting()) {
+        // Obtiene la descripción seleccionada
+        String descripcionSeleccionada = jList1.getSelectedValue();
         
-        // Actualiza el JTextField con el valor seleccionado
-        jTextFieldServicio.setText(metodoPagoSeleccionado);
+        if (descripcionSeleccionada != null) {
+            // Busca el método de pago por su descripción
+            MetodoDePagoDao dao = new MetodoDePagoDao();
+            MetodoDePagoModel metodo = dao.obtenerPorDescripcion(descripcionSeleccionada);
+            
+            if (metodo != null) {
+                // Muestra el ID y la descripción en los campos
+                jTextFieldId.setText(String.valueOf(metodo.getId()));
+                jTextFieldServicio.setText(metodo.getDescripcion());
+            }
+        }
     }
     }//GEN-LAST:event_jList1ValueChanged
 
@@ -205,21 +250,16 @@ public class MetodoDePago extends javax.swing.JPanel {
 
 
     private void cargarLista() {
-    DefaultListModel<String> model = new DefaultListModel<>();
-    
-    MetodoDePagoDao dao = new MetodoDePagoDao();
-    List<MetodoDePagoModel> lista = dao.listarMetodos();
-    
-    for (MetodoDePagoModel metodo : lista) {
-        model.addElement(metodo.getDescripcion());
-    }
-    
-    jList1.setModel(model);
-    
-    // Limpiar los campos después de cargar la lista
-    jTextFieldId.setText("");
-    jTextFieldServicio.setText("");
+        MetodoDePagoDao dao = new MetodoDePagoDao();
+    List<MetodoDePagoModel> metodos = dao.listarMetodos();
 
+    DefaultListModel<String> modeloLista = new DefaultListModel<>();
+    for (MetodoDePagoModel metodo : metodos) {
+        // Solo añadimos la descripción a la lista
+        modeloLista.addElement(metodo.getDescripcion());
+    }
+
+    jList1.setModel(modeloLista);
     }
     
 

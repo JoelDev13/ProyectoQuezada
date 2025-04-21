@@ -42,30 +42,34 @@ public class MetodoDePagoController {
         return true;
     }
     
-    // Método para validar la descripción
-    public boolean validarDescripcion(String descripcion) {
-        // Verificar que la descripción no esté vacía
-        if (descripcion == null || descripcion.trim().isEmpty()) {
-            System.out.println("La descripción no puede estar vacía.");
-            return false;
-        }
-
-        // Verificar que la descripción solo contenga letras y espacios
-        Pattern pattern = Pattern.compile("^[a-zA-Z\\s]+$");
-        Matcher matcher = pattern.matcher(descripcion);
-        if (!matcher.matches()) {
-            System.out.println("La descripción solo puede contener letras y espacios.");
-            return false;
-        }
-
-        // Verifica que la descripción no esté repetida
-        if (dao.obtenerPorDescripcion(descripcion) != null) { 
-            System.out.println("La descripción ya está en uso.");
-            return false;
-        }
-
-        return true;
+public boolean validarDescripcion(String descripcion, int idActual) {
+    if (descripcion == null || descripcion.trim().isEmpty()) {
+        System.out.println("La descripción no puede estar vacía.");
+        return false;
     }
+    
+    // Verifica formato
+    Pattern pattern = Pattern.compile("^[a-zA-Z\\s]+$");
+    Matcher matcher = pattern.matcher(descripcion);
+    if (!matcher.matches()) {
+        System.out.println("La descripción solo puede contener letras y espacios.");
+        return false;
+    }
+    
+    // Verifica duplicados EXCEPTO si es el mismo registro
+    MetodoDePagoModel existente = dao.obtenerPorDescripcion(descripcion);
+    if (existente != null && existente.getId() != idActual) {
+        System.out.println("La descripción ya está en uso por otro método de pago.");
+        return false;
+    }
+    
+    return true;
+}
+
+// Versión sobrecargada para compatibilidad
+public boolean validarDescripcion(String descripcion) {
+    return validarDescripcion(descripcion, 0);
+}
 
 
    
