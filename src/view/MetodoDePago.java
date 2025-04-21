@@ -39,32 +39,18 @@ public class MetodoDePago extends javax.swing.JPanel {
         jTextFieldId = new javax.swing.JTextField();
         jLabelServicio = new javax.swing.JLabel();
         jTextFieldServicio = new javax.swing.JTextField();
-        jButtonGuardar = new javax.swing.JButton();
-        jButtonBorrar = new javax.swing.JButton();
         jPanelFondo = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        roundedGreenButtomGuardar = new view.RoundedGreenButtom();
+        roundedGreenButtom2 = new view.RoundedGreenButtom();
 
         jLabelId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabelId.setText("ID");
 
         jLabelServicio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabelServicio.setText("Metodo de pago");
-
-        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-save-30.png"))); // NOI18N
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
-            }
-        });
-
-        jButtonBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-delete-30 (1).png"))); // NOI18N
-        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBorrarActionPerformed(evt);
-            }
-        });
 
         jPanelFondo.setBackground(new java.awt.Color(0, 153, 0));
 
@@ -97,6 +83,22 @@ public class MetodoDePago extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jList1);
 
+        roundedGreenButtomGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-save-30.png"))); // NOI18N
+        roundedGreenButtomGuardar.setText("Guardar");
+        roundedGreenButtomGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedGreenButtomGuardarActionPerformed(evt);
+            }
+        });
+
+        roundedGreenButtom2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-delete-30 (1).png"))); // NOI18N
+        roundedGreenButtom2.setText("Eliminar");
+        roundedGreenButtom2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedGreenButtom2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,22 +109,20 @@ public class MetodoDePago extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
-                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(199, 199, 199)
+                        .addComponent(roundedGreenButtomGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(roundedGreenButtom2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(246, 246, 246)
+                        .addGap(374, 374, 374)
                         .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(181, 181, 181)
-                        .addComponent(jButtonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(344, 344, 344)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelServicio)
+                            .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,25 +133,44 @@ public class MetodoDePago extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(86, 86, 86)
                         .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonBorrar))
-                        .addGap(264, 374, Short.MAX_VALUE))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(roundedGreenButtomGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(roundedGreenButtom2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 109, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        if (!evt.getValueIsAdjusting()) {
+        // Obtiene la descripción seleccionada
+        String descripcionSeleccionada = jList1.getSelectedValue();
+        
+        if (descripcionSeleccionada != null) {
+            // Busca el método de pago por su descripción
+            MetodoDePagoDao dao = new MetodoDePagoDao();
+            MetodoDePagoModel metodo = dao.obtenerPorDescripcion(descripcionSeleccionada);
+            
+            if (metodo != null) {
+                // Muestra el ID y la descripción en los campos
+                jTextFieldId.setText(String.valueOf(metodo.getId()));
+                jTextFieldServicio.setText(metodo.getDescripcion());
+            }
+        }
+    }
+    }//GEN-LAST:event_jList1ValueChanged
+
+    private void roundedGreenButtomGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedGreenButtomGuardarActionPerformed
         String descripcion = jTextFieldServicio.getText().trim();
     String idText = jTextFieldId.getText().trim();
     
@@ -189,10 +208,10 @@ public class MetodoDePago extends javax.swing.JPanel {
             javax.swing.JOptionPane.showMessageDialog(this, "La descripción no es válida o ya existe.");
         }
     }
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    }//GEN-LAST:event_roundedGreenButtomGuardarActionPerformed
 
-    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
-       String idText = jTextFieldId.getText();
+    private void roundedGreenButtom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedGreenButtom2ActionPerformed
+        String idText = jTextFieldId.getText();
     if (idText.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "Selecciona un método de pago para eliminar.");
         return;
@@ -211,31 +230,10 @@ public class MetodoDePago extends javax.swing.JPanel {
     } else {
         javax.swing.JOptionPane.showMessageDialog(this, "Error al eliminar método de pago.");
     }
-    }//GEN-LAST:event_jButtonBorrarActionPerformed
-
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
-        if (!evt.getValueIsAdjusting()) {
-        // Obtiene la descripción seleccionada
-        String descripcionSeleccionada = jList1.getSelectedValue();
-        
-        if (descripcionSeleccionada != null) {
-            // Busca el método de pago por su descripción
-            MetodoDePagoDao dao = new MetodoDePagoDao();
-            MetodoDePagoModel metodo = dao.obtenerPorDescripcion(descripcionSeleccionada);
-            
-            if (metodo != null) {
-                // Muestra el ID y la descripción en los campos
-                jTextFieldId.setText(String.valueOf(metodo.getId()));
-                jTextFieldServicio.setText(metodo.getDescripcion());
-            }
-        }
-    }
-    }//GEN-LAST:event_jList1ValueChanged
+    }//GEN-LAST:event_roundedGreenButtom2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonBorrar;
-    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelId;
     private javax.swing.JLabel jLabelServicio;
     private javax.swing.JLabel jLabelTitulo;
@@ -244,6 +242,8 @@ public class MetodoDePago extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldServicio;
+    private view.RoundedGreenButtom roundedGreenButtom2;
+    private view.RoundedGreenButtom roundedGreenButtomGuardar;
     // End of variables declaration//GEN-END:variables
 
 
