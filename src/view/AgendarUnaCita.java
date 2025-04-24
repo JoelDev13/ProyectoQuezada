@@ -237,7 +237,7 @@ public class AgendarUnaCita extends javax.swing.JPanel {
         lblServicio.setText("Servicio:");
 
         btnAgendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-calendar-plus-30.png"))); // NOI18N
-        btnAgendar.setText("Crear");
+        btnAgendar.setText("Agendar");
 
         btnLimpiarFiltros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/pacientes/icons/icons8-clear-30.png"))); // NOI18N
         btnLimpiarFiltros.setText("L.Filtros");

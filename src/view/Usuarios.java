@@ -66,20 +66,15 @@ public class Usuarios extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        JlbTitulo.setFont(new java.awt.Font("Microsoft Himalaya", 1, 48)); // NOI18N
+        JlbTitulo.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         JlbTitulo.setText("Usuarios");
-        add(JlbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         JspTitulo.setForeground(new java.awt.Color(0, 153, 0));
-        add(JspTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 50, 961, 12));
 
         listUsuarios.setBackground(new java.awt.Color(204, 255, 204));
         listUsuarios.setFont(new java.awt.Font("Palatino Linotype", 1, 14)); // NOI18N
         jScrollPane1.setViewportView(listUsuarios);
-
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 330, 520));
 
         JpFormulario.setBackground(new java.awt.Color(204, 255, 204));
         JpFormulario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,24 +103,20 @@ public class Usuarios extends javax.swing.JPanel {
         jlbRol.setText("Rol");
         JpFormulario.add(jlbRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
-        txtNombre.setFont(new java.awt.Font("Palatino Linotype", 1, 12)); // NOI18N
-        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         JpFormulario.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 30));
 
-        txtApellido.setFont(new java.awt.Font("Palatino Linotype", 1, 12)); // NOI18N
-        txtApellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtApellido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         JpFormulario.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 150, 30));
 
-        txtEmail.setFont(new java.awt.Font("Palatino Linotype", 1, 12)); // NOI18N
-        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         JpFormulario.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 220, 30));
 
-        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtUsuario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         JpFormulario.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 150, 30));
 
-        cbxRol.setFont(new java.awt.Font("Palatino Linotype", 1, 12)); // NOI18N
+        cbxRol.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cbxRol.setModel(new DefaultComboBoxModel<>(Rol.values()));
-        cbxRol.setBorder(null);
         JpFormulario.add(cbxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 150, 30));
 
         btnCrearActualizar.setBackground(new java.awt.Color(126, 209, 129));
@@ -142,8 +133,7 @@ public class Usuarios extends javax.swing.JPanel {
         jlbTelefono.setText("Teléfono");
         JpFormulario.add(jlbTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 90, 20));
 
-        txtTelefono.setFont(new java.awt.Font("Palatino Linotype", 1, 12)); // NOI18N
-        txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtTelefono.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         JpFormulario.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 160, 30));
 
         btnAgregarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/recursos/ImagenesUsuariosAgregar/boton-mas (1).png"))); // NOI18N
@@ -156,21 +146,60 @@ public class Usuarios extends javax.swing.JPanel {
         });
         JpFormulario.add(btnAgregarFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, -1));
 
-        txtContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         JpFormulario.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 170, 30));
 
         imageAvatar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/component/menu/icons/avatar/p2.png"))); // NOI18N
         JpFormulario.add(imageAvatar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 200, 200));
 
-        add(JpFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 170, 490, 480));
-
-        JlTituloCreacion.setFont(new java.awt.Font("Palatino Linotype", 1, 24)); // NOI18N
+        JlTituloCreacion.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        JlTituloCreacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JlTituloCreacion.setText("Creación de Usuarios");
-        add(JlTituloCreacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, 240, 30));
 
-        JlTituloLista.setFont(new java.awt.Font("Palatino Linotype", 1, 24)); // NOI18N
+        JlTituloLista.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        JlTituloLista.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JlTituloLista.setText("Lista de Usuarios");
-        add(JlTituloLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 93, 190, 50));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(JspTitulo)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(JlbTitulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(JlTituloLista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(JpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JlTituloCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(158, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(JlbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(JspTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(JlTituloLista)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(JlTituloCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(93, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarFotoActionPerformed(java.awt.event.ActionEvent evt) {                                               

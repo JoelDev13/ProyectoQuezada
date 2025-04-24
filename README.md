@@ -17,15 +17,36 @@ El sistema permite a distintos usuarios interactuar con una clínica según su r
 ## 👥 Roles del sistema
 
 ### 👩‍💼 Secretaria
-- Registro y edición de pacientes
-- Agendar citas médicas
-- Ver listado de citas
+- Registrar y editar pacientes del consultorio.
+- Agendar citas médicas.
+- Ver y gestionar el listado de citas.
 
 ### 👨‍⚕️ Doctor
-- Visualiza sus citas del día
-- Ver historial médico del paciente
-- Registra6 diagnósticos
+- Consultar sus citas medicas del dia.
+
 
 ### 👨‍💻 Administrador
-- Gestión de usuarios del sistema (crear, editar, eliminar)
-- Control general del sistema
+- Registrar y editar pacientes del consultorio.
+- Agendar citas médicas.
+- Ver y gestionar el listado de citas.
+- Crear, modificar y desactivar usuarios del sistema.
+- Gestionar los doctores, asociarles horarios y especialidades.
+- Agregar, modificar y eliminar especialidades.
+- Agregar, modificar y eliminar servicios del consultorio.
+- Consultar el historial de pagos.
+- Registrar y eliminar metodos de que utiliza el consultorio.
+
+---
+### Capturas del software en funcionamiento.
+![Texto alternativo](imagenesRepositorio/login.png)
+![Texto alternativo](imagenesRepositorio/loginSUCCESS.png)
+![Texto alternativo](imagenesRepositorio/pacientes.png)
+![Texto alternativo](imagenesRepositorio/agendarCita.png)
+![Texto alternativo](imagenesRepositorio/citas.png)
+![Texto alternativo](imagenesRepositorio/usuarios.png)
+![Texto alternativo](imagenesRepositorio/doctores.png)
+![Texto alternativo](imagenesRepositorio/especialidades.png)
+![Texto alternativo](imagenesRepositorio/servicios.png)
+![Texto alternativo](imagenesRepositorio/historicoPagos.png)
+![Texto alternativo](imagenesRepositorio/metodosPagos.png)
+![Texto alternativo](imagenesRepositorio/acercaDe.png)

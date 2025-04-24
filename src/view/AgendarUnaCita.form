@@ -409,7 +409,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/view/component/pacientes/icons/icons8-calendar-plus-30.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Crear"/>
+                <Property name="text" type="java.lang.String" value="Agendar"/>
               </Properties>
             </Component>
             <Component class="view.component.RoundedGreenButtom" name="btnLimpiarFiltros">
