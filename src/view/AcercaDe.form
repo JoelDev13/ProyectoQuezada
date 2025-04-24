@@ -260,7 +260,7 @@
               <Font name="Consolas" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="PlaceHolder"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p&gt;Keren Almonte Guilamo&lt;/p&gt;&#xa;&lt;p&gt;2024-1609&lt;/p&gt;&#xa;&lt;p&gt;UI&lt;/p&gt;&#xa;&#xa;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel7">
@@ -359,7 +359,7 @@
               <Font name="Consolas" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="PlaceHolder"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p&gt;Esteban Josu&#xe9; Mata Acosta&lt;/p&gt;&#xa;&lt;p&gt;2024-1860&lt;/p&gt;&#xa;&lt;p&gt;Lider del proyecto&lt;/p&gt;&#xa;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel9">
@@ -458,7 +458,7 @@
               <Font name="Consolas" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="PlaceHolder"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p&gt;Joel Argenis Berroa Pierre &lt;/p&gt;&#xa;&lt;p&gt;2024-0121&lt;/p&gt;&#xa;&lt;p&gt;Programador&lt;/p&gt;&#xa;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel11">
@@ -557,7 +557,7 @@
               <Font name="Consolas" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="PlaceHolder"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p&gt;Johan pablo Yan &lt;/p&gt;&#xa;&lt;p&gt;2022-1790&lt;/p&gt;&#xa;&lt;p&gt;QA&lt;/p&gt;&#xa;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel13">

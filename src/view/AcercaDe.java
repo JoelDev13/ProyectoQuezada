@@ -144,7 +144,7 @@ public class AcercaDe extends javax.swing.JPanel {
 
         Descripcon4.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         Descripcon4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Descripcon4.setText("PlaceHolder");
+        Descripcon4.setText("<html>\n<p>Keren Almonte Guilamo</p>\n<p>2024-1609</p>\n<p>UI</p>\n\n</html>");
 
         jPanel7.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -200,7 +200,7 @@ public class AcercaDe extends javax.swing.JPanel {
 
         Descripcon9.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         Descripcon9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Descripcon9.setText("PlaceHolder");
+        Descripcon9.setText("<html>\n<p>Esteban Josué Mata Acosta</p>\n<p>2024-1860</p>\n<p>Lider del proyecto</p>\n</html>");
 
         jPanel9.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -256,7 +256,7 @@ public class AcercaDe extends javax.swing.JPanel {
 
         Descripcon11.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         Descripcon11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Descripcon11.setText("PlaceHolder");
+        Descripcon11.setText("<html>\n<p>Joel Argenis Berroa Pierre </p>\n<p>2024-0121</p>\n<p>Programador</p>\n</html>");
 
         jPanel11.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -312,7 +312,7 @@ public class AcercaDe extends javax.swing.JPanel {
 
         Descripcon13.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         Descripcon13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Descripcon13.setText("PlaceHolder");
+        Descripcon13.setText("<html>\n<p>Johan pablo Yan </p>\n<p>2022-1790</p>\n<p>QA</p>\n</html>");
 
         jPanel13.setBackground(new java.awt.Color(204, 255, 204));
 
