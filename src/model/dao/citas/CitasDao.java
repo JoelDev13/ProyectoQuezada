@@ -69,7 +69,7 @@ public class CitasDao {
      * Metodo usado par filtrar citas que segun las descripciones dadas. Los parametros enviados que sean null no seran considerados ala hora de filtrar en la base de datos. Debido a que trabajamos con nulls para saber si nos enviaron o no un filtro, usamos la clase Integer
      *
      * @param filtros obj <code>Citas</code> con los filtros
-     * @return <code>List&lt;CitasDTO&gt; con los registros que cumplan los filtros
+     * @return <code>List&lt;CitasDTO&gt;</code> con los registros que cumplan los filtros
      * @throws SQLException con mesaje de la db
      */
     public List<CitasDTO> filtrarCitas(Citas filtros) throws SQLException {

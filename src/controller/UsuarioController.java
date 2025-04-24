@@ -51,6 +51,9 @@ public class UsuarioController {
         });
     }
 
+    /**
+     * Carga todos los usuarios que estan registrados en el sistema.
+     */
     private void cargarUsuarios() {
         try {
             List<Usuario> usuarios = dao.listarUsuarios();
@@ -63,7 +66,11 @@ public class UsuarioController {
             mostrarError("Error al cargar usuarios: " + e.getMessage());
         }
     }
-
+    
+    /**
+     * Dependiendo de si el administrador ha seleccionado o no un usuario de la lista,
+     * este boton creara o actualizara un usuario en el sistema.
+     */
     private void crearOActualizar() {
         if (!vista.validarCampos()) {
             return; // Validar los campos
@@ -93,6 +100,10 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Carga los datos del usuario seleccionado en los campos de la vista.
+     * @param u Usuario de donde se sacara la informacion
+     */
     private void cargarDatosEnFormulario(Usuario u) {
         vista.getTxtNombre().setText(u.getNombre());
         vista.getTxtApellido().setText(u.getApellido());
@@ -116,10 +127,18 @@ public class UsuarioController {
 
     }
 
+    /**
+     * Un wrapper para no tener que escribir tanto JOptionPane.
+     * @param msg a mostrar en el dialog
+     */
     private void mostrarMensaje(String msg) {
         JOptionPane.showMessageDialog(vista, msg, "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Un wrapper para no tener que escribir tanto JOptionPane.
+     * @param msg a mostrar en el dialog
+     */
     private void mostrarError(String msg) {
         JOptionPane.showMessageDialog(vista, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }

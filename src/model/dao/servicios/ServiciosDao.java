@@ -17,6 +17,11 @@ import model.servicios.Servicio;
  */
 public class ServiciosDao {
     
+    /**
+     * Elimina un servicio del sistema.
+     * @param id identificador del servicio.
+     * @throws SQLException con mensaje de la db
+     */
     public void eliminarServicio(int id) throws SQLException {
         String sql = "CALL sp_eliminar_servicio(?)";
         try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
@@ -27,7 +32,12 @@ public class ServiciosDao {
     }
 
     
-    
+    /**
+     * Actualiza un servicio en el sistema.
+     *
+     * @param s objeto <code>Servicio</code> con las informaciones a actualizar
+     * @throws SQLException con mensaje de la db
+     */
     public void actualizarServicio(Servicio s) throws SQLException {
         String sql = "CALL sp_actualizar_servicio(?,?,?)";
         try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
@@ -40,7 +50,11 @@ public class ServiciosDao {
     }
     
     
-    
+    /**
+     * Registra un servicio en el sistema.
+     * @param s objeto <code>Servicio</code> con las informaciones a registrar
+     * @throws SQLException con mensaje de la db
+     */
     public void registrarServicio(Servicio s) throws SQLException {
         String sql = "CALL sp_registrar_servicio(?,?)";
         try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {

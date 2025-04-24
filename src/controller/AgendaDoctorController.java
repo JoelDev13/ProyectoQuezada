@@ -44,9 +44,9 @@ public class AgendaDoctorController extends CitasController {
         doctor.setNombre(usuario.getNombre() + " " + usuario.getApellido());
         
         super.doctorSeleccionado = doctor;
-        citasView.mostrarDoctorElegido(doctorSeleccionado);
-        citasView.getBtnDoctorFiltrar().setEnabled(false);
-        citasView.getBtnReAgendar().setEnabled(false);
+        citasView.mostrarDoctorElegido(doctorSeleccionado); // Se inicializa el fitro de doctor, para que solo aparezcan las citas de este medico
+        citasView.getBtnDoctorFiltrar().setEnabled(false); // para evitar que el doctor cambie el filtro de doctor seleccionado
+        citasView.getBtnReAgendar().setEnabled(false); // Impedimos que el medico reagende una cita.
         
         
         this.llenarCbEspecialidades();
@@ -58,13 +58,18 @@ public class AgendaDoctorController extends CitasController {
     @Override
     protected void listarTodos() {
         /* 
-            deje este metodo en blanco. En la clase padre este metodo es llamado en el constructor
-            y debido a que, para ese punto, no se tiene ningun filtro, se obtendrian todos las citas
-            del consultorio debido a la naturaleza del store procedure. Al dejar en blanco bordea el problema.
-            No es la mejor solucion, pero es una.
+            Deje este metodo en blanco. En la clase padre (CitasController) este metodo es llamado
+            desde el constructor, listando al instante todos los doctores del hospital apenas este
+            objeto se cree. En esta clase hija no podemos hacer uso de dicho metodo, debido a que solamente
+            se quieren listar los pacientes que tengan a este medico asigando. Para evitar este comportamiento
+            se se sobreescribio en blanco el metodo y se usa <code>ListarCitasDelDoctor</code> en cambio.
         */
     }
-
+    
+    /**
+     * Lista todas las citas del medico. Para lograr que se citen solo las del medico, el atributo doctorSeleccinado
+     * se le debio de haber dado la información de un medico en especifico previamente.
+     */
     private void listarCitasDelDoctor() {
         model.citas.Citas filtros = citasView.obtenerDatosParaFiltrado(pacienteSeleccionado, doctorSeleccionado);
 
@@ -103,6 +108,10 @@ public class AgendaDoctorController extends CitasController {
         this.citasView.getBtnReAgendar().setEnabled(false);
     }
 
+    /**
+     * Filtra todos los filtros exeptuando los del doctor previamente
+     * inicializado.
+     */
     @Override
     protected void limpiarFiltros() {
         pacienteSeleccionado = null;
@@ -110,6 +119,9 @@ public class AgendaDoctorController extends CitasController {
         this.citasView.limpiarOtrosFiltros();
     }
 
+    /**
+     * llena el Combobox de especialidades con las especialidades registradas en la DB 
+     */
     @Override
     protected void llenarCbEspecialidades() {
         if (doctorSeleccionado != null) {
@@ -148,7 +160,11 @@ public class AgendaDoctorController extends CitasController {
             }
         }
     }
-
+    
+    /**
+     * Permite la edicion de una cita. En esta implementacion propia solamente se permite
+     * el cambio de estado de la cita a COMPLETADA.
+     */
     @Override
     protected void editarEstadoCitaSeleccionada() {
         model.citas.Citas citaOriginal = this.ObtenerCitaSelecciona();

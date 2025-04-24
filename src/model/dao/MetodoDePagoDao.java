@@ -14,13 +14,18 @@ import java.util.logging.Logger;
 import model.MetodoDePagoModel;
 
 /**
- *
+ * esta clase se encarga de manipular la informacion de los metodos
+ * de pago en la base de datos.
  * @author la
  */
 public class MetodoDePagoDao {
     
     private static final Logger LOGGER = Logger.getLogger(MetodoDePagoDao.class.getName());
 
+    /**
+     * Lista todos los metodos de pagos registrados en el sistema.
+     * @return List&lt;MetodoDePagoModel&gt; con todos los Metodos de pago del sistema.
+     */
     public List<MetodoDePagoModel> listarMetodos() {
         List<MetodoDePagoModel> lista = new ArrayList<>();
         String sql = "SELECT * FROM metodos_pagos";
@@ -42,6 +47,11 @@ public class MetodoDePagoDao {
         return lista;
     }
 
+    /**
+     * ingresa un nuevo metodo de pago al sistema.
+     * @param descripcion descripcion del nuevo metodo de pago
+     * 
+     */
     public boolean insertarMetodo(String descripcion) {
         if (descripcion == null || descripcion.trim().isEmpty()) {
             LOGGER.warning("Descripción vacía o nula. No se insertó.");
@@ -60,7 +70,13 @@ public class MetodoDePagoDao {
             return false;
         }
     }
-
+    
+    /**
+     
+     * @param id
+     * @param descripcion
+     * @return 
+     */
     public boolean actualizarMetodo(int id, String descripcion) {
         if (descripcion == null || descripcion.trim().isEmpty()) {
             LOGGER.warning("Descripcion vacia o nula. No se actualizó");
@@ -129,6 +145,12 @@ public class MetodoDePagoDao {
         return null;
     }
     
+    
+    /**
+     * Obtiene un metodo de pago en especifico por 
+     * @param descripcion
+     * @return 
+     */
     public MetodoDePagoModel obtenerPorDescripcion(String descripcion) {
     String sql = "SELECT * FROM metodos_pagos WHERE descripcion = ?";
     try (Connection conn = ConexionDB.obtenerConexion();

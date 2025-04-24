@@ -37,25 +37,26 @@ import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
  */
 public class Dashboard extends javax.swing.JFrame {
 
+
     /**
-     * Crea una nueva vista Dashboard usando la informacion de un usuario
-     *
-     * @usuario usuario de donde se extraen los datos
+     * Crea una nueva vista del dashboard, llenando el componente
+     * menu en base a la informacion del usuario entregado
+     * @param usuario entregado para inicializar el menu
      */
-    // TODO cambiar el detalle del rol a un ENUM
     public Dashboard(Usuario usuario) {
         initComponents();
         setBackground(new Color(0, 0, 0, 0)); // hacemos transparente la ventana
 
         /*
             La interfaz EventMenu fue creada unicamente para ser sobreescrita
-            en este punto. 
+            en este punto. Con el uso de esta interfaz obtenemos la funcionalidad
+            de elegir el panel seleccionado por el usuario.
         
             Si quieres agregar tu panel a los botones del Dashboard, haz que
             el case especifico de tu panel cree una vista y un controlador y los una.
             Luego que pase la vista al metodo mostrarPanel
         */
-        this.mostrarPanel(new FormModelo());
+        this.mostrarPanel(new FormModelo()); // Mostramos una ventana predeterminada al cargar el dashboard
         EventMenu event = new EventMenu() {
             @Override
             public void seleccionado(Paneles panel) {
@@ -98,16 +99,16 @@ public class Dashboard extends javax.swing.JFrame {
                         mostrarPanel(citasView2);
                     }
                     case DOCTORES ->
-                        mostrarPanel(new FormModelo());
+                        mostrarPanel(new FormModelo()); // Todavia no esta implementado
                         
                     case ESPECIALIDADES_DOC ->
-                        mostrarPanel(new FormModelo());
+                        mostrarPanel(new FormModelo()); // Todavia no esta implementado
                         
                     case USUARIOS -> {
-                        view.Usuarios p = new view.Usuarios();
-                        UsuarioDAO pDAO = new UsuarioDAO();
-                        UsuarioController pController = new UsuarioController(p, pDAO);
-                        mostrarPanel(p);
+                        view.Usuarios view = new view.Usuarios();
+                        UsuarioDAO usuariosDao = new UsuarioDAO();
+                        UsuarioController usuariosController = new UsuarioController(view, usuariosDao);
+                        mostrarPanel(view);
                     }
                     case SERVICIOS -> {
                         panelServicios panelServicios = new panelServicios();

@@ -20,7 +20,7 @@ import view.Pacientes;
 
 
 /**
- * Clase intermedia entre la vista Pacientes, el modelo Paciente y el DAO PacienteDAO
+ * Controllador de la vista Pacientes.
  *
  * @author luis-
  * @see Paciente
@@ -28,14 +28,15 @@ import view.Pacientes;
  * @see Pacientes
  */
 public class PacienteController implements ActionListener{  
-
+    
     private PacienteDao pacienteDAO;
     private Pacientes pacientesView;
 
     public PacienteController(PacienteDao pacienteDAO, Pacientes pacientesView) {
         this.pacienteDAO = pacienteDAO;
         this.pacientesView = pacientesView;
-
+        
+        // asociamos los botones botones de la vista con el controllador
         this.pacientesView.getBtnCrear().addActionListener(this);
         this.pacientesView.getBtnEditar().addActionListener(this);
         this.pacientesView.getBtnFiltrar().addActionListener(this);
@@ -43,7 +44,9 @@ public class PacienteController implements ActionListener{
         this.pacientesView.getBtnCancelar().addActionListener(this);
         this.pacientesView.getBtnLimpiarFiltros().addActionListener(this);
         this.pacientesView.getBtnEliminar().addActionListener(this);
-
+        
+        // Cuando se hace click en alguna fila de la tabla de la vista, se entra en el modo 
+        // pre-edicion de la vista.
         this.pacientesView.getTabla().addMouseListener(new MouseAdapter() { // creamos un listener para la tabla.
             @Override
             public void mousePressed(MouseEvent e) {
@@ -53,7 +56,10 @@ public class PacienteController implements ActionListener{
         
         this.actualizarTabla();
     }
-
+    
+    /**
+     * Lista todo los pacientes registrados en el consultorio medico
+     */
     private void actualizarTabla() {
         try {
             List<Paciente> pacientes = pacienteDAO.listarPacientes();

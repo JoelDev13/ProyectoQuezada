@@ -71,10 +71,13 @@ public class AgendarUnaCitaController implements ActionListener {
         this.view.getBtnAgendarUnaCita().addActionListener(this);
         this.view.getBtnLimpiarFiltros().addActionListener(this);
 
-        // Se le da un actionListener a cbEspecialidad para que actualice el
-        // cb de servicios. Se valida que no este apuntando a null primero
-        // debido ala posibilidad de que el usuario limpie los campos, y genere
-        //una excepcion de NullPointer
+        /* 
+            Se le agrega funcionalidad al ComboBox cbEspecialidad, con tal
+            de que siempre actualize el ComboBox de servicios cuando se elija una
+            especialidad. Se verifica que no sea null primero debido a la posibilidad
+            de que se limpie los campos y desencadene el evento, generando una excepcion
+            NullPointer.
+        */
         this.view.getCbEspecialidad().addActionListener((e) -> {
             if (this.view.getCbEspecialidad().getSelectedItem() != null) {
                 Especialidad especialidadElegida = (Especialidad) this.view.getCbEspecialidad().getSelectedItem();
@@ -83,14 +86,15 @@ public class AgendarUnaCitaController implements ActionListener {
         });
 
         this.view.desactivarDatePicker();
-
-        //Este listener hace que cuando se eliga una fecha, se llene cbHorarios con los
-        //horarios de ese dia del medico
+        
+        // Cuando se elija una fecha del calendario, se llenara el ComboBox de horarios
+        // con los horarios de ese dia del medico.
         this.view.getDatePicker().addDateSelectionListener((dateSelectionEvent) -> {
             this.llenarCbHorarios(this.view.getDatePicker().getSelectedDate());
         });
 
-        // le damos un valor por defecto de nulo al primer elemento del cbHorarios para evitar posibles errores
+        // le añadimos un elemento nulo a todos los ComboBoxes, con tal de evitar erroes
+        // de null Exeption.
         DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
         modelo.addElement(null);
         this.view.getCbHorarios().setModel(modelo);
@@ -98,7 +102,11 @@ public class AgendarUnaCitaController implements ActionListener {
         this.view.getCbServicios().setModel(modelo);
         this.llenarCbEspecialidades();
     }
-
+    
+    
+    /**
+     * Llena el comboBox de especialidades con las especialiades registrdas en la db
+     */
     private void llenarCbEspecialidades() {
         try {
             DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
@@ -134,6 +142,10 @@ public class AgendarUnaCitaController implements ActionListener {
 
     }
 
+    /**
+     * Llena el ComboBox de horarios con los horarios del medico de ese dia.
+     * @param fecha 
+     */
     private void llenarCbHorarios(LocalDate fecha) {
         if (fecha != null) {
             try {
@@ -152,9 +164,10 @@ public class AgendarUnaCitaController implements ActionListener {
     }
 
     /**
-     * obtiene los dias laborales del medico entregado en el constructor. Los dias laborables son los dias de la semana en los que el doctor tiene horarios
+     * obtiene los dias laborales del medico entregado en el constructor.
+     * Los dias laborables son los dias de la semana en los que el doctor tiene horarios
      *
-     * @return
+     * @return una lista de Strings contieniendo los dias laborables del medico. Los strings pueden ser LUNES, MARTES, MIERCOLES... DOMINGO
      */
     private List<String> obtenerDiasHabiles() {
 
@@ -168,7 +181,8 @@ public class AgendarUnaCitaController implements ActionListener {
     }
 
     /**
-     * Convierte los dias recuperados como String a un EnumMap de DayOfWeek , Boolean. Este map es usado mas tarde en #HabilitarDiasSeleccionados.
+     * Convierte los dias recuperados como String a un &lt;EnumMap DayOfWeek , Boolean&gt;
+     * Este map es usado mas tarde en  metodo #HabilitarDiasSeleccionados.
      *
      * @param diasObtenidos
      */
@@ -202,7 +216,12 @@ public class AgendarUnaCitaController implements ActionListener {
             return false;
         });
     }
-
+    
+    
+    /**
+     * Valida los campos de la vista.
+     * @return True si todos los campos estan llenos, de lo contrario false
+     */
     private boolean validarCampos() {
         if (this.pacienteSeleccionado == null
                 || this.view.getCbEspecialidad().getSelectedItem() == null
@@ -216,6 +235,10 @@ public class AgendarUnaCitaController implements ActionListener {
         return true;
     }
 
+    /**
+     * Recupera todos los campos de la vista AgendarUnaCita.
+     * @return un objeto <code>Cita</code> con la informacion de todos lso campos
+     */
     private Citas obtenerDatos() {
         Citas nuevaCita = new Citas();
         nuevaCita.setIdPaciente(this.pacienteSeleccionado.getId());
@@ -227,6 +250,9 @@ public class AgendarUnaCitaController implements ActionListener {
         return nuevaCita;
     }
 
+    /**
+     * Filtra los campos de la vista AgendarUnaCita
+     */
     private void limpiarFiltros() {
         this.doctorSeleccionado = null;
         this.pacienteSeleccionado = null;
@@ -236,6 +262,7 @@ public class AgendarUnaCitaController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // Filtrar un paciente
         if (e.getSource() == this.view.getBtnPacienteFiltrar()) {
             Frame ventanaPadre = (Frame) SwingUtilities.getWindowAncestor(this.view);
 
@@ -249,6 +276,7 @@ public class AgendarUnaCitaController implements ActionListener {
             this.pacienteSeleccionado = dialogController.obtenerPaciente();
             this.view.mostrarPacienteElegido(pacienteSeleccionado);
 
+        // Filtrar un doctor
         } else if (e.getSource() == this.view.getBtnDoctorFiltrar()) {
             Frame ventanaPadre = (Frame) SwingUtilities.getWindowAncestor(view);
 
@@ -265,7 +293,8 @@ public class AgendarUnaCitaController implements ActionListener {
             this.HabilitarDiasSeleccionables(Convertir(obtenerDiasHabiles()));
             this.view.getCbHorarios().setSelectedIndex(0);
             this.view.activarDatePicker();
-
+            
+        // Agendar una cita
         } else if (e.getSource() == this.view.getBtnAgendarUnaCita()) {
             if (this.validarCampos()) {
                 try {
@@ -290,7 +319,8 @@ public class AgendarUnaCitaController implements ActionListener {
                     JOptionPane.showMessageDialog(view, ex.getMessage(), "informacion", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-
+            
+        // Limpiar los filtros
         } else if (e.getSource() == this.view.getBtnLimpiarFiltros()) {
             this.limpiarFiltros();
 

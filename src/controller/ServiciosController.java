@@ -18,7 +18,7 @@ import model.servicios.Servicio;
 import view.panelServicios;
 
 /**
- * Clase controlladora de la vista panelServicios
+ * Controlador de la vista panelServicios
  * @author luis-
  */
 public class ServiciosController implements ActionListener{
@@ -26,12 +26,16 @@ public class ServiciosController implements ActionListener{
     private panelServicios view;
     private ServiciosDao servicioDao;
     
+    /**
+     * Servicio seleccionado por el usuario
+     */
     private Servicio servicioSeleccionado;
 
     public ServiciosController(panelServicios view, ServiciosDao servicioDao) {
         this.view = view;
         this.servicioDao = servicioDao;
         
+        // asociamos los botones de la vista a este controlador
         this.view.getBtnCrear().addActionListener(this);
         this.view.getBtnActualizar().addActionListener(this);
         this.view.getBtnEliminar().addActionListener(this);
@@ -44,6 +48,10 @@ public class ServiciosController implements ActionListener{
         this.listarTodos();
     }
     
+    /**
+     * Llena la lista con los datos recibidos.
+     * @param servicios lista de servicios con que llenar la lista
+     */
     private void llenarLista(List<Servicio> servicios) {
         DefaultListModel<Servicio> modelo = new DefaultListModel<>();
         for (Servicio s : servicios) {
@@ -53,6 +61,9 @@ public class ServiciosController implements ActionListener{
         
     }
 
+    /**
+     * Lista todos los servicios registrados en el hospital
+     */
     private void listarTodos() {
         try {
             this.llenarLista(servicioDao.listarServicios());
@@ -72,6 +83,9 @@ public class ServiciosController implements ActionListener{
         
     }
     
+    /**
+     * Añade un servicio nuevo al consultorio
+     */
     private void registrarServicio() {
         try {
             if (this.view.validarCampos()) {
@@ -85,6 +99,10 @@ public class ServiciosController implements ActionListener{
 
     }
 
+    /**
+     * Actualiza la informacion del servicio seleccinado. Verifica que el servicio
+     * no sea null para evitar nullPointer errors.
+     */
     private void ActualizarServicio() {
         try {
             if (servicioSeleccionado != null) {
@@ -106,7 +124,10 @@ public class ServiciosController implements ActionListener{
 
     }
 
-
+    /**
+     * Elimina el servicio seleccionado. Se verifica que el servicio seleccionado
+     * no sea nulo para evitar errores NullPointer.
+     */
     private void eliminarServicio() {
         try {
             if (servicioSeleccionado != null) {
@@ -125,7 +146,8 @@ public class ServiciosController implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        
+        // boton crear
         if (e.getSource() == this.view.getBtnCrear()) {
             
             this.registrarServicio();
@@ -134,6 +156,7 @@ public class ServiciosController implements ActionListener{
         }
         
         
+        // boton cancelar
         else if (e.getSource()== this.view.getBtnCancelar()) {
             this.view.EntrarEnEstadoNormal();
             this.view.limpiarCampos();
@@ -141,10 +164,12 @@ public class ServiciosController implements ActionListener{
             
         }
         
+        //boton eliminar
         else if (e.getSource() == this.view.getBtnEliminar()) {
             this.eliminarServicio();
         }
         
+        // boton limpiar filtros
         else if (e.getSource() == this.view.getBtnLimpiarFiltros()) {
             this.view.limpiarCampos();
         }

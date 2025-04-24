@@ -16,10 +16,17 @@ import java.sql.SQLException;
 import model.usuario.Rol;
 
 /**
- *
+ * Clase que se encarga de manipular las informaciones de los usuarios
+ * en la base de datos.
  * @author Keren
  */
 public class UsuarioDAO {
+    
+    /**
+     * Lista todos los usuarios del sistema.
+     * @return <code>List&lt;Usuario&gt;</code> con todos los usuarios del sistema.
+     * @throws SQLException con mensaje de la db.
+     */
     public List<Usuario> listarUsuarios() throws SQLException {
         String sql = "{CALL sp_listar_usuarios()}";
         List<Usuario> usuarios = new ArrayList<>();
@@ -46,6 +53,13 @@ public class UsuarioDAO {
         return usuarios;
     }
 
+    
+    /**
+     * 
+     * @param u
+     * @return
+     * @throws SQLException 
+     */
     public List<Usuario> filtrarUsuarios(Usuario u) throws SQLException {
         String sql = "{CALL sp_filtrar_usuarios(?,?,?,?,?,?,?,?)}";
         List<Usuario> usuarios = new ArrayList<>();

@@ -16,6 +16,12 @@ import model.HistorialPagoModel;
  * @author la
  */
 public class HistorialPagosDAO {
+    
+    /**
+     * Registra un registro de un pago al sistema.
+     * @param historial objeto <code>HistorialPagoModel</code> con las informacion es a resgistrar
+     * @throws SQLException con mensaje de la db
+     */
 
     public void registrarPago(HistorialPagoModel historial) throws SQLException {
         String sql = "{CALL sp_registrar_pago(?,?,?)}";
@@ -29,6 +35,12 @@ public class HistorialPagosDAO {
         }
     }
 
+    
+    /**
+     * Filtra los registros con el parametro entregado
+     * @param filtro descripcion con la que filtrar
+     * @return <code>List&lt;HistorialPago&gt;</code> con los registros que cumplan el filtro.
+     */
     public List<HistorialPago> buscarHistoricoPagos(String filtro) {
         List<HistorialPago> pagos = new ArrayList<>();
         String sql = "{CALL BuscarHistoricoPagos(?)}";  // Llamada al STORED PROCEDURE: Mostrar Historial De pagos

@@ -24,8 +24,8 @@ import view.ElegirDoctorDialog;
 import view.component.elegirDoctorDialog.TarjetaDoc;
 
 /**
- * Esta clase, junto ElegirDoctorDialog, se encarga de filtrar, seleccionar y recuperar un objeto DoctorDto.
- *
+ * 
+ * Controlador del dialogo ElegirDoctorDialog.
  * @author luis-
  */
 public class ElegirDoctorDialogController implements ActionListener {
@@ -66,7 +66,7 @@ public class ElegirDoctorDialogController implements ActionListener {
     }
 
     /**
-     * Filtra los doctores usando las descripciones dadas por el usuario. Si el usuario no da ninguna descripcion, se traen todos los registros
+     * Filtra los doctores usando las descripciones dadas por el usuario. Si el usuario no da ninguna descripcion, se traen todos los registros.
      */
     private void filtrarDoctores() {
         JPanel panel = dialog.getPanelMig();
@@ -92,7 +92,8 @@ public class ElegirDoctorDialogController implements ActionListener {
     }
 
     /**
-     * este metodo le agrega comportamiento a las tarjetas que se muestran en el dialogo ElegirDoctorDialog. Estas cambian de color cuando el mouse entra y sale de ellas y recuperan la informacion del doctor en la que haga click
+     * este metodo le agrega comportamiento a las tarjetas que se muestran en el dialogo ElegirDoctorDialog.
+     * Estas cambian de color cuando el mouse entra y sale de ellas y recuperan la informacion del doctor en la que haga click
      *
      * @param tarjeta objeto <code>TarjetaDoc</code> al que se le agregara la funcionalidad
      */
@@ -130,6 +131,7 @@ public class ElegirDoctorDialogController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // filtrar botones
         if (e.getSource() == dialog.getBtnFiltrar()) {
             this.filtrarDoctores();
         }

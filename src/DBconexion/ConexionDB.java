@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.IOException;
 
 /**
- *Clase que gestiona la db
+ *Clase que gestiona las conexiones a la base de datos
  * @author la
  * 
  */
@@ -22,7 +22,9 @@ public class ConexionDB {
 
     /**
      *
-     *
+     *  Obtiene una conexion a la base de datos. Este metodo recupera las credenciales
+     *  de acceso a la base de datos del archivo config/config.properties. Configura este
+     *  archivo para que esta clase se conecte correctamente ala la base de datos.
      * @return una conexión a la base de datos
      * @throws SQLException es para si ocurre un error al conectar
      */
@@ -48,19 +50,5 @@ public class ConexionDB {
             ex.printStackTrace(); // Si hay un error, se imprimirá
             return null;
         }
-
     }
-    
-
-    public static void cerrarConexion(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-                System.out.println("Conexión cerrada correctamente");
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
-            }
-        }
-    }
-
 }

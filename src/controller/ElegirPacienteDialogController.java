@@ -36,8 +36,10 @@ public class ElegirPacienteDialogController implements ActionListener {
         
         this.DialogView.getBtnFiltrar().addActionListener(this);
         
-        // Agregamos un mouse adapter a la tabla del dialogo que recupere la informacion
-        // del medico
+  
+        // Le agregamos un mouse adapter a la tabla de la vista, para que 
+        // recupera la informacion del paciente elejido cuando el usuario hace
+        // doble click en una fila.
         this.DialogView.getCustomTable().addMouseListener(new MouseAdapter () {
             @Override
             public void mousePressed(MouseEvent e) {

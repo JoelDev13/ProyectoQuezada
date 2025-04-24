@@ -34,13 +34,18 @@ import view.ElegirPacienteDialog;
 import view.EditarFechaCitaDialog;
 
 /**
- * Clase intermedia entre el panel Citas y el Dao CitasDao
+ * Controllador de la vista Citas.
  * @author luis-
  */
 public class CitasController implements ActionListener {
 
-    // Atributos usados para guardar la seleccion del usuario
+    /**
+     * Paciente seleccinado por el usuario
+     */
     protected PacienteDTO pacienteSeleccionado;
+    /**
+     * Doctor seleccionado por el usuario
+     */
     protected DoctorLigeroDTO doctorSeleccionado;
 
     protected Citas citasView;
@@ -53,8 +58,9 @@ public class CitasController implements ActionListener {
         this.citasDao = citasDao;
         this.serviciosDao = servicioDao;
         this.especialidadDao = especialidadDao;
-
-        this.llenarCbEspecialidades();
+        
+        // Se llenan los ComboBoxes de la vista.
+        this.llenarCbEspecialidades(); 
         this.llenarCbServicios();
 
         this.citasView.getBtnPacienteFiltrar().addActionListener(this);
@@ -64,8 +70,10 @@ public class CitasController implements ActionListener {
         this.citasView.getBtnEditarEstado().addActionListener(this);
         this.citasView.getBtnReAgendar().addActionListener(this);
         this.citasView.getBtnCancelar().addActionListener(this);
-
-        this.citasView.getCustomTable().addMouseListener(new MouseAdapter() { // creamos un listener para la tabla.
+        
+        // Le agregamos un listener a la tabla de la vista para que entre en modo de pre-edicion
+        // cuando se haga click en una fila especifica
+        this.citasView.getCustomTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 entrarEstadoPreEdicion();
@@ -77,7 +85,7 @@ public class CitasController implements ActionListener {
     }
     
     /**
-     * Llena la tabla de la vista Citas con el objeto List&lt;CitasDTO&gt; entregado
+     * Llena la tabla de la vista Citas con el List&lt;CitasDTO&gt; entregado
      * @param citas objeto List&lt;CitasDTO&gt; de donde se sacara la informacion
      */
     protected void llenarTabla(List<CitasDTO> citas) {
@@ -152,6 +160,9 @@ public class CitasController implements ActionListener {
         }
     }
 
+    /**
+     * Limpia los filtros de la vista Cita
+     */
     protected void limpiarFiltros() {
         pacienteSeleccionado = null;
         doctorSeleccionado = null;
@@ -159,9 +170,10 @@ public class CitasController implements ActionListener {
     }
 
     /**
-     * Si una fila ha sido seleccionada en la vista Citas, y el estado de esta es Pendiente,
-     * permite la reprogramacion de la fecha de la misma. Solamente se puede reprogramar desde hoy
-     * a futuro, en los dias laborables de un medico (los dias en los que posee horarios)
+     * Si se hace click en una fila cuyo estado es PENDIENTE, se permite la reagendacion
+     * de la cita que representa dicha fila. Solamente se puede reagendar desde el dia actual
+     *  y en un dia en el que el medico labore (que posea horarios en dicho dia. El metodo valida que la
+     * cita no sea nula para ecitar NullPointer errors.
      */
     protected void editarFechaCitaSeleccionada() {
         model.citas.Citas citaOriginal = this.ObtenerCitaSelecciona();
@@ -188,10 +200,13 @@ public class CitasController implements ActionListener {
     }
 
     /**
-     * Si una fila ha sido seleccionada en la vista Citas, y el estado de esta es Pendiente,
-     * permite cambiar el estado de la misma. Los estados pueden ser PENDIENTE, CANCELADA, COMPLETADA.
-     * las secretarias solamente pueden cambiar una cita PENDIENTE a CANCELADA, mientras que los
-     * doctores pueden cambiar una cita PENDIENTE a COMPLETADA
+     * Si se hace click en una fila cuyo estado sea PENDIENTE, permite cambiar el estado de la cita
+     * que representa dicha fila. Los estados pueden ser PENDIENTE, CANCELADA o COMPLETADA.
+     * Las secretarias solamente pueden cambiar el estado de una cita a CANCELADA y es una accion irrreversible.
+     * 
+     * El Dialog editarCitaDialog recibe en un modelo <Code>Cita</code> los datos de la cita original, y dentro del dialog
+     * modifica el estao de la cita. actualizacion de la cita es devuelta como un objeto cita, que mas tarde se entrega
+     * al DAO de citas para actualizar dicha cita.
      * 
      */
     protected void editarEstadoCitaSeleccionada() {
@@ -202,7 +217,7 @@ public class CitasController implements ActionListener {
             dialog.setLocationRelativeTo(ventanaPadre);
             dialog.setVisible(true);
 
-            model.citas.Citas actualizacion = dialog.ObtenerDatosDeActualizacion();
+            model.citas.Citas actualizacion = dialog.ObtenerDatosDeActualizacion(); // se reciben las modificaciones hechas por el usuario
 
             // Es posible que el usuario cierre la ventana en vez de seleccionar. por ello
             // validamos que el campo no sea nulo.
@@ -220,8 +235,11 @@ public class CitasController implements ActionListener {
         }
     }
     
-        /**
-     * Una vez seleccionada una cita, solamente se permite Reagendarla o cambiar su estado
+    /**
+     * Una vez seleccionada una fila, se entra en el estado de pre-edicion, permitiendole
+     * al usuario solamente reagendar o cambiar el estado de una cita. Se puede usar el boton
+     * cancelar para salir de dicho modo.
+     * 
      */
     protected void entrarEstadoPreEdicion() {
         this.citasView.getBtnCitasFiltrar().setEnabled(false);

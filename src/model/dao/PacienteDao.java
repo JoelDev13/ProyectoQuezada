@@ -28,7 +28,7 @@ public class PacienteDao {
     
     /**
      * Trae todos los pacientes registrados
-     * @return <code>List&lt;Paciente&gt</code> con todos los pacientes
+     * @return <code>List&lt;Paciente&gt;</code> con todos los pacientes
      * @throws SQLException con un mensaje desde la db
      */
     public List listarPacientes() throws SQLException{
@@ -61,7 +61,7 @@ public class PacienteDao {
      * 
      * Trae todos los pacientes que tengan parecido a los valores entregados por el usuario.
      *
-     * @return <code>List&lt;Paciente&gt</code> con todos los pacientes que cumplan las descripciones entregadas
+     * @return <code>List&lt;Paciente&gt;</code> con todos los pacientes que cumplan las descripciones entregadas
      * @param p objeto <code>Paciente</code> que contiene todas las descripciones
      * @throws SQLException con un mensaje desde la db
      */
@@ -108,7 +108,7 @@ public class PacienteDao {
      * Trae todos los pacientes que tengan parecido a los valores entregados por el usuario.
      * Este metodo es para Pacientes DTO, una simplificacion de Pacientes
      *
-     * @return <code>List&lt;PacienteDTO&gt</code> con todos los pacientes que cumplan las descripciones entregadas
+     * @return <code>List&lt;PacienteDTO&gt;</code> con todos los pacientes que cumplan las descripciones entregadas
      * @param p objeto <code>PacienteDTO</code> que contiene todas las descripciones
      * @throws SQLException con un mensaje desde la db
      */

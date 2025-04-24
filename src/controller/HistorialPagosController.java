@@ -10,12 +10,17 @@ import java.util.List;
  */
 
 /**
- *
+ * Controllador de la vista historial de pagos
  * @author la
  */
 public class HistorialPagosController {
     private HistorialPagosDAO dao = new HistorialPagosDAO();
 
+    /**
+     * Filtra los registros que cumplan con el filtro
+     * @param filtro con el que buscar registros.
+     * @return una lista de objetos de <code>HistorialPago</code>
+     */
     public List<HistorialPago> buscar(String filtro) {
         if (filtro == null) filtro = "";
         String filtroSQL = "%" + filtro.toLowerCase() + "%";
