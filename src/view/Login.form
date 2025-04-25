@@ -34,13 +34,13 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="view.component.LayeredPanel" name="layeredPanel1">
+    <Container class="view.component.login.LayeredPanel" name="layeredPanel1">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <Container class="view.component.GreenBlock" name="greenBlock1">
+        <Container class="view.component.login.GreenBlock" name="greenBlock1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="220" y="55" width="400" height="440"/>
@@ -50,7 +50,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labelQuattrocentoBold1" min="-2" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="view.component.ContentBlock" name="contentBlock1">
+        <Container class="view.component.login.ContentBlock" name="contentBlock1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="100" y="75" width="800" height="400"/>
@@ -146,12 +146,17 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="whiteHollowButtom1" max="32767" attributes="0"/>
-                      <Component id="whiteHollowButtom2" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Component id="BtnContactanos" pref="120" max="32767" attributes="0"/>
+                      <Component id="BtnLogIn" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="LogoLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="BtonCerrarVentana" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -161,10 +166,12 @@
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="LogoLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          <Component id="whiteHollowButtom2" min="-2" pref="42" max="-2" attributes="0"/>
+                          <Component id="BtnLogIn" min="-2" pref="42" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="whiteHollowButtom1" min="-2" pref="42" max="-2" attributes="0"/>
-                          <EmptySpace pref="159" max="32767" attributes="0"/>
+                          <Component id="BtnContactanos" min="-2" pref="42" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="BtonCerrarVentana" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -177,24 +184,33 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="view.swing.whiteHollowButtom" name="whiteHollowButtom1">
+                <Component class="view.swing.whiteHollowButtom" name="BtnContactanos">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="contactanos"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="whiteHollowButtom1ActionPerformed"/>
-                  </Events>
                 </Component>
-                <Component class="view.swing.whiteHollowButtom" name="whiteHollowButtom2">
+                <Component class="view.swing.whiteHollowButtom" name="BtnLogIn">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Log in"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="whiteHollowButtom2ActionPerformed"/>
-                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="Main_whiteHollowButtom2"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="BtonCerrarVentana">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/view/recursos/images/on-off-button (1).png"/>
+                    </Property>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtonCerrarVentanaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -211,26 +227,26 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jTextField2" min="-2" pref="210" max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="210" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                                  <Component id="labelCenzilFont2" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="btnLogin" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
-                                  <Component id="greenRoundArrowButtoms1" min="-2" pref="48" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="labelLogin" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="29" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtPassword" linkSize="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUser" linkSize="3" min="-2" pref="210" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -238,56 +254,52 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                          <Component id="labelCenzilFont2" min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="labelLogin" min="-2" pref="16" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                          <Component id="greenRoundArrowButtoms1" min="-2" pref="49" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txtUser" linkSize="4" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="txtPassword" linkSize="4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnLogin" min="-2" pref="49" max="-2" attributes="0"/>
+                          <EmptySpace pref="82" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="view.swing.LabelCenzilFont" name="labelCenzilFont2">
+                <Component class="view.swing.LabelCenzilFont" name="labelLogin">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Iniciar sesion"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                       <FontInfo relative="true">
-                        <Font component="labelCenzilFont2" property="font" relativeSize="true" size="6"/>
+                        <Font component="labelLogin" property="font" relativeSize="true" size="6"/>
                       </FontInfo>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="txtUser">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField1"/>
                     <Property name="doubleBuffered" type="boolean" value="true"/>
+                    <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="txtPassword"/>
+                    </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[70, 20]"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField1"/>
-                    <Property name="doubleBuffered" type="boolean" value="true"/>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[70, 20]"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="view.swing.LoginButtom" name="greenRoundArrowButtoms1">
+                <Component class="view.swing.LoginButtom" name="btnLogin">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/view/recursos/images/right.png"/>
                     </Property>
+                    <Property name="focusPainted" type="boolean" value="false"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[35, 38]"/>
                     </Property>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JPasswordField" name="txtPassword">
                 </Component>
               </SubComponents>
             </Container>
