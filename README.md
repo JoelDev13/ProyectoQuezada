@@ -50,3 +50,11 @@ El sistema permite a distintos usuarios interactuar con una clínica según su r
 ![Texto alternativo](imagenesRepositorio/historicoPagos.png)
 ![Texto alternativo](imagenesRepositorio/metodosPagos.png)
 ![Texto alternativo](imagenesRepositorio/acercaDe.png)
+
+--- 
+### Configuracion del software.
+1. Clone este repositorio en su maquina local.
+2. configure una base de datos MySQL y ejecute el script `DBScript` de la carpeta DBScript del proyecto.
+3. en el archivo `config.properties` configure las credenciales que usara la APP para conectarse a la DB.
+4. Asegurese de enlazar las librerias que se encuentran en `/lib` antes de compilar el software.
+5. Compile el software usando su IDE preferido o el comando `javac`
