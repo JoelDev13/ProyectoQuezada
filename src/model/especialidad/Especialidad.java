@@ -9,27 +9,18 @@ package model.especialidad;
  * @author luis-
  */
 public class Especialidad {
-    private int id;
-    private String descripcion;
-
-    public Especialidad() { }
-
-    public Especialidad(int id, String descripcion) {
-        this.id = id;
-        this.descripcion = descripcion;
-    }
 
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,7 +37,17 @@ public class Especialidad {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    private Integer id;
+    private String descripcion;
 
+    public Especialidad() { }
+
+    public Especialidad(Integer id, String descripcion) {
+        this.id = id;
+        this.descripcion = descripcion;
+    }
+
+   
     @Override
     public String toString() {
         return getDescripcion();

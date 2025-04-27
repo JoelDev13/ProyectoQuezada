@@ -3,6 +3,7 @@ package view;
 import controller.AgendaDoctorController;
 import controller.AgendarUnaCitaController;
 import controller.CitasController;
+import controller.EspecialidadesController;
 import controller.PacienteController;
 import controller.UsuarioController;
 import controller.ServiciosController;
@@ -18,10 +19,12 @@ import model.dao.citas.CitasDao;
 import model.dao.doctor.DoctorLigeroDAO;
 import model.dao.especialidad.EspecialidadDao;
 import model.dao.servicios.ServiciosDao;
+import model.especialidad.Especialidad;
 import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
 import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
+
 ;
 
 
@@ -37,10 +40,9 @@ import static view.component.menu.panelesEnum.Paneles.METODOS_DE_PAGOS;
  */
 public class Dashboard extends javax.swing.JFrame {
 
-
     /**
-     * Crea una nueva vista del dashboard, llenando el componente
-     * menu en base a la informacion del usuario entregado
+     * Crea una nueva vista del dashboard, llenando el componente menu en base a la informacion del usuario entregado
+     *
      * @param usuario entregado para inicializar el menu
      */
     public Dashboard(Usuario usuario) {
@@ -55,7 +57,7 @@ public class Dashboard extends javax.swing.JFrame {
             Si quieres agregar tu panel a los botones del Dashboard, haz que
             el case especifico de tu panel cree una vista y un controlador y los una.
             Luego que pase la vista al metodo mostrarPanel
-        */
+         */
         this.mostrarPanel(new FormModelo()); // Mostramos una ventana predeterminada al cargar el dashboard
         EventMenu event = new EventMenu() {
             @Override
@@ -100,10 +102,15 @@ public class Dashboard extends javax.swing.JFrame {
                     }
                     case DOCTORES ->
                         mostrarPanel(new FormModelo()); // Todavia no esta implementado
-                        
-                    case ESPECIALIDADES_DOC ->
-                        mostrarPanel(new FormModelo()); // Todavia no esta implementado
-                        
+
+                    case ESPECIALIDADES_DOC -> {
+                        PanelEspecialidades view = new PanelEspecialidades();
+                        EspecialidadDao especialidadDao = new EspecialidadDao();
+                        ServiciosDao servicioDao = new ServiciosDao();
+                        EspecialidadesController controller = new EspecialidadesController(especialidadDao, view, servicioDao);
+                        mostrarPanel(view);
+                    }
+
                     case USUARIOS -> {
                         view.Usuarios view = new view.Usuarios();
                         UsuarioDAO usuariosDao = new UsuarioDAO();
@@ -123,7 +130,7 @@ public class Dashboard extends javax.swing.JFrame {
 
                     case METODOS_DE_PAGOS ->
                         mostrarPanel(new MetodoDePago());
-                        
+
                     case ACERCA_DE -> {
                         mostrarPanel(new AcercaDe());
                     }

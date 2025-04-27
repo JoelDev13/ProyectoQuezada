@@ -1,4 +1,4 @@
--- version 5
+-- version 7
 create database citas;
 use citas;
 
@@ -498,7 +498,6 @@ DELIMITER ;
 
 
 -- DOCTORES
-
 DELIMITER //
 CREATE PROCEDURE sp_filtrar_doctores(
 	IN p_filtros varchar(100),
@@ -519,7 +518,6 @@ END //
 
 
 
-drop procedure sp_filtrar_doctoresDTO
 -- Doctores
 DELIMITER //
 CREATE PROCEDURE sp_filtrar_doctoresDTO(
@@ -597,7 +595,7 @@ END //
 DELIMITER ;
 
 
-
+-- recopila todas las especialidades que posee un medico especifico
 DELIMITER //
 CREATE PROCEDURE sp_listar_especialidades_medico_especifico(
     IN id_doc INT
@@ -619,11 +617,78 @@ BEGIN
 END //
 DELIMITER ;
 
-call sp_listar_especialidades_medico_especifico(2)
 
+DELIMITER //
+CREATE PROCEDURE sp_crear_especialidad(
+	p_descripcion varchar(40)
+)
+BEGIN
+	INSERT INTO especialidad(descripcion) VALUES(p_descripcion);
+END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_especialidad(
+	p_id INT
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR  SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+    START TRANSACTION;
+		IF EXISTS (SELECT 1 FROM citas where ID_especialidad = p_id) THEN
+			SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'no se puede eliminar una especialidad que ya posea citas';
+		END IF;
+
+		DELETE FROM especialidad where id = p_id;
+    COMMIT;
+END //
+DELIMITER ;
+
+
+-- Elimina TODOS los servicios asociados a una especialidad
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_servicios_asociados_de_especialidad(
+	p_id INT
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+        RESIGNAL;
+    END;
+    START TRANSACTION;
+		DELETE FROM servicios_especialidad WHERE ID_especialidad = p_id;
+    COMMIT;
+END //
+DELIMITER ;
+select * from servicios_especialidad
+CALL sp_eliminar_servicios_asociados_de_especialidad(1)
+
+DELIMITER //
+CREATE PROCEDURE sp_asociar_servicio_a_especialidad(
+	p_id_especialidad INT,
+    p_id_servicio INT
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+		ROLLBACK;
+        RESIGNAL;
+    END;
+    START TRANSACTION;
+		INSERT INTO servicios_especialidad(ID_servicio, ID_especialidad) values (p_id_servicio, p_id_especialidad);
+    COMMIT;
+END //
+DELIMITER ;
+CALL sp_asociar_servicio_a_especialidad(1,1)
 
 -- SERVICIOS
-
 -- Recopila todos los servicios que puede brindar un medico
 DELIMITER //
 CREATE PROCEDURE sp_listar_servicios_medico_especifico(
@@ -646,6 +711,7 @@ BEGIN
 END //
 
 
+-- Recoplia todos los servicios que puede realizar una especialidad
 DELIMITER //
 CREATE PROCEDURE sp_listar_servicios_de_especialidad(
 	IN p_id INT
@@ -656,17 +722,12 @@ END //
 DELIMITER ;
 
 
-
 DELIMITER //
 CREATE PROCEDURE listar_servicios()
 BEGIN
 	SELECT id, descripcion, precio FROM servicios;
 END //
 DELIMITER ;
-
-
-
-
 
 
 DELIMITER //
@@ -696,10 +757,6 @@ BEGIN
     COMMIT;
 END //
 DELIMITER ;
-
-
-
-
 
 
 DELIMITER //
@@ -734,8 +791,6 @@ END //
 DELIMITER ;
 
 
-
-
 DELIMITER //
 CREATE PROCEDURE sp_eliminar_servicio (
 	IN p_id INT
@@ -757,19 +812,6 @@ BEGIN
     COMMIT;
 END //
 DELIMITER ;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 -- CITAS
@@ -804,9 +846,8 @@ BEGIN
     );
     
 END//
-
-
 DELIMITER ;
+
 
 DELIMITER //
 CREATE PROCEDURE sp_filtrar_citas(
@@ -911,7 +952,7 @@ BEGIN
         historico_pagos hp
     JOIN 
         metodos_pagos mp ON hp.ID_metodo_pago = mp.ID
-    JOIN historico_pagos
+    JOIN 
         citas c ON hp.ID_cita = c.ID
     JOIN 
         pacientes p ON c.ID_paciente = p.ID
@@ -1046,13 +1087,8 @@ END //
 DELIMITER ;
 
 
-
-
 -- Testing, pon aqui cualquier data de prueba.
 /*
-
-
-
 
 INSERT INTO usuarios(usuario, contrasena, rol, nombre, apellido, email, telefono, imagen) 
 VALUES 
@@ -1134,30 +1170,16 @@ INSERT INTO doctor_especialidad (ID_doctor, ID_especialidad)
 VALUES (6, 4);
 
 
-INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
-VALUES
-
-(1, 2, 1, 3, 4, '2025-04-18', 'PENDIENTE')
-(1, 2, 1, 3, 3, '2025-04-17', 'PENDIENTE'),
-(1, 2, 1, 2, 2, '2025-04-16', 'PENDIENTE'),
-(1, 2, 1, 1, 1, '2025-04-15', 'PENDIENTE'),
-
-
--- Doctor 4 con paciente 2 (Ana Gómez)
-INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
-VALUES (2, 4, 2, 2, 2, '2025-04-17', 'PENDIENTE');
-
--- Doctor 5 con paciente 3 (Carlos Ramírez)
-INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
-VALUES (3, 5, 3, 3, 3, '2025-04-18', 'PENDIENTE');
-
--- Doctor 6 con paciente 5 (Pedro Martínez)
-INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
-VALUES (5, 6, 4, 4, 4, '2025-04-19', 'PENDIENTE');
-
-insert into historico_pagos(ID_cita, monto, ID_metodo_pago) values (1, 200, 1);
-select * from metodos_pagos;
 insert into metodos_pagos(descripcion) values ('Efectivo');
 insert into metodos_pagos(descripcion) values ('Tarjeta');
 
+
+CALL sp_agendar_cita(1, 2, 1, 3, 3, '2025-04-17',350, 1);
+CALL sp_agendar_cita(1, 2, 1, 2, 2, '2025-04-16',300, 1);
+CALL sp_agendar_cita(1, 2, 1, 1, 1, '2025-04-15',200, 1);
+
+CALL sp_agendar_cita(2, 4, 2, 2, 2, '2025-04-17',300, 1);
+CALL sp_agendar_cita(3, 5, 3, 3, 3, '2025-04-18',350, 2);
+CALL sp_agendar_cita(5, 6, 4, 4, 4, '2025-04-19',400, 1);
+CALL sp_agendar_cita(2, 4, 2, 2, 2, '2025-04-17',350, 2);
 */
