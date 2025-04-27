@@ -3,6 +3,7 @@ package view;
 import controller.AgendaDoctorController;
 import controller.AgendarUnaCitaController;
 import controller.CitasController;
+import controller.EspecialidadesController;
 import controller.PacienteController;
 import java.awt.Color;
 import java.awt.Component;
@@ -12,6 +13,7 @@ import model.dao.citas.CitasDao;
 import model.dao.doctor.DoctorLigeroDAO;
 import model.dao.especialidad.EspecialidadDao;
 import model.dao.servicios.ServiciosDao;
+import model.especialidad.Especialidad;
 import model.usuario.Usuario;
 import view.component.menu.panelesEnum.Paneles;
 import view.component.menu.event.EventMenu;
@@ -94,7 +96,13 @@ public class Dashboard extends javax.swing.JFrame {
                         mostrarPanel(citasView2);
                     }
                     case DOCTORES -> mostrarPanel(new FormModelo());
-                    case ESPECIALIDADES_DOC -> mostrarPanel(new FormModelo());
+                    case ESPECIALIDADES_DOC ->  {
+                        PanelEspecialidades view = new PanelEspecialidades();
+                        EspecialidadDao especialidadDao = new EspecialidadDao();
+                        ServiciosDao servicioDao = new ServiciosDao();
+                        EspecialidadesController controller = new EspecialidadesController(especialidadDao, view, servicioDao);
+                        mostrarPanel(view);
+                    }
                     case USUARIOS -> mostrarPanel(new FormModelo());
                     case SERVICIOS -> mostrarPanel(new FormModelo());
                     

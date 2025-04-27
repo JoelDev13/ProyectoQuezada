@@ -14,14 +14,15 @@ import java.sql.ResultSet;
 import DBconexion.ConexionDB;
 
 /**
- * Clase que gestiona y manipula los cambios en la base de datos asociados a 
- * las especialidades
+ * Clase que gestiona y manipula los cambios en la base de datos asociados a las especialidades
+ *
  * @author luis-
  */
 public class EspecialidadDao {
 
     /**
      * Trae todas las especialidades que tiene un medico
+     *
      * @param idDoc id del medico
      * @return <code>List&lt;Especialidad&gt;</code> con todas las especialidades del medico
      * @throws SQLException con mensaje de la db
@@ -45,9 +46,9 @@ public class EspecialidadDao {
         }
     }
 
-
     /**
      * Trae todas las especialidades registradas
+     *
      * @return <code>List&lt;Especialidad&gt;</code> con todas las especialidades registradas
      * @throws SQLException con un mesaje de la db
      */
@@ -69,11 +70,45 @@ public class EspecialidadDao {
         }
     }
 
-    public void agregarEspecialidad(Especialidad ObtenerDatos) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void agregarEspecialidad(Especialidad esp) throws SQLException {
+        String sql = "{CALL sp_crear_especialidad(?)}";
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setString(1, esp.getDescripcion());
+            cs.execute();
+            cs.close();
+        }
     }
 
-    public boolean eliminarEspecialidad(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void eliminarEspecialidad(Integer id) throws SQLException {
+        String sql = "{CALL sp_eliminar_especialidad(?)}";
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, id);
+            cs.execute();
+            cs.close();
+        }
+    }
+
+    /**
+     * Elimina TODOS los servicios asociados a esta especialidad
+     *
+     * @param id
+     */
+    public void eliminarServiciosAsociadosDeEstaEspecialidad(int id) throws SQLException {
+        String sql = "{CALL sp_eliminar_servicios_asociados_de_especialidad(?)}";
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, id);
+            cs.execute();
+            cs.close();
+        }
+    }
+
+    public void asociarServiciosAespecialidad(int idEspecialidad, int idServicio) throws SQLException{
+        String sql = "{CALL sp_asociar_servicio_a_especialidad(?, ?)}";
+        try (Connection conn = ConexionDB.obtenerConexion(); CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, idEspecialidad);
+            cs.setInt(2, idServicio);
+            cs.execute();
+            cs.close();
+        }
     }
 }
