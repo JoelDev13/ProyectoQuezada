@@ -775,6 +775,7 @@ DELIMITER ;
 -- CITAS
 -- AGENDAR UNA CITA
 DELIMITER //
+
 CREATE PROCEDURE sp_agendar_cita(
 	IN p_pacienteID INT,
 	IN p_doctorID INT,
@@ -911,7 +912,7 @@ BEGIN
         historico_pagos hp
     JOIN 
         metodos_pagos mp ON hp.ID_metodo_pago = mp.ID
-    JOIN historico_pagos
+    JOIN
         citas c ON hp.ID_cita = c.ID
     JOIN 
         pacientes p ON c.ID_paciente = p.ID
@@ -1049,10 +1050,6 @@ DELIMITER ;
 
 
 -- Testing, pon aqui cualquier data de prueba.
-/*
-
-
-
 
 INSERT INTO usuarios(usuario, contrasena, rol, nombre, apellido, email, telefono, imagen) 
 VALUES 
@@ -1134,30 +1131,19 @@ INSERT INTO doctor_especialidad (ID_doctor, ID_especialidad)
 VALUES (6, 4);
 
 
-INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
-VALUES
-
-(1, 2, 1, 3, 4, '2025-04-18', 'PENDIENTE')
-(1, 2, 1, 3, 3, '2025-04-17', 'PENDIENTE'),
-(1, 2, 1, 2, 2, '2025-04-16', 'PENDIENTE'),
-(1, 2, 1, 1, 1, '2025-04-15', 'PENDIENTE'),
-
-
--- Doctor 4 con paciente 2 (Ana Gómez)
-INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
-VALUES (2, 4, 2, 2, 2, '2025-04-17', 'PENDIENTE');
-
--- Doctor 5 con paciente 3 (Carlos Ramírez)
-INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
-VALUES (3, 5, 3, 3, 3, '2025-04-18', 'PENDIENTE');
-
--- Doctor 6 con paciente 5 (Pedro Martínez)
-INSERT INTO citas (ID_paciente, ID_doctor, ID_horario_doc, ID_servicio, ID_especialidad, fecha, estado) 
-VALUES (5, 6, 4, 4, 4, '2025-04-19', 'PENDIENTE');
-
-insert into historico_pagos(ID_cita, monto, ID_metodo_pago) values (1, 200, 1);
-select * from metodos_pagos;
 insert into metodos_pagos(descripcion) values ('Efectivo');
 insert into metodos_pagos(descripcion) values ('Tarjeta');
 
-*/
+
+CALL sp_agendar_cita(1, 2, 1, 3, 3, '2025-04-17',350, 1);
+CALL sp_agendar_cita(1, 2, 1, 2, 2, '2025-04-16',300, 1);
+CALL sp_agendar_cita(1, 2, 1, 1, 1, '2025-04-15',200, 1);
+
+CALL sp_agendar_cita(2, 4, 2, 2, 2, '2025-04-17',300, 1);
+CALL sp_agendar_cita(3, 5, 3, 3, 3, '2025-04-18',350, 2);
+CALL sp_agendar_cita(5, 6, 4, 4, 4, '2025-04-19',400, 1);
+CALL sp_agendar_cita(2, 4, 2, 2, 2, '2025-04-17',350, 2);
+
+
+
+

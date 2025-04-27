@@ -244,7 +244,7 @@ public class AgendarUnaCitaController implements ActionListener {
         nuevaCita.setIdPaciente(this.pacienteSeleccionado.getId());
         nuevaCita.setIdEspecialidad(((Especialidad) this.view.getCbEspecialidad().getSelectedItem()).getId());
         nuevaCita.setIdDoctor(this.doctorSeleccionado.getId());
-        nuevaCita.setIdServicio(((Especialidad) this.view.getCbEspecialidad().getSelectedItem()).getId());
+        nuevaCita.setIdServicio(((Servicio) this.view.getCbServicios().getSelectedItem()).getId());
         nuevaCita.setFecha(this.view.getDatePicker().getSelectedDate());
         nuevaCita.setIdHorarioDoctor(((Horario) this.view.getCbHorarios().getSelectedItem()).getId());
         return nuevaCita;

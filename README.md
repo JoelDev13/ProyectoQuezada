@@ -58,3 +58,4 @@ El sistema permite a distintos usuarios interactuar con una clínica según su r
 3. en el archivo `config.properties` configure las credenciales que usara la APP para conectarse a la DB.
 4. Asegurese de enlazar las librerias que se encuentran en `/lib` antes de compilar el software.
 5. Compile el software usando su IDE preferido o el comando `javac`
+6. Ingrese al software usando el usuario predeterminado: user: admin, contraseña: 1234
